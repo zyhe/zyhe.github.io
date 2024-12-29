@@ -11,7 +11,7 @@ github_username: zyhe
 linkedin_username:
 
 # Add your google-analytics ID here to activate google analytics
-google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+google_analytics:   G-C0YTJSLE5C # out your google-analytics code
 
 # Build settings
 markdown:           kramdown
