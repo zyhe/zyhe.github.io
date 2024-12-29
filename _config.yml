@@ -1,15 +1,13 @@
 title:              Zhiyu He
-email:              your-email@example.com
-description:        A Blog Theme by Start Bootstrap
+email:              zhiyhe@ethz.ch
+description:        Keep your eyes on the stars, and your feet on the ground
 author:             Zhiyu He
 baseurl:            ""
 url:                "https://zyhe.github.io"
 
 # Social Profiles
 twitter_username:   
-github_username:    
-facebook_username:  
-instagram_username:  
+github_username: zyhe   
 linkedin_username:
 
 # Add your google-analytics ID here to activate google analytics
@@ -23,3 +21,14 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+
+# Navigation Configuration
+navigation:
+  - name: "Home"
+    link: "/"
+  - name: "Publication"
+    link: "/publications.html"
+  - name: "Teaching"
+    link: "/teaching.html"
+  - name: "Posts"
+    link: "/posts/"
