@@ -19,7 +19,7 @@ background: '/img/bg-index-2.jpg'
   <div style="flex: 3 1 300px;">
     <h2>Biography</h2>
     <p>
-      Zhiyu He is a Ph.D. student at the Max Planck ETH Center for Learning Systems and works with <a href="https://dorfler.ethz.ch/" target="_blank">Prof. Florian Dörfler</a> at ETH Zürich and <a href="https://lds.is.mpg.de/person/mmuehlebach" target="_blank">Dr. Michael Mühlebach</a> at the Max Plank Institute for Intelligent Systems, Tübingen. He also worked with <a href="https://www.bsaver.io/" target="_blank">Dr. Saverio Bolognani</a> at ETH Zürich. <br><br>
+      <a href="https://zyhe.github.io/" target="_blank">Zhiyu He</a> is a Ph.D. student at the Max Planck ETH Center for Learning Systems and works with <a href="https://dorfler.ethz.ch/" target="_blank">Prof. Florian Dörfler</a> at ETH Zürich and <a href="https://lds.is.mpg.de/person/mmuehlebach" target="_blank">Dr. Michael Mühlebach</a> at the Max Plank Institute for Intelligent Systems, Tübingen. He also worked with <a href="https://www.bsaver.io/" target="_blank">Dr. Saverio Bolognani</a> at ETH Zürich. <br><br>
       He received the B.Eng. degree (with honors) in Automation and M.S. degree in Control Science and Engineering from Shanghai Jiao Tong University, China, in 2019 and 2022, respectively. During his master’s studies, he was supervised by <a href="https://scholar.google.com/citations?user=1SNUZGKl9KIC&hl=en" target="_blank">Prof. Xinping Guan</a> and <a href="https://iwin-fins.com/" target="_blank">Prof. Jianping He</a>.
     </p>
   </div>

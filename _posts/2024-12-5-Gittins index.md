@@ -50,34 +50,37 @@ Adapted from
 - Simple family of alternative bandit processes  
   $n$ independent bandit processes $B_i, i=1,\ldots,N$  
 
-  two possible actions
+- two possible actions
   - continue: produces reward and causes state transition  
   - freeze: no reward and the state is fixed
 
-  state $\xi_i$ lies in a countable state space $E_i$  
+- state $\xi_i$ lies in a countable state space $E_i$  
 
-  At decision time $t$: apply control to a specific $B_i$  
+- At decision time $t$: apply control to a specific $B_i$  
 
-  Results
+- Results
   - obtain a reward $r_i(\xi_i)$ from the bandit process $B_i$
-  - the state of $B_i$ transits from $\xi_i$ to $y$ with probability $P_i(y|\xi_i)$
-  - other bandits are frozen: their states do not change, and no rewards are obtained
+  - the state of $B_i$ transits from $\xi_i$ to $y$ with probability $P_i(y\|\xi_i)$
+  - other bandits are frozen: their states do not change, and no rewards are obtained  
 
-- Goal: maximize the infinite-horizon expected discounted sum of rewards (i.e., the payoff) 
+- Goal: maximize the infinite-horizon expected discounted sum of rewards (i.e., the payoff)  
+  
   $$\sup_{\pi} \mathbb{E} \left[ \sum_{t=0}^{\infty} a^t r_{i_t} (\xi_{i_t} (t))\right]$$
-  $a \in (0,1)$: discount factor &nbsp; $i_t$: the index of the bandit process chosen at time $t$
 
+  $a \in (0,1)$: discount factor &nbsp; $i_t$: the index of the bandit process chosen at time $t$
 
 ### Why not alternative methods?
 
 - Dynamic programming: the number of stationary policies (or the size of the state space) grows exponentially with the number of bandits
   - Value function
+  
     $$\quad V(\xi) = \sup_{\pi} \mathbb{E} \left[ \sum_{t=0}^{\infty} a^t r_{i_t} (\xi_{i_t} (t)) \mathrel{\Big|} \xi(0) = \xi \right]$$
 
   - Bellman's equation
+  
     $$V(\xi) = \max_{i \in \{1, \ldots, n\}} \left\{ r_i(\xi_i) + a \sum_{y \in E_i} P_i(y|\xi_i)V(\xi_1, \ldots, \xi_{i-1}, y, \xi_{i+1}, \ldots, \xi_n) \right\}
     $$
-    
+  
   number of states $\prod_i k_i \triangleq k$ &nbsp; for each state, we need to choose from $n$ actions  
 
   number of stationary policies: $k^n$
@@ -94,6 +97,7 @@ Adapted from
 - Consider a discrete-time standard bandit process $\Lambda$, which gives a known reward $\lambda$ each time it is continued  
   
   If it is selected at every time, then the cumulative discounted reward is
+
   $$\lambda(1+a+a^2+\ldots) = \frac{\lambda}{1-a}$$
 
   We want to compare a bandit process $B_i$ and $\Lambda$. Consider the following setting: we continuously apply control to $B_i$ and then follow an optimal policy.
@@ -105,19 +109,25 @@ Adapted from
   - Reason: the information on $B_i$ at time $\tau + 1$ is the same as at time $\tau$. If applying control to $\Lambda$ is optimal at time $\tau$, then it is also optimal at time $\tau + 1$ and afterwards.
 
   The maximal payoff is
+
   $$\sup_{\tau > 0} \mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t r_i(x_i(t)) + a^{\tau} \frac{\lambda}{1-a} \mathrel{\Big|} x_i(0) = x_i \right]$$
 
   We want to find $\lambda$ such that it is equally optimal to apply control to either of the two bandit processes initially, i.e.,
+
   $$0 = \sup_{\tau > 0} \mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t r_i(x_i(t)) - (1 - a^{\tau}) \frac{\lambda}{1-a} \mathrel{\Big|} x_i(0) = x_i \right]$$
 
   We note that $\sum_{t=0}^{\tau-1} a^\tau = \frac{1-a^\tau}{1-a}$. Therefore, $\lambda$ satisfies the following equation
+
   $$0 = \sup_{\tau > 0} \mathbb{E} \left[ \sum_{t=0}^{\tau-1} (a^t r_i(x_i(t)) - a^t \lambda) \mathrel{\Big|} x_i(0) = x_i \right]$$
 
   The right-hand side is the supremum of decreasing linear functions of $\lambda$. Hence, it is convex and decreasing in $\lambda$. The root exists and is unique. We obtain the following expression of $\lambda$
+
   $$\lambda = \sup_{\tau > 0} \frac{\mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t r_i(x_i(t)) \right | x_i(0)=x_i ]}{\mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t | x_i(0)=x_i \right] }$$
 
   Another equivalent formulation
+
   $$\sup\left\{\lambda : \sup_{\tau > 0} \mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t [r_i(x_i(t)) - \lambda] \mid x_i(0) = x_i \right] \geq 0\right\}$$
+
   Reason: the supremum $\lambda$ ensures that the expectation equals zero.
 
   Interpretation of $\lambda$  
@@ -132,8 +142,10 @@ Adapted from
 ### Key statement
 
 We maximize the expected discounted reward obtained from a simple family of alternative bandit processes by always continuing the bandit having greatest Gittins index. Namely, for
+
 $$v(B_i, x_i) = \sup_{\tau > 0} \frac{\mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t r_i(x_i(t)) \right | x_i(0)=x_i ]}{\mathbb{E} \left[ \sum_{t=0}^{\tau-1} a^t | x_i(0)=x_i \right] }
 $$
+
 we always select the bandit process $i = \operatorname{argmax}_i v(B_i,x_i)$.  
 
 - Numerator: discounted reward up to $\tau$ (stopping time)  
@@ -163,9 +175,13 @@ Consider a simple family of $n$ alternative bandit processes $B_1, \ldots, B_n$.
 
 - The gambler cannot do better than break even (i.e., zero expected profit)  
   reason: a strictly positive profit is only possible if this were to happen for at least one bandit. However, we define the prevailing charge in a way (i.e., always equals the fair charge) such that no profit can be gained from any selected arm.  
+
   Implications
+
   $$\mathbb{E}_\pi \left[ \sum_{t=0}^{\infty} a^t \left( r_{i_t}(x_{i_t}(t)) - g_{i_t}(x_{i_t}(t)) \right) \middle| x(0) \right] \leq 0,$$
+
   which implies that
+
   $$\mathbb{E}_\pi \left[ \sum_{t=0}^{\infty} a^t r_{i_t}(x_{i_t}(t) \middle| x(0) \right] \leq \mathbb{E}_\pi \left[ \sum_{t=0}^{\infty} a^t g_{i_t}(x_{i_t}(t)) \middle| x(0) \right]$$
 
 - We maximize the expected discounted sum of prevailing charges by always continuing the bandit with the greatest prevailing charge  
@@ -217,13 +233,14 @@ Consider a simple family of $n$ alternative bandit processes $B_1, \ldots, B_n$.
 
 - Control  
   Setup: an unknown dynamical system and a set of candidate controllers  
+
   $$
   \begin{aligned}
   &x(t+1) = Ax(t) + Bu(t), \quad u(t) = -K_{i_t}x(t),  \\
   &\{K_i|i=1,\ldots,N\} : \mathrm{set~of~candidate~controllers}
   \end{aligned}
   $$  
-  <br>
+
   Challenges
   - dependent bandit processes
   - the reward is not fixed if the corresponding bandit is left unchosen  
