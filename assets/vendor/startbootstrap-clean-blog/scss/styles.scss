@@ -1,3 +1,6 @@
+// Import Google Font
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 // Import variables
 @import "./variables";
 
@@ -16,3 +19,8 @@
 @import "./sections/footer";
 @import "./sections/masthead";
 @import "./sections/post";
+
+// Set font family
+body {
+    font-family: 'Roboto', sans-serif;
+  }

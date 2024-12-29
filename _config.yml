@@ -22,13 +22,13 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
 
-# Navigation Configuration
-navigation:
-  - name: "Home"
-    link: "/"
-  - name: "Publication"
-    link: "/publications.html"
-  - name: "Teaching"
-    link: "/teaching.html"
-  - name: "Posts"
-    link: "/posts/"
+# # Navigation Configuration
+# navigation:
+#   - name: "Home"
+#     link: "/"
+#   - name: "Publication"
+#     link: "/publications.html"
+#   - name: "Teaching"
+#     link: "/teaching.html"
+#   - name: "Posts"
+#     link: "/posts/"
