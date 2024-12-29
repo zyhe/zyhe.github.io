@@ -15,7 +15,11 @@ background: '/img/bg-publication.jpg'
 
 ## Systems Theory of Algorithms
 
+<div style="margin-top: 30px;"></div>
+
 - Florian Dörfler, **Zhiyu He**, Giuseppe Belgioioso, Saverio Bolognani, John Lygeros, Michael Muehlebach. Towards a Systems Theory of Algorithms. *IEEE Control Systems Letters*, 8, 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10540567){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2401.14029){:target="_blank"}
+
+<div style="margin-top: 50px;"></div>
 
 ## Distributed Optimization via Polynomial Approximation
 
