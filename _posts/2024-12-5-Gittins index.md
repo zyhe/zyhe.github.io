@@ -2,8 +2,8 @@
 layout: post
 title: "Gittins Index Theorem and Multi-Armed Bandits"
 subtitle: "A brief tutorial"
-date: 2024-12-05 09:00:00 -0400
-background: '/img/posts/Gittins/background.jpg'
+date: 2024-12-05 09:00:00 -0200
+background: '/img/posts/2024-12-5-Gittins/background.jpg'
 ---
 
 # Gittins Index Theorem and Multi-Armed Bandits
