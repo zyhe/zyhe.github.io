@@ -1,0 +1,26 @@
+// Import Google Font
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+// Import variables
+@import "./variables";
+
+// Import Bootstrap
+@import "../../bootstrap/scss/bootstrap";
+
+// Global CSS
+@import "./global";
+
+// Components
+@import "./components/buttons";
+@import "./components/navbar";
+
+// Sections
+@import "./sections/contact";
+@import "./sections/footer";
+@import "./sections/masthead";
+@import "./sections/post";
+
+// Set font family
+body {
+    font-family: 'Roboto', sans-serif;
+  }
