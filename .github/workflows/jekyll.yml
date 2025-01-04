@@ -16,12 +16,15 @@ jobs:
       # Step 1:checkout code
       - name: Checkout Code
         uses: actions/checkout@v3
+      
+      - name: Debug Ruby Version
+        run: ruby -v
 
       # Step 2: setup Ruby
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.2'
 
       # Step 3: install dependencies
       - name: Install Dependencies

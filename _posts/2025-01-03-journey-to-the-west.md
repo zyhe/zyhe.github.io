@@ -2,7 +2,7 @@
 layout: post
 title: "西游记：心灵之旅"
 subtitle: "“心净孤明独照，心存万境皆清”"
-date: 2024-12-05 09:00:00 -0400
+date: 2025-01-03 09:00:00 -0200
 background: '/img/posts/2025-1-3-Journey-to-the-west/journey.jpg'
 ---
 
