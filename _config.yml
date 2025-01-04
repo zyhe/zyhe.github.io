@@ -13,6 +13,9 @@ linkedin_username:
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   G-C0YTJSLE5C # out your google-analytics code
 
+include:
+  - robots.txt
+  
 exclude:
   - vendor
 
