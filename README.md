@@ -1,6 +1,6 @@
 # Overview
 
-This repository is built from [Clean Blog Jekyll](https://startbootstrap.com/themes/clean-blog-jekyll/).
+This repository is built from [Clean Blog Jekyll](https://startbootstrap.com/theme/clean-blog-jekyll).
 
 ## Preview
 

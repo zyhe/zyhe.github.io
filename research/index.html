@@ -3,7 +3,6 @@
 <html>
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -37,27 +36,20 @@
   <!-- Include Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- Configure MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      loader: {load: ['[tex]/ams']}
+    };
+  </script>
   <!-- Include MathJax -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Google tag (gtag.js) -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0YTJSLE5C"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-C0YTJSLE5C');
-  </script> -->
 </head>
-
-
-<!-- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Site Title</title>
-</head> -->
 
 <body>
 
@@ -113,7 +105,61 @@
     <div class="row">
       <div class="col-lg-11 col-md-11 mx-auto">
 
-        <p>Zhiyu He’s research interests lie in optimization, control, and learning of dynamical systems. He is curious about the interaction between the physical world and the computing pipelines.</p>
+        <p>My research interests lie in <strong>optimization</strong>, <strong>control</strong>, and <strong>learning</strong> of <strong>dynamical systems</strong>. I am curious about the interaction between the physical world and computing pipelines.</p>
+
+<h2 id="decision-dependence">Decision Dependence</h2>
+
+<div style="text-align: center; margin-top: 20px;">
+  <img src="/img/research/decision-dependence.jpg" alt="Decision dependence as a feedback process" style="width: 70%; display: block; margin: 0 auto;" />
+</div>
+
+<p><strong>Distribution shifts</strong> are often deemed as undesirable external forces that a decision maker should counteract (e.g., via out-of-distribution detection) or conform to (e.g., via online learning or distributionally robust optimization). A feedback phenomenon arises, however, when the deployed decision affects the data-generating distribution. In this regard, performative prediction encodes such a dependence as a static parameterized map.</p>
+
+<p>In contrast, we formulate <strong>distribution shifts as feedback processes</strong> equipped with nonlinear dynamics and driven by the decision maker. This perspective of <strong>distribution dynamics</strong> motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making.</p>
+
+<h2 id="optimization-algorithms-as-feedback-controllers">Optimization Algorithms as Feedback Controllers</h2>
+<p><img src="/img/research/FO.png" alt="Optimization algorithms as feedback controllers" style="float: left; margin-right: 50px; width: 35%;" /></p>
+
+<!-- <div style="text-align: center;">
+  <img src="/img/research/FO.png" alt="Optimization algorithms as feedback controllers" style="width: 30%; display: block; margin: 0 auto;">
+</div> -->
+
+<p><strong>Optimal steady-state operation</strong> of an engineering system is critical. To this end, traditional numerical optimization relies on an exact problem formulation that encompasses system models and disturbance statistics. Such a feedforward pipeline, however, can be restrictive and suboptimal when accurate information on models and disturbances is unavailable.</p>
+
+<p>In contrast, the emerging paradigm of <strong>feedback optimization</strong> bypasses such information and fulfills autonomous optimality-seeking in closed loop. Along this line, we develop fully <strong>model-free</strong> methods that avoids accessing any model information by exploiting real-time evaluations of objective functions.</p>
+
+<p>Interestingly, model-based and model-free methods own complementary benefits in sample efficiency and provable accuracy. We further propose <strong>gray-box methods</strong> that incorporate prior approximate knowledge to achieve the best of both worlds.</p>
+
+<h2 id="approximation-enabled-distributed-optimization">Approximation-enabled Distributed Optimization</h2>
+
+<div style="text-align: center; margin-top: 20px;">
+  <img src="/img/research/overview-DO.jpg" alt="Distributed optimization via polynomial approximation" style="width: 70%; display: block; margin: 0 auto;" />
+</div>
+
+<p><strong>Distributed optimization</strong> is one of the cornerstones of scalable and robust decision-making in the era of large-scale network systems. While numerous distributed gradient-based algorithms have been developed, they generally suffer from a growing cost of querying gradients, function values, or Hessians with respect to the number of iterations. Moreover, it is prohibitive to guarantee global optimality for nonconvex problems.</p>
+
+<!-- As network systems grow in scale, it is critical to achieve  for efficiency, data privacy, and robustness. While plenty of research on distributed optimization revolves around iterative gradient-based methods -->
+
+<p>In contrast, we attack distributed optimization from a unique perspective of <strong>function approximation</strong>. The key insight is to leverage polynomial approximation as a surrogate representation of the local objective function. This representation facilitates smooth information dissemination over networks and promises tractable reformulations for global optimization. Our approximation-enabled algorithms feature arbitrarily precise <strong>global optimization</strong>, <strong>fixed costs</strong> of function evaluations, and provable guarantees on <strong>data privacy</strong> and <strong>robustness</strong>.</p>
+
+<h2 id="engineering-applications">Engineering Applications</h2>
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;">
+  <img src="/img/research/power-grid.jpg" alt="Application in power grid" style="height: 300px;" />
+    <img src="/img/research/transportation.jpg" alt="Application in transportation network" style="height: 300px;" />
+</div>
+
+<p>Modern engineering systems are inherently complex, consisting of multiple interacting layers and components and operating under changing conditions. Our aforementioned contributions feature <strong>data-driven workflows</strong>, <strong>minimal model information</strong>, and <strong>efficient adaptation</strong>, and are well suited for addressing practical challenges arising from those complex engineering systems.</p>
+
+<p>Together with my excellent collaborators and students (see my teaching <a href="/teaching/">page</a>), we explore the following questions in the domains of <strong>power grids</strong> and <strong>transportation systems</strong>:</p>
+
+<ul>
+  <li>voltage control in the face of volatile renewable generation;</li>
+  <li>online dynamic pricing in electrical distribution systems;</li>
+  <li>distributed and hierarchical decision-making in mobility systems.</li>
+</ul>
+
+<h3 id="-please-visit-my-publication-page-for-more-details"><span style="margin-top: 40px; display: block;"> Please visit my publication <a href="/publications/"><span style="color: blue;">page</span></a> for more details</span></h3>
 
 
       </div>
@@ -167,19 +213,6 @@
 <script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
 
 <script src="/assets/scripts.js"></script>
-
-<!-- Include MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
 
 
 

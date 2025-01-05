@@ -3,7 +3,6 @@
 <html>
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -37,27 +36,20 @@
   <!-- Include Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- Configure MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      loader: {load: ['[tex]/ams']}
+    };
+  </script>
   <!-- Include MathJax -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Google tag (gtag.js) -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0YTJSLE5C"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-C0YTJSLE5C');
-  </script> -->
 </head>
-
-
-<!-- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Site Title</title>
-</head> -->
 
 <body>
 
@@ -412,7 +404,7 @@ See the Colab link <a href="https://colab.research.google.com/drive/1ekJT80Vxjem
   </li>
   <li>Results<br />
 The strategy based on the Gittins index yields a higher reward.
-<img src="/img/posts/Gittins/image.png" alt="alt text" /></li>
+<img src="/img/posts/2024-12-5-Gittins/image.png" alt="alt text" /></li>
 </ul>
 
 <h2 id="summary--extension">Summary &amp; Extension</h2>
@@ -446,7 +438,7 @@ Setup: an unknown dynamical system and a set of candidate controllers</p>
 
           
           
-          <a class="btn btn-primary float-right" href="/2025/01/03/journey-to-the-west.html" data-toggle="tooltip" data-placement="top" title="西游记：心灵之旅">Next<span class="d-none d-md-inline">
+          <a class="btn btn-primary float-right" href="/2025/01/03/journey-to-the-west.html" data-toggle="tooltip" data-placement="top" title="西游之悟：修炼心灵">Next<span class="d-none d-md-inline">
               Post</span> &rarr;</a>
           
 
@@ -503,19 +495,6 @@ Setup: an unknown dynamical system and a set of candidate controllers</p>
 <script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
 
 <script src="/assets/scripts.js"></script>
-
-<!-- Include MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
 
 
 
