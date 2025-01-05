@@ -13,6 +13,12 @@ linkedin_username:
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   G-C0YTJSLE5C # out your google-analytics code
 
+defaults:
+  - scope:
+      path: "sitemap.xml"
+    values:
+      content_type: "application/xml"
+
 include:
   - robots.txt
   

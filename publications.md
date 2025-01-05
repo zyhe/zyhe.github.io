@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Publications
+title: Selected Publications
 permalink: /publications/
 background: '/img/bg-publication.jpg'
 ---
