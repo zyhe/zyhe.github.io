@@ -224,7 +224,10 @@ Consider a simple family of $n$ alternative bandit processes $B_1, \ldots, B_n$.
 
 - Results  
   The strategy based on the Gittins index yields a higher reward.
-  ![alt text](/img/posts/2024-12-5-Gittins/image.png)
+  <div style="text-align: center;">
+    <img src="/img/posts/2024-12-5-Gittins/image.png" alt="Convergence curves" style="width: 70%; display: block; margin: 0 auto;">
+  </div>
+  <!-- ![alt text](/img/posts/2024-12-5-Gittins/image.png) -->
 
 ## Summary & Extension  
 
