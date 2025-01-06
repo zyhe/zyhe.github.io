@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zyhe.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zyhe.github.io/" rel="alternate" type="text/html" /><updated>2025-01-06T10:31:28+00:00</updated><id>https://zyhe.github.io/feed.xml</id><title type="html">Zhiyu He</title><subtitle>Homepage of Zhiyu He</subtitle><author><name>Zhiyu He</name></author><entry><title type="html">西游之悟：修炼心灵</title><link href="https://zyhe.github.io/2025/01/03/journey-to-the-west.html" rel="alternate" type="text/html" title="西游之悟：修炼心灵" /><published>2025-01-03T11:00:00+00:00</published><updated>2025-01-03T11:00:00+00:00</updated><id>https://zyhe.github.io/2025/01/03/journey-to-the-west</id><content type="html" xml:base="https://zyhe.github.io/2025/01/03/journey-to-the-west.html"><![CDATA[<h1 id="西游记">西游记</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zyhe.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zyhe.github.io/" rel="alternate" type="text/html" /><updated>2025-01-06T13:47:31+00:00</updated><id>https://zyhe.github.io/feed.xml</id><title type="html">Zhiyu He</title><subtitle>Homepage of Zhiyu He</subtitle><author><name>Zhiyu He</name></author><entry><title type="html">西游之悟：修炼心灵</title><link href="https://zyhe.github.io/2025/01/03/journey-to-the-west.html" rel="alternate" type="text/html" title="西游之悟：修炼心灵" /><published>2025-01-03T11:00:00+00:00</published><updated>2025-01-03T11:00:00+00:00</updated><id>https://zyhe.github.io/2025/01/03/journey-to-the-west</id><content type="html" xml:base="https://zyhe.github.io/2025/01/03/journey-to-the-west.html"><![CDATA[<h1 id="西游记">西游记</h1>
 
 <p>何志宇 2025年1月3日</p>
 
@@ -10,7 +10,8 @@
 
 <h2 id="信念">信念</h2>
 
-<p>坚定的信念至关重要。智若能在审时度势后提取关键事信息，做出准确判断。这也是为什么毛泽东能在抗日战争处于初期的不利阶段摒弃速胜论、速败论等极端论调、而得出清醒的论持久战的原因。</p>
+<p>坚定的信念至关重要。智若能在审时度势后提取关键事信息，做出准确判断。
+<!-- 这也是为什么毛泽东能在抗日战争处于初期的不利阶段摒弃速胜论、速败论等极端论调、而得出清醒的论持久战的原因。 --></p>
 
 <p>值得引以为戒的是、强如孙悟空，也会有信念动摇的时刻，当狮驼岭师徒四人均落难时，大鹏的毒计使悟空误以为唐僧已经遇害，他心神恍惚，极度不平，总算在如来的指点下才看清真相，找回了失去的信念。假如我们有外部的肯定和支持，那当然最好。但在更多的时候，要用信念提供持续的动力，在任何时候都不要放弃希望。</p>
 
@@ -310,7 +311,11 @@ See the Colab link <a href="https://colab.research.google.com/drive/1ekJT80Vxjem
   </li>
   <li>Results<br />
 The strategy based on the Gittins index yields a higher reward.
-<img src="/img/posts/2024-12-5-Gittins/image.png" alt="alt text" /></li>
+    <div style="text-align: center;">
+  <img src="/img/posts/2024-12-5-Gittins/image.png" alt="Convergence curves" style="width: 70%; display: block; margin: 0 auto;" />
+</div>
+    <!-- ![alt text](/img/posts/2024-12-5-Gittins/image.png) -->
+  </li>
 </ul>
 
 <h2 id="summary--extension">Summary &amp; Extension</h2>
