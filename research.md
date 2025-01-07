@@ -7,7 +7,7 @@ background: '/img/bg-research.jpeg'
 
 My research interests lie in **optimization**, **control**, and **learning** of **dynamical systems**. I am curious about the interaction between the physical world and computing pipelines.  
 
-## Decision Dependence  
+<!-- ## Decision Dependence  
 
 <div style="text-align: center; margin-top: 20px;">
   <img src="/img/research/decision-dependence.jpg" alt="Decision dependence as a feedback process" style="width: 70%; display: block; margin: 0 auto;">
@@ -15,7 +15,7 @@ My research interests lie in **optimization**, **control**, and **learning** of 
 
 **Distribution shifts** are often deemed as undesirable external forces that a decision maker should counteract (e.g., via out-of-distribution detection) or conform to (e.g., via online learning or distributionally robust optimization). A feedback phenomenon arises, however, when the deployed decision affects the data-generating distribution. In this regard, performative prediction encodes such a dependence as a static parameterized map.
 
-In contrast, we formulate **distribution shifts as feedback processes** equipped with nonlinear dynamics and driven by the decision maker. This perspective of **distribution dynamics** motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making.
+In contrast, we formulate **distribution shifts as feedback processes** equipped with nonlinear dynamics and driven by the decision maker. This perspective of **distribution dynamics** motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making. -->
 
 ## Optimization Algorithms as Feedback Controllers
 <img src="/img/research/FO.png" alt="Optimization algorithms as feedback controllers" style="float: left; margin-right: 50px; width: 35%;">
@@ -26,7 +26,7 @@ In contrast, we formulate **distribution shifts as feedback processes** equipped
 
 **Optimal steady-state operation** of an engineering system is critical. To this end, traditional numerical optimization relies on an exact problem formulation that encompasses system models and disturbance statistics. Such a feedforward pipeline, however, can be restrictive and suboptimal when accurate information on models and disturbances is unavailable.
 
-In contrast, the emerging paradigm of **feedback optimization** bypasses such information and fulfills autonomous optimality-seeking in closed loop. Along this line, we develop fully **model-free** methods that avoids accessing any model information by exploiting real-time evaluations of objective functions.
+In contrast, the emerging paradigm of **feedback optimization** bypasses such information and fulfills autonomous optimality-seeking in closed loop. Along this line, we develop fully **model-free methods** that avoids accessing any model information by exploiting real-time evaluations of objective functions.
 
 Interestingly, model-based and model-free methods own complementary benefits in sample efficiency and provable accuracy. We further propose **gray-box methods** that incorporate prior approximate knowledge to achieve the best of both worlds.
 
