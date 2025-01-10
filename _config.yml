@@ -1,5 +1,5 @@
 title:              Zhiyu He
-email:              zhiyhe@ethz.ch
+email:              zhiyhe(at)ethz.ch
 description:        Homepage of Zhiyu He
 author:             Zhiyu He
 baseurl:            ""
@@ -8,7 +8,7 @@ url:                "https://zyhe.github.io"
 # Social Profiles
 twitter_username:   
 github_username: zyhe   
-linkedin_username:
+linkedin_username: zhiyu-he-ba518a225
 
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   G-C0YTJSLE5C # out your google-analytics code
