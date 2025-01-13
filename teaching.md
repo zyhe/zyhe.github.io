@@ -40,7 +40,7 @@ I am fortunate to work with many excellent students and are proud of their achie
 
 - <u>Vinzenz Tütsch</u> (ETH, MA, 2023), Towards Autonomous and Distributed Traffic Signal Control  
   Co-supervised with Prof. Kenan Zhang  
-  <u>V. Tütsch</u>, **Z. He**, F. Dörfler, and K. Zhang, Distributed Traffic Signal Control Via Coordinated Maximum Pressure-Plus-Penalty, *IEEE International Conference on Intelligent Transportation Systems*, 2024. [[arxiv]](https://arxiv.org/pdf/2404.19547){:target="_blank"}  
+  <u>V. Tütsch</u>, **Z. He**, F. Dörfler, and K. Zhang, Distributed Traffic Signal Control via Coordinated Maximum Pressure-Plus-Penalty, *IEEE International Conference on Intelligent Transportation Systems*, 2024. [[arxiv]](https://arxiv.org/pdf/2404.19547){:target="_blank"}  
 
 - <u>Jan Ghadamian</u> (ETH, MA, 2025), Hierarchical Decision-Making in Layered Urban Mobility Systems  
   Co-supervised with Mingjia He

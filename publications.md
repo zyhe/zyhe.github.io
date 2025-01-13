@@ -23,6 +23,6 @@ background: '/img/bg-publication.jpg'
 
 ## Distributed Optimization via Polynomial Approximation
 
-- **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Distributed Nonconvex Optimization: Gradient-free Iterations and $\epsilon$-Globally Optimal Solution. *IEEE Transactions on Control of Network Systems*, 11(3), 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10517449){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2008.00252.pdf){:target="_blank"}
+- **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Distributed Nonconvex Optimization: Gradient-free Iterations and $\epsilon$-Globally Optimal Solution. *IEEE Transactions on Control of Network Systems*,  2024.  [[pdf]](https://ieeexplore.ieee.org/document/10517449){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2008.00252.pdf){:target="_blank"}
 
-- **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Private and Robust Distributed Nonconvex Optimization via Polynomial Approximation. *IEEE Transactions on Control of Network Systems*, 2024.    [[pdf]](https://ieeexplore.ieee.org/document/10402077){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2101.06127.pdf){:target="_blank"}  
+- **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Private and Robust Distributed Nonconvex Optimization via Polynomial Approximation. *IEEE Transactions on Control of Network Systems*, 11(3), 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10402077){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2101.06127.pdf){:target="_blank"}  

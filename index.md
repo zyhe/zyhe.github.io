@@ -37,7 +37,7 @@ background: '/img/bg-index-2.jpg'
 <div>
   <h3>Contact</h3>
   <p>
-    zhiyhe at ethz.ch &nbsp;&nbsp; or &nbsp;&nbsp; zhiyu.he at tuebingen.mpg.de
+    zhiyhe(at)ethz.ch &nbsp;&nbsp; or &nbsp;&nbsp; zhiyu.he(at)tuebingen.mpg.de
   </p>
 </div>
 
