@@ -7,7 +7,7 @@ background: '/img/bg-research.jpeg'
 
 My research interests lie in **optimization**, **control**, and **learning** of **dynamical systems**. I am curious about the interaction between the physical world and computing pipelines.  
 
-<!-- ## Decision Dependence  
+## Decision Dependence  
 
 <div style="text-align: center; margin-top: 20px;">
   <img src="/img/research/decision-dependence.jpg" alt="Decision dependence as a feedback process" style="width: 70%; display: block; margin: 0 auto;">
@@ -15,7 +15,7 @@ My research interests lie in **optimization**, **control**, and **learning** of 
 
 **Distribution shifts** are often deemed as undesirable external forces that a decision maker should counteract (e.g., via out-of-distribution detection) or conform to (e.g., via online learning or distributionally robust optimization). A feedback phenomenon arises, however, when the deployed decision affects the data-generating distribution. In this regard, performative prediction encodes such a dependence as a static parameterized map.
 
-In contrast, we formulate **distribution shifts as feedback processes** equipped with nonlinear dynamics and driven by the decision maker. This perspective of **distribution dynamics** motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making. -->
+In contrast, we formulate **distribution shifts as feedback processes** equipped with nonlinear dynamics and driven by the decision maker. This perspective of **distribution dynamics** motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making.
 
 ## Optimization Algorithms as Feedback Controllers
 <img src="/img/research/FO.png" alt="Optimization algorithms as feedback controllers" style="float: left; margin-right: 50px; width: 35%;">
