@@ -45,3 +45,6 @@ plugins:
 #     link: "/teaching.html"
 #   - name: "Posts"
 #     link: "/posts/"
+
+# Enable future posts
+future: true

@@ -21,8 +21,16 @@ background: '/img/bg-publication.jpg'
 
 <div style="margin-top: 50px;"></div>
 
+## Online Decision-Making
+
+<div style="margin-top: 30px;"></div>
+
+- Michael Muehlebach, **Zhiyu He**, Michael I. Jordan. The Sample Complexity of Online Reinforcement Learning: A Multi-Model Perspective. *arXiv:2501.15910 [cs.LG]*, 2025.  [[arxiv]](https://arxiv.org/pdf/2501.15910){:target="_blank"}
+
+<div style="margin-top: 50px;"></div>
+
 ## Distributed Optimization via Polynomial Approximation
 
-- **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Distributed Nonconvex Optimization: Gradient-free Iterations and $\epsilon$-Globally Optimal Solution. *IEEE Transactions on Control of Network Systems*,  2024.  [[pdf]](https://ieeexplore.ieee.org/document/10517449){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2008.00252.pdf){:target="_blank"}
+- **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Distributed Nonconvex Optimization: Gradient-free Iterations and $\epsilon$-Globally Optimal Solution. *IEEE Transactions on Control of Network Systems*, 11(4), 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10517449){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2008.00252.pdf){:target="_blank"}
 
 - **Zhiyu He**, Jianping He, Cailian Chen, Xinping Guan. Private and Robust Distributed Nonconvex Optimization via Polynomial Approximation. *IEEE Transactions on Control of Network Systems*, 11(3), 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10402077){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2101.06127.pdf){:target="_blank"}  
