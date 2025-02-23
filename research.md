@@ -15,7 +15,7 @@ My research interests lie in **optimization**, **control**, and **learning** of 
 
 **Distribution shifts** are often deemed as undesirable external forces that a decision maker should counteract (e.g., via out-of-distribution detection) or conform to (e.g., via online learning or distributionally robust optimization). A feedback phenomenon arises, however, when the deployed decision affects the data-generating distribution. In this regard, performative prediction encodes such a dependence as a static parameterized map.
 
-In contrast, we formulate **distribution shifts as feedback processes** equipped with nonlinear dynamics and driven by the decision maker. This perspective of **distribution dynamics** motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making.
+In contrast, I and my collaborators formulate **distribution shifts as feedback processes** equipped with nonlinear dynamics and driven by a decision maker. This perspective of **distribution dynamics** motivates us to leverage the composite problem structure and shape future distributions via anticipating sensitivities, thereby enabling optimal decision-making.
 
 ## Optimization Algorithms as Feedback Controllers
 <img src="/img/research/FO.png" alt="Optimization algorithms as feedback controllers" style="float: left; margin-right: 50px; width: 35%;">
@@ -30,7 +30,7 @@ In contrast, the emerging paradigm of **feedback optimization** bypasses such in
 
 Interestingly, model-based and model-free methods own complementary benefits in sample efficiency and provable accuracy. We further propose **gray-box methods** that incorporate prior approximate knowledge to achieve the best of both worlds.
 
-## Approximation-enabled Distributed Optimization  
+## Approximation-Enabled Distributed Optimization  
 
 <div style="text-align: center; margin-top: 20px;">
   <img src="/img/research/overview-DO.jpg" alt="Distributed optimization via polynomial approximation" style="width: 70%; display: block; margin: 0 auto;">

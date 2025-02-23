@@ -2,6 +2,8 @@
 module Jekyll
     module WordCount
       def number_of_words(input)
+        # Remove HTML comments
+        input = input.gsub(/<!--.*?-->/m, "")
         # Remove HTML tags and count words
         input = input.gsub(/<\/?[^>]*>/, "")
         # Count Chinese characters and words separately
