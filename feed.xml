@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zyhe.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zyhe.github.io/" rel="alternate" type="text/html" /><updated>2025-02-26T07:56:29+00:00</updated><id>https://zyhe.github.io/feed.xml</id><title type="html">Zhiyu He</title><subtitle>Homepage of Zhiyu He</subtitle><author><name>Zhiyu He</name></author><entry><title type="html">情思万端：析李商隐《无题》诗</title><link href="https://zyhe.github.io/2025/02/23/li-shangyin.html" rel="alternate" type="text/html" title="情思万端：析李商隐《无题》诗" /><published>2025-02-23T20:00:00+00:00</published><updated>2025-02-23T20:00:00+00:00</updated><id>https://zyhe.github.io/2025/02/23/li-shangyin</id><content type="html" xml:base="https://zyhe.github.io/2025/02/23/li-shangyin.html"><![CDATA[<h1 id="情思万端析李商隐无题诗">情思万端：析李商隐《无题》诗</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zyhe.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zyhe.github.io/" rel="alternate" type="text/html" /><updated>2025-03-12T14:05:47+00:00</updated><id>https://zyhe.github.io/feed.xml</id><title type="html">Zhiyu He</title><subtitle>Homepage of Zhiyu He</subtitle><author><name>Zhiyu He</name></author><entry><title type="html">情思万端：析李商隐《无题》诗</title><link href="https://zyhe.github.io/2025/02/23/li-shangyin.html" rel="alternate" type="text/html" title="情思万端：析李商隐《无题》诗" /><published>2025-02-23T20:00:00+00:00</published><updated>2025-02-23T20:00:00+00:00</updated><id>https://zyhe.github.io/2025/02/23/li-shangyin</id><content type="html" xml:base="https://zyhe.github.io/2025/02/23/li-shangyin.html"><![CDATA[<h1 id="情思万端析李商隐无题诗">情思万端：析李商隐《无题》诗</h1>
 
 <p>何志宇 2025年2月23日</p>
 
@@ -241,6 +241,12 @@ A myopic solution: $8 + 4a + 5a^2 + 3a^3 + 10a^4 + \ldots$<br />
 An arguably better solution $8 + 3a + 10a^2 + 12a^3 + 4a^4 + \ldots$<br />
 (For instance, if the discount factor is $a=0.9$, then the latter discounted sum is larger than the former)</p>
   </li>
+  <li>Other examples
+    <ul>
+      <li>Single machine scheduling</li>
+      <li>Managing research projects</li>
+    </ul>
+  </li>
 </ul>
 
 <h3 id="three-formulations-of-the-bandit-problem">Three formulations of the bandit problem</h3>
@@ -409,6 +415,12 @@ $n$ independent bandit processes $B_i, i=1,\ldots,N$</p>
 <h3 id="proof-via-prevailing-charges-arguments">Proof via prevailing charges arguments</h3>
 
 <ul>
+  <li>
+    <p>High-level idea<br />
+(i) Construct an upper bound; (ii) show that this upper bound can be attained<br />
+Abstract example<br />
+Suppose that we have two functions $f,g$ such that $f(\pi) \leq g(\pi), \forall \pi$. If we find a policy $\pi^<em>$ such that $f(\pi^</em>) = g(\pi^<em>)$ and $g(\pi) \leq g(\pi^</em>), \forall \pi$, then $\pi^*$ maximizes $f(\pi)$</p>
+  </li>
   <li>
     <p>Prevailing charge $g_i(x_i)$: fixed charge that we pay to continue playing the bandit $i$ at state $x_i$<br />
 If $g_i(x_i)$ is too large, then we will quit playing this bandit</p>

@@ -147,6 +147,12 @@ A myopic solution: $8 + 4a + 5a^2 + 3a^3 + 10a^4 + \ldots$<br />
 An arguably better solution $8 + 3a + 10a^2 + 12a^3 + 4a^4 + \ldots$<br />
 (For instance, if the discount factor is $a=0.9$, then the latter discounted sum is larger than the former)</p>
   </li>
+  <li>Other examples
+    <ul>
+      <li>Single machine scheduling</li>
+      <li>Managing research projects</li>
+    </ul>
+  </li>
 </ul>
 
 <h3 id="three-formulations-of-the-bandit-problem">Three formulations of the bandit problem</h3>
@@ -315,6 +321,12 @@ $n$ independent bandit processes $B_i, i=1,\ldots,N$</p>
 <h3 id="proof-via-prevailing-charges-arguments">Proof via prevailing charges arguments</h3>
 
 <ul>
+  <li>
+    <p>High-level idea<br />
+(i) Construct an upper bound; (ii) show that this upper bound can be attained<br />
+Abstract example<br />
+Suppose that we have two functions $f,g$ such that $f(\pi) \leq g(\pi), \forall \pi$. If we find a policy $\pi^<em>$ such that $f(\pi^</em>) = g(\pi^<em>)$ and $g(\pi) \leq g(\pi^</em>), \forall \pi$, then $\pi^*$ maximizes $f(\pi)$</p>
+  </li>
   <li>
     <p>Prevailing charge $g_i(x_i)$: fixed charge that we pay to continue playing the bandit $i$ at state $x_i$<br />
 If $g_i(x_i)$ is too large, then we will quit playing this bandit</p>
