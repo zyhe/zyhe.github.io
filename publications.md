@@ -5,6 +5,16 @@ permalink: /publications/
 background: '/img/bg-publication.jpg'
 ---
 
+## Online Decision-Making
+
+<div style="margin-top: 30px;"></div>
+
+- **Zhiyu He**, Saverio Bolognani, Florian Dörfler, Michael Muehlebach. Decision-Dependent Stochastic Optimization: The Role of Distribution Dynamics. *arXiv:2503.07324 [math.OC]*, 2025.  [[arxiv]](https://arxiv.org/pdf/2503.07324){:target="_blank"}  [[code]](https://github.com/zyhe/distribution-dynamics-opt){:target="_blank"}
+
+- Michael Muehlebach, **Zhiyu He**, Michael I. Jordan. The Sample Complexity of Online Reinforcement Learning: A Multi-Model Perspective. *arXiv:2501.15910 [cs.LG]*, 2025.  [[arxiv]](https://arxiv.org/pdf/2501.15910){:target="_blank"}
+
+<div style="margin-top: 50px;"></div>
+
 ## Nonlinear Feedback Optimization
 
 - **Zhiyu He**, Saverio Bolognani, Jianping He, Florian Dörfler, and Xinping Guan. Model-Free Nonlinear Feedback Optimization. *IEEE Transactions on Automatic Control*, 69(7), 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10354356){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2201.02395){:target="_blank"}  [[code]](https://www.research-collection.ethz.ch/handle/20.500.11850/646002){:target="_blank"}
@@ -18,14 +28,6 @@ background: '/img/bg-publication.jpg'
 <div style="margin-top: 30px;"></div>
 
 - Florian Dörfler, **Zhiyu He**, Giuseppe Belgioioso, Saverio Bolognani, John Lygeros, Michael Muehlebach. Towards a Systems Theory of Algorithms. *IEEE Control Systems Letters*, 8, 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10540567){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2401.14029){:target="_blank"}
-
-<div style="margin-top: 50px;"></div>
-
-## Online Decision-Making
-
-<div style="margin-top: 30px;"></div>
-
-- Michael Muehlebach, **Zhiyu He**, Michael I. Jordan. The Sample Complexity of Online Reinforcement Learning: A Multi-Model Perspective. *arXiv:2501.15910 [cs.LG]*, 2025.  [[arxiv]](https://arxiv.org/pdf/2501.15910){:target="_blank"}
 
 <div style="margin-top: 50px;"></div>
 

@@ -32,6 +32,10 @@ Adapted from
   An arguably better solution $8 + 3a + 10a^2 + 12a^3 + 4a^4 + \ldots$  
   (For instance, if the discount factor is $a=0.9$, then the latter discounted sum is larger than the former)  
 
+- Other examples
+  - Single machine scheduling  
+  - Managing research projects  
+
 ### Three formulations of the bandit problem
 
 - Criterion: the nature of the reward sequence
@@ -154,6 +158,11 @@ we always select the bandit process $i = \operatorname{argmax}_i v(B_i,x_i)$.
 Note that the Gittins index only depends on the corresponding bandit process (or more specifically, $a, r_i, p_i$) but not on other processes.
 
 ### Proof via prevailing charges arguments
+
+- High-level idea  
+  (i) Construct an upper bound; (ii) show that this upper bound can be attained  
+  Abstract example  
+  Suppose that we have two functions $f,g$ such that $f(\pi) \leq g(\pi), \forall \pi$. If we find a policy $\pi^*$ such that $f(\pi^*) = g(\pi^*)$ and $g(\pi) \leq g(\pi^*), \forall \pi$, then $\pi^*$ maximizes $f(\pi)$
 
 - Prevailing charge $g_i(x_i)$: fixed charge that we pay to continue playing the bandit $i$ at state $x_i$  
   If $g_i(x_i)$ is too large, then we will quit playing this bandit
