@@ -10,7 +10,7 @@ My research interests lie in **optimization**, **control**, and **learning** of 
 ## Decision Dependence  
 
 <div style="text-align: center; margin-top: 20px;">
-  <img src="/img/research/decision-dependence.jpg" alt="Decision dependence as a feedback process" style="width: 70%; display: block; margin: 0 auto;">
+  <img src="/img/research/decision-dependence.png" alt="Decision dependence as a feedback process" style="width: 70%; display: block; margin: 0 auto;">
 </div>
 
 **Distribution shifts** are often deemed as undesirable external forces that a decision maker should counteract (e.g., via out-of-distribution detection) or conform to (e.g., via online learning or distributionally robust optimization). A feedback phenomenon arises, however, when the deployed decision affects the data-generating distribution. In this regard, performative prediction encodes such a dependence as a static parameterized map.
