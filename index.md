@@ -30,6 +30,8 @@ background: '/img/bg-index-2.jpg'
   <h2>Research Interests</h2>
   <p>
     Zhiyu's research interests lie in <strong>optimization</strong>, <strong>control</strong>, and <strong>learning</strong> of <strong>dynamical systems</strong>. He is curious about the interaction between the physical world and computing pipelines.
+  <br>
+  <a href="https://scholar.google.com/citations?user=6F5yIIEAAAAJ&hl=en" target="_blank">[Google Scholar]</a>
   </p>
 </div>
 
