@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Beauty of Mathematics: Hats, Coins, and Paradoxes - Zhiyu He
+    
+  </title>
+
+  <meta name="description" content="Beauty of Mathematics: Hats, Coins, and Paradoxes">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://zyhe.github.io/2025/05/05/puzzles.html">
+  <link rel="alternate" type="application/rss+xml" title="Zhiyu He" href="/feed.xml">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/android-chrome-512x512.png">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Include Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- Configure MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      loader: {load: ['[tex]/ams']}
+    };
+  </script>
+  <!-- Include MathJax -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Zhiyu He</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/research">Research</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/publications">Publications</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/teaching">Teaching</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2025-5-5-puzzles/archimede.avif')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-11 col-md-11 mx-auto">
+          <div class="post-heading">
+            <h1>Beauty of Mathematics: Hats, Coins, and Paradoxes</h1>
+            
+            <h2 class="subheading">On derangements, fair coins, and the St. Petersburg paradox</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Zhiyu He</a>
+              on May 05, 2025 &middot; <span class="reading-time" title="Estimated read time">
+  
+   8 mins  read
+</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-11 col-md-11 mx-auto">
+
+        <h1 id="beauty-of-mathematics-hats-coins-and-paradoxes">Beauty of Mathematics: Hats, Coins, and Paradoxes</h1>
+
+<p>Zhiyu He, May 5, 2025</p>
+
+<p>How can you make a table of engineering researchers, each with diverse interests, all concentrate on a single topic? Ask intriguing mathematical questions.</p>
+
+<p>During our lab retreat in Stoos in April 2025, as the dinner conversation gradually converged to intelligence, I threw some mathematical puzzles that I stumbled upon earlier this year. Surprisingly, they quickly captured everyone’s attention. The next hour solely revolved around proposing various questions, contemplating attacking points, sharing reasoning, and challenging each other.</p>
+
+<p>Let me go through some of these interesting questions to give the reader a glimpse of the beauty of mathematics.</p>
+
+<h2 id="derangement">Derangement</h2>
+
+<p>Here is the famous hat-check problem, which I learned from Klaus.</p>
+
+<blockquote>
+  <p>Suppose that $N$ people check their hats into a restaurant. The hat-checker is unfortunately absent-minded and forgets which hat belongs to whom. Instead, the hats are randomly redistributed to people. What is the probability that nobody gets his or her own hat back?</p>
+</blockquote>
+
+<div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
+  <img src="/img/posts/2025-5-5-puzzles/hat.avif" alt="Hats" style="width: 60%; display: block; margin: 0 auto;" />
+</div>
+
+<p>The number of arrangements for redistributing hats is $n!$. The problem is thus reduced to finding the number of permutations $D(N)$ such that everybody receives a hat belonging to another person.</p>
+
+<p>We apply a recursive approach, akin to dynamic programming in computer science, by breaking into sub-problems. The base cases are easy, and we can show by enumeration that $D(1)=0, D(2)=1$. We proceed to analyze the general case. Let us focus on the first person $P_1$, who collects the hat $h_i$ of person $P_i$, and $i=2,\ldots,N$. We distinguish two cases.</p>
+
+<ul>
+  <li>
+    <p>First, person $P_i$ happens to grab the hat $h_1$. Then, we exclude persons $P_1$ and $P_i$ from the population and address a reduced problem with $N-2$ people. When $i$ is given, the number of desirable arrangements is $D(N-2)$.</p>
+  </li>
+  <li>
+    <p>Second, person $P_i$ does not receive the hat $h_1$. This scenario, albeit appearing complicated, also allows a similar analysis. Let us exclude person $1$ and consider the remaining population involving persons $2, \ldots, i, \ldots, N$. We need to redistribute the hats $h_1, \ldots, h_{i-1}, h_{i+1}, \ldots, h_N$. Since $h_1$ cannot be assigned to person $P_i$, we relabel this person as $\hat{P}_1$ and conclude that this setting is equivalent to the scenario with $N-1$ people. The number of arrangements for a given $i$ is therefore $D(N-1)$.</p>
+  </li>
+</ul>
+
+<p>Since there $N-1$ choices of $i$, we have the following recurrence formula:</p>
+
+\[D(N) = (N-1) * (D(N-1) + D(N-2)),\]
+
+<p>with the base cases $D(1)=0$, $D(2)=1$. A closed-form expression of $D(N)$ can be further derived from the above formula. The probability that nobody receives the original hat is $D(N)/N!$.</p>
+
+<p>The technical word summarizing this problem is derangement, i.e., a permutation of the elements in a set such that no element is allocated to its original position. See the Wikipedia <a href="https://en.wikipedia.org/wiki/Derangement">page</a> and this <a href="https://www.math.emory.edu/~rg/derangements.pdf">note</a> for more details.</p>
+
+<h2 id="make-a-fair-coin-from-a-biased-coin">Make a fair coin from a biased coin</h2>
+
+<p>We have a biased coin, whose probability of coming up with a tail or a head is different. Of course, if we flip the coin sufficiently many times, the number of tails will almost always differ from the number of heads. Now the question is:</p>
+
+<blockquote>
+  <p>How to make a “fair coin” out of this biased coin?</p>
+</blockquote>
+
+<p>By a “fair coin”, we mean that the probabilities of achieving either of two outcomes equal.</p>
+
+<div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
+  <img src="/img/posts/2025-5-5-puzzles/coin.avif" alt="Coin" style="width: 60%; display: block; margin: 0 auto;" />
+</div>
+
+<p>The key idea is to exploit pairs of coins to extract fair outcomes. It is clear that flipping this coin only once is hopeless. However, we can make several flips and leverage the collective results.</p>
+
+<p>Without loss of generality, consider discrete random variables $X_1, X_2$ with the following distribution</p>
+
+\[\Pr(X_i = 0) = p, \quad \Pr(X_i = 1) = 1 - p, \quad p\in (0,1),\]
+
+<p>where $X_i$ denotes the variable at the $i$-th flip, and $i=1,2$. Let $Z=f(X_1, X_2)$ be a new random variable, and the mapping $f$ is given by</p>
+
+\[f(01) = 0, ~ f(10) = 1, ~ f(00) = \Lambda, ~ f(11) = \Lambda,\]
+
+<p>where $\Lambda$ represents an empty value. Then,</p>
+
+\[\Pr(Z=0|X_1 \neq X_2) = \frac{\Pr(Z=0, X_1 \neq X_2)}{\Pr(X_1 \neq X_2)} = \frac{p(1-p)}{2p(1-p)} = \frac{1}{2}.\]
+
+<p>Analogously, $\Pr(Z=1|X_1 \neq X_2) = 1/2$. Hence, this new variable $Z$ has equal probabilities of taking the value of $0$ or $1$, thereby mimicking the outcome of a “fair coin”. Intuitively, since 01 and 10 are equally likely, this method filters out the bias.</p>
+
+<p>In a similar vein, we define a mapping from multiple $X_i$ to multiple $Z_j$ to replicate a sequence of fair coin flips. The above idea of integrating multiple random variables is also present in <em>block codes</em> analyzed by information theorists.</p>
+
+<h2 id="st-petersburg-paradox">St. Petersburg paradox</h2>
+
+<p>We are offered an opportunity to play a game of flipping a fair coin. That is, the probability that a head or a tail appears at each round is 0.5. The game terminates whenever a head comes up, and afterward, we win $2^k$ euros, where $k \geq 1$ denotes the total number of times of flipping the coin. For example, if we get a head right the first time, then we obtain $2$ euros and are no longer allowed to continue; if we have a tail and then a head, then we collect $4$ euros; if we obtain two tails and finally a head, then we accumulate $8$ euros.</p>
+
+<blockquote>
+  <p>How much money are you willing to pay to participate in this game?</p>
+</blockquote>
+
+<div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
+  <img src="/img/posts/2025-5-5-puzzles/coin-2.avif" alt="Coins" style="width: 60%; display: block; margin: 0 auto;" />
+</div>
+
+<p>At first glance, the reasonable price for this game seems low. After all, it is highly unlikely that we observe tails for more than $5$ consecutive rounds, translating to a return larger than $64$ euros. What does the math say, though?</p>
+
+<p>The (classical) mathematics suggests examining the expected return. Our return is essentially a discrete random variable, which takes the values of $2, 4, 8, \ldots$ with probabilities of $1/2, 1/4, 1/8, \ldots$. Hence, its expectation is</p>
+
+\[\sum_{k=1}^{\infty} 2^k * \frac{1}{2^k} = 2*\frac{1}{2} + 4*\frac{1}{4} + \ldots = \infty.\]
+
+<p>In other words, the expected return is arbitrarily large. What is wrong with our intuition?</p>
+
+<p>The key reason is that we do not have a precise understanding of the tail probability corresponding to an extreme event. In this problem, the diminishing probability of the extremely lucky case (where we have tails consecutively) is compensated by the exponential growth of the return. This balance contributes to the infinite expected return.</p>
+
+<p>There are many follow-up theories to fix the mismatch between our gut feeling and theoretical analysis. For instance, researchers have developed the expected utility theory and probability weighting to account for our tendency of risk aversion, indicating an objective different from the expected value in decision-making, see also this Wikipedia <a href="https://en.wikipedia.org/wiki/St._Petersburg_paradox#Expected_utility_theory">page</a>.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>We discussed several intriguing mathematical problems and clarified how they illuminate ideas across statistics, decision science, and information theory. Next time when you sit with engineers and scientists, tell these problems to them!</p>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2025/02/23/li-shangyin.html" data-toggle="tooltip" data-placement="top" title="情思万端：析李商隐《无题》诗">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:zhiyhe(at)ethz.ch">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/zhiyu-he-ba518a225">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/zyhe">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://scholar.google.com/citations?user=6F5yIIEAAAAJ">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-graduation-cap fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Zhiyu He 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C0YTJSLE5C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C0YTJSLE5C');
+</script>
+
+
+
+</body>
+
+</html>
