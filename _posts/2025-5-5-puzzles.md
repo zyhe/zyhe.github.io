@@ -34,7 +34,7 @@ We apply a recursive approach, akin to dynamic programming in computer science, 
 
 - Second, person $P_i$ does not receive the hat $h_1$. This scenario, albeit appearing complicated, also allows a similar analysis. Let us exclude person $1$ and consider the remaining population involving persons $2, \ldots, i, \ldots, N$. We need to redistribute the hats $h_1, \ldots, h_{i-1}, h_{i+1}, \ldots, h_N$. Since $h_1$ cannot be assigned to person $P_i$, we relabel this person as $\hat{P}_1$ and conclude that this setting is equivalent to the scenario with $N-1$ people. The number of arrangements for a given $i$ is therefore $D(N-1)$.
 
-Since there $N-1$ choices of $i$, we have the following recurrence formula:
+Since there are $N-1$ choices of $i$, we have the following recurrence formula:
 
 $$
   D(N) = (N-1) * (D(N-1) + D(N-2)),

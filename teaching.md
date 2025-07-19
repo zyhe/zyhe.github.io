@@ -18,7 +18,7 @@ I am fortunate to work with many excellent students and am proud of their achiev
 
 - Wen Yi Chan (ETH, MA, 2024), *Robustify Feedback Optimization via Regularization*  
   Co-supervised with Dr. Keith Moffat  
-    <u>W. Chan*</u>, **Z. He**\*, K. Moffat, S. Bolognani, M. Muehlebach, and F. Dörfler, Robust Feedback Optimization with Model Uncertainty: A Regularization Approach, *arXiv:2503.24151 [math.OC]*, 2025. [[arxiv]](https://arxiv.org/pdf/2503.24151){:target="_blank"}  
+    <u>W. Chan*</u>, **Z. He**\*, K. Moffat, S. Bolognani, M. Muehlebach, and F. Dörfler, Robust Feedback Optimization with Model Uncertainty: A Regularization Approach, *64th IEEE Conference on Decision and Control*, 2025. [[arxiv]](https://arxiv.org/pdf/2503.24151){:target="_blank"}  
 
 - Christian Hartnik (ETH, MA, 2022), *Online Bayesian Optimization: A Closed-Loop Approach*  
   co-supervised with Dr. Marta Zagorowska and Dr. Alisa Rupenyan

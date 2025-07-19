@@ -5,7 +5,7 @@ permalink: /research/
 background: '/img/bg-research.jpeg'
 ---
 
-My research interests lie in **optimization**, **control**, and **learning** of **dynamical systems**. I am curious about the interaction between the physical world and computing pipelines.  
+My research interests lie in **optimization**, **control**, and **learning** of **dynamical systems**. I explore the interaction between the physical world and computing pipelines.  
 
 ## Decision Dependence  
 
