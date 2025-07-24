@@ -19,7 +19,7 @@ background: '/img/bg-index-2.jpg'
   <div style="flex: 3 1 300px;">
     <h2>Biography</h2>
     <p>
-      <a href="https://zyhe.github.io/" target="_blank">Zhiyu He</a> is a Ph.D. student at the Max Planck ETH Center for Learning ystems aSnd works with <a href="https://dorfler.ethz.ch/" target="_blank">Prof. Florian Dörfler</a> at ETH Zürich and <a href="https://lds.is.mpg.de/person/mmuehlebach" target="_blank">Dr. Michael Mühlebach</a> at the Max Plank Institute for Intelligent Systems, Tübingen. He also works with <a href="https://www.bsaver.io/" target="_blank">Dr. Saverio Bolognani</a> at ETH Zürich. <br><br>
+      <a href="https://zyhe.github.io/" target="_blank">Zhiyu He</a> is a Ph.D. student at the Max Planck ETH Center for Learning ystems and works with <a href="https://dorfler.ethz.ch/" target="_blank">Prof. Florian Dörfler</a> at ETH Zürich and <a href="https://lds.is.mpg.de/person/mmuehlebach" target="_blank">Dr. Michael Mühlebach</a> at the Max Plank Institute for Intelligent Systems, Tübingen. He also works with <a href="https://www.bsaver.io/" target="_blank">Dr. Saverio Bolognani</a> at ETH Zürich. <br><br>
       He received the B.Eng. degree (with honors) in Automation and M.S. degree in Control Science and Engineering from Shanghai Jiao Tong University, China, in 2019 and 2022, respectively. During his master’s studies, he was supervised by <a href="https://scholar.google.com/citations?user=1SNUZGKl9KIC&hl=en" target="_blank">Prof. Xinping Guan</a> and <a href="https://iwin-fins.com/" target="_blank">Prof. Jianping He</a>.
     </p>
   </div>
@@ -29,7 +29,8 @@ background: '/img/bg-index-2.jpg'
 <div>
   <h2>Research Interests</h2>
   <p>
-    Zhiyu's research interests lie in <strong>optimization</strong>, <strong>control</strong>, and <strong>learning</strong> of <strong>dynamical systems</strong>. He explores the interaction between the physical world and computing pipelines.
+    Zhiyu He's research focuses on the theoretical foundations of <b>closed-loop decision-making</b>, with applications spanning energy, mobility, and sociotechnical systems. He develops adaptive, modular, and scalable decision-making pipelines tailored for modern infrastructures characterized by complex dynamics, increasing scales, and coupling uncertainties. Key examples of these pipelines include <b>online feedback optimization</b> and <b>decision-dependent stochastic optimization</b>.
+    <!-- Zhiyu's research interests lie in <strong>optimization</strong>, <strong>control</strong>, and <strong>learning</strong> of <strong>dynamical systems</strong>. He explores the interaction between the physical world and computing pipelines. -->
   <br>
   <a href="https://scholar.google.com/citations?user=6F5yIIEAAAAJ&hl=en" target="_blank">[Google Scholar]</a>
   </p>

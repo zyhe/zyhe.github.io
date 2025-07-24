@@ -5,7 +5,9 @@ permalink: /research/
 background: '/img/bg-research.jpeg'
 ---
 
-My research interests lie in **optimization**, **control**, and **learning** of **dynamical systems**. I explore the interaction between the physical world and computing pipelines.  
+I study **closed-loop decision-making** pipelines to enable the efficient operation of modern infrastructures. My research focuses on designing adaptive and modular pipelines—such as **online feedback optimization** and **decision-dependent stochastic optimization**—that tackle the complexity, scale, and uncertainty inherent in engineering systems, including energy, mobility, and sociotechnical domains.
+
+<!-- My research interests lie in **optimization**, **control**, and **learning** of **dynamical systems**. I explore the interaction between the physical world and computing pipelines.   -->
 
 ## Decision Dependence  
 
