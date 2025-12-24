@@ -23,7 +23,7 @@ I am fortunate to work with many excellent students and am proud of their achiev
 - Christian Hartnik (ETH, MA, 2022), *Online Bayesian Optimization: A Closed-Loop Approach*  
   co-supervised with Dr. Marta Zagorowska and Dr. Alisa Rupenyan
 
-### Distribution Optimization and Network Systems
+### Distributed Optimization and Network Systems
 
   The following projects are all co-supervised with Prof. Jianping He.
 
@@ -43,7 +43,8 @@ I am fortunate to work with many excellent students and am proud of their achiev
   <u>V. Tütsch</u>, **Z. He**, F. Dörfler, and K. Zhang, Distributed Traffic Signal Control via Coordinated Maximum Pressure-Plus-Penalty, *IEEE International Conference on Intelligent Transportation Systems*, 2024. [[pdf]](https://ieeexplore.ieee.org/document/10920011){:target="_blank"} [[arxiv]](https://arxiv.org/pdf/2404.19547){:target="_blank"}  
 
 - Jan Ghadamian (ETH, MA, 2025), Hierarchical Decision-Making in Layered Urban Mobility Systems  
-  Co-supervised with Mingjia He
+  Co-supervised with Mingjia He  
+  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, 2025. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}
 
 - Jiarui Yu (Empa, MA, 2025), Online dynamic pricing for electrical distribution systems  
   Co-supervised with Dr. Hanmin Cai and Wenbin Wang  
@@ -51,8 +52,8 @@ I am fortunate to work with many excellent students and am proud of their achiev
 ## Teaching Assistants
 
 - *Control Systems*, Prof. Florian Dörfler  
-  2023 Fall  
-  Duties: coding exercises and hands-on experiments
+  2023 Fall, 2025 Fall  
+  Duties: coding exercises, hands-on experiments, and exercise classes
 
 - *Large-Scale Convex Optimization*, Dr. Michael Mühlebach  
   2023 Spring, 2024 Summer  
