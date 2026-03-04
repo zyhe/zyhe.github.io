@@ -23,6 +23,13 @@ I am fortunate to work with many excellent students and am proud of their achiev
 - Christian Hartnik (ETH, MA, 2022), *Online Bayesian Optimization: A Closed-Loop Approach*  
   co-supervised with Dr. Marta Zagorowska and Dr. Alisa Rupenyan
 
+### Decision Dependence
+
+- Yuchen Cai (ETH, SA, 2026), *Stochastic Optimization with Network Distribution Dynamics*  
+  
+- Lorenzo Calda (ETH, SA, 2026), *Games in Motion: Learning Equilibria in Metric Spaces*  
+  co-supervised with Dr. Stefania Gavrila-Ionescu  
+
 ### Distributed Optimization and Network Systems
 
   The following projects are all co-supervised with Prof. Jianping He.
@@ -33,21 +40,24 @@ I am fortunate to work with many excellent students and am proud of their achiev
 - Yilin Zhang (SJTU, 2021), *Resilient Approximation-based Distributed Optimization*  
   <u>Y. Zhang</u>, **Z. He**, and J. He, Resilient Approximation-Based Distributed Nonconvex Optimization, *American Control Conference*, 2022.  [[pdf]](https://ieeexplore.ieee.org/document/9867716){:target="_blank"}  [[full text]](https://iwin-fins.com/wp-content/uploads/2022/03/zhang22acc.pdf){:target="_blank"}  
 
-- Jisheng Xu (SJTU, 2022), Inference Attack in Distributed Optimization  
+- Jisheng Xu (SJTU, 2022), *Inference Attack in Distributed Optimization*  
   <u>J. Xu</u>, **Z. He**, C. Fang, J. He, and Y. Peng, Inference Attack in Distributed Optimization via Interpolation and Manipulation, *61st IEEE Conference on Decision and Control*, 2022.  [[pdf]](https://ieeexplore.ieee.org/document/9993236){:target="_blank"}  [[full text]](https://iwin-fins.com/wp-content/uploads/2022/09/xu22cdc.pdf){:target="_blank"}  
 
 ### Applications in Mobility & Energy Systems
 
-- Vinzenz Tütsch (ETH, MA, 2023), Towards Autonomous and Distributed Traffic Signal Control  
+- Vinzenz Tütsch (ETH, MA, 2023), *Towards Autonomous and Distributed Traffic Signal Control*  
   Co-supervised with Prof. Kenan Zhang  
   <u>V. Tütsch</u>, **Z. He**, F. Dörfler, and K. Zhang, Distributed Traffic Signal Control via Coordinated Maximum Pressure-Plus-Penalty, *IEEE International Conference on Intelligent Transportation Systems*, 2024. [[pdf]](https://ieeexplore.ieee.org/document/10920011){:target="_blank"} [[arxiv]](https://arxiv.org/pdf/2404.19547){:target="_blank"}  
 
-- Jan Ghadamian (ETH, MA, 2025), Hierarchical Decision-Making in Layered Urban Mobility Systems  
+- Jan Ghadamian (ETH, MA, 2025), *Hierarchical Decision-Making in Layered Urban Mobility Systems*  
   Co-supervised with Mingjia He  
   M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, 2025. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}
 
-- Jiarui Yu (Empa, MA, 2025), Online dynamic pricing for electrical distribution systems  
+- Jiarui Yu (Empa, MA, 2025), *Online dynamic pricing for electrical distribution systems*  
   Co-supervised with Dr. Hanmin Cai and Wenbin Wang  
+
+- Andrin Joos (ETH, BA, 2026), *Behind ride fares: Dynamic Pricing for Mobility Systems*  
+  Co-supervised with Dr. Xiaoyan Wang  
 
 ## Teaching Assistants
 
@@ -58,3 +68,7 @@ I am fortunate to work with many excellent students and am proud of their achiev
 - *Large-Scale Convex Optimization*, Dr. Michael Mühlebach  
   2023 Spring, 2024 Summer  
   Duties: exercises, tutorials, and exams
+
+- *Advanced Topics in Control*, Prof. Lars Lindemann  
+  2026 Spring  
+  Duties: exercises and tutorials  

@@ -15,7 +15,7 @@ Please see the Google Scholar [profile](https://scholar.google.com/citations?use
 
 - **Zhiyu He**, Saverio Bolognani, Florian Dörfler, Michael Muehlebach. Decision-Dependent Stochastic Optimization: The Role of Distribution Dynamics. *arXiv:2503.07324 [math.OC]*, 2025.  [[arxiv]](https://arxiv.org/pdf/2503.07324){:target="_blank"}  [[code]](https://github.com/zyhe/distribution-dynamics-opt){:target="_blank"}
 
-- Michael Muehlebach, **Zhiyu He**, Michael I. Jordan. The Sample Complexity of Online Reinforcement Learning: A Multi-Model Perspective. *arXiv:2501.15910 [cs.LG]*, 2025.  [[arxiv]](https://arxiv.org/pdf/2501.15910){:target="_blank"}
+- Michael Muehlebach, **Zhiyu He**, Michael I. Jordan. The Sample Complexity of Online Reinforcement Learning: A Multi-Model Perspective. *International Conference on Learning Representations*, 2026.  [[pdf]](https://openreview.net/pdf?id=xCelVyUVO2){:target="_blank"} [[arxiv]](https://arxiv.org/pdf/2501.15910){:target="_blank"}
 
 <div style="margin-top: 50px;"></div>
 
