@@ -30,9 +30,9 @@ In contrast, I and my collaborators formulate **distribution shifts as feedback 
 
 **Optimal steady-state operation** of an engineering system is critical. To this end, traditional numerical optimization relies on an exact problem formulation that encompasses system models and disturbance statistics. Such a feedforward pipeline, however, can be restrictive and suboptimal when accurate information on models and disturbances is unavailable.
 
-In contrast, the emerging paradigm of **feedback optimization** bypasses such information and fulfills autonomous optimality-seeking in closed loop. Along this line, we develop fully **model-free methods** that avoids accessing any model information by exploiting real-time evaluations of objective functions.
+In contrast, the emerging paradigm of **feedback optimization** bypasses such information and fulfills autonomous optimality-seeking in closed loop. Along this line, we develop fully **model-free methods** that avoid accessing any model information by exploiting real-time evaluations of objective functions.
 
-Interestingly, model-based and model-free methods own complementary benefits in sample efficiency and provable accuracy. We further propose **gray-box methods** that incorporate prior approximate knowledge to achieve the best of both worlds.
+Interestingly, model-based and model-free methods offer complementary benefits in sample efficiency and provable accuracy. We further propose **gray-box methods** that incorporate prior approximate knowledge to achieve the best of both worlds.
 
 ## Approximation-Enabled Distributed Optimization  
 
@@ -61,4 +61,4 @@ Together with my excellent collaborators and students (see my teaching [page](/t
 - online dynamic pricing in electrical distribution systems;
 - distributed and hierarchical decision-making in mobility systems.
 
-### <span style="margin-top: 40px; display: block;"> Please visit my publication <a href="/publications/"><span style="color: blue;">page</span></a> for more details</span>  
+### <span style="margin-top: 40px; display: block;"> Please visit my publications <a href="/publications/"><span style="color: blue;">page</span></a> for more details</span>  

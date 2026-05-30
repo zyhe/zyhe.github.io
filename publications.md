@@ -23,7 +23,7 @@ Please see the Google Scholar [profile](https://scholar.google.com/citations?use
 
 - **Zhiyu He**, Saverio Bolognani, Jianping He, Florian Dörfler, and Xinping Guan. Model-Free Nonlinear Feedback Optimization. *IEEE Transactions on Automatic Control*, 69(7), 2024.  [[pdf]](https://ieeexplore.ieee.org/document/10354356){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2201.02395){:target="_blank"}  [[code]](https://www.research-collection.ethz.ch/handle/20.500.11850/646002){:target="_blank"}
 
-- **Zhiyu He**, Saverio Bolognani, Michael Muehlebach, Florian Dörfler. Gray-Box Nonlinear Feedback Optimization. *arXiv:2404.04355 [math.OC]*, 2024.  [[arxiv]](https://arxiv.org/pdf/2404.04355){:target="_blank"}  [[code]](https://github.com/zyhe/Gray-box-nonlinear-feedback-optimization){:target="_blank"}
+- **Zhiyu He**, Saverio Bolognani, Michael Muehlebach, Florian Dörfler. Gray-Box Nonlinear Feedback Optimization. *IEEE Transactions on Automatic Control*, 2026. [[pdf]](https://ieeexplore.ieee.org/document/11517456){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2404.04355){:target="_blank"}  [[code]](https://github.com/zyhe/Gray-box-nonlinear-feedback-optimization){:target="_blank"}
 
 - Adrian Hauswirth, **Zhiyu He**, Saverio Bolognani, Gabriela Hug, and Florian Dörfler. Optimization algorithms as robust feedback controllers. *Annual Reviews in Control*, 57(100941), 2024.  [[pdf]](https://www.sciencedirect.com/science/article/pii/S1367578824000105){:target="_blank"}  [[arxiv]](https://arxiv.org/pdf/2103.11329){:target="_blank"}
 

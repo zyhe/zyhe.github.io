@@ -12,7 +12,7 @@ linkedin_username: zhiyu-he-ba518a225
 google_scholar_username: 6F5yIIEAAAAJ
 
 # Add your google-analytics ID here to activate google analytics
-google_analytics:   G-C0YTJSLE5C # out your google-analytics code
+google_analytics: G-C0YTJSLE5C # put the google-analytics code
 
 defaults:
   - scope:

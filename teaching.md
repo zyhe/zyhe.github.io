@@ -21,14 +21,14 @@ I am fortunate to work with many excellent students and am proud of their achiev
     <u>W. Chan*</u>, **Z. He**\*, K. Moffat, S. Bolognani, M. Muehlebach, and F. Dörfler, Robust Feedback Optimization with Model Uncertainty: A Regularization Approach, *64th IEEE Conference on Decision and Control*, 2025. [[arxiv]](https://arxiv.org/pdf/2503.24151){:target="_blank"}  
 
 - Christian Hartnik (ETH, MA, 2022), *Online Bayesian Optimization: A Closed-Loop Approach*  
-  co-supervised with Dr. Marta Zagorowska and Dr. Alisa Rupenyan
+  Co-supervised with Dr. Marta Zagorowska and Dr. Alisa Rupenyan
 
 ### Decision Dependence
 
 - Yuchen Cai (ETH, SA, 2026), *Stochastic Optimization with Network Distribution Dynamics*  
   
-- Lorenzo Calda (ETH, SA, 2026), *Games in Motion: Learning Equilibria in Metric Spaces*  
-  co-supervised with Dr. Stefania Gavrila-Ionescu  
+- Lorenzo Calda (ETH, SA, 2026), *Preference Dynamics of Users at the Confluence of Performative Recommender Systems*  
+  Co-supervised with Dr. Stefania Ionescu  
 
 ### Distributed Optimization and Network Systems
 
@@ -51,12 +51,13 @@ I am fortunate to work with many excellent students and am proud of their achiev
 
 - Jan Ghadamian (ETH, MA, 2025), *Hierarchical Decision-Making in Layered Urban Mobility Systems*  
   Co-supervised with Mingjia He  
-  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, 2025. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}
+  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, *European Control Conference*, 2026. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}
 
-- Jiarui Yu (Empa, MA, 2025), *Online dynamic pricing for electrical distribution systems*  
+- Jiarui Yu (EPFL & Empa, MA, 2025), *Online dynamic pricing for electrical distribution systems*  
   Co-supervised with Dr. Hanmin Cai and Wenbin Wang  
+  <u>J. Yu</u>, **Z. He**, W. Wang, C. N. Jones, F. Dörfler, H. Cai, Load Management of Distribution Systems via Online Dynamic Pricing, *arXiv:2605.26901 [eess.SY]*, 2026. [[arxiv]](https://arxiv.org/pdf/2605.26901){:target="_blank"}
 
-- Andrin Joos (ETH, BA, 2026), *Behind ride fares: Dynamic Pricing for Mobility Systems*  
+- Andrin Joos (ETH, BA, 2026), *Dynamic Pricing for Ride-Hailing Platforms*  
   Co-supervised with Dr. Xiaoyan Wang  
 
 ## Teaching Assistants
@@ -65,10 +66,10 @@ I am fortunate to work with many excellent students and am proud of their achiev
   2023 Fall, 2025 Fall  
   Duties: coding exercises, hands-on experiments, and exercise classes
 
-- *Large-Scale Convex Optimization*, Dr. Michael Mühlebach  
+- *Large-Scale Convex Optimization*, Dr. Michael Muehlebach  
   2023 Spring, 2024 Summer  
   Duties: exercises, tutorials, and exams
 
 - *Advanced Topics in Control*, Prof. Lars Lindemann  
   2026 Spring  
-  Duties: exercises and tutorials  
+  Duties: exercises, tutorials, and projects  
