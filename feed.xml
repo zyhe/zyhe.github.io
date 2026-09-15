@@ -1,4 +1,247 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zyhe.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zyhe.github.io/" rel="alternate" type="text/html" /><updated>2026-06-01T21:15:47+00:00</updated><id>https://zyhe.github.io/feed.xml</id><title type="html">Zhiyu He</title><subtitle>Homepage of Zhiyu He</subtitle><author><name>Zhiyu He</name></author><entry><title type="html">何必觅闲愁：斯佳丽的幻梦</title><link href="https://zyhe.github.io/2026/05/30/gone-with-the-wind.html" rel="alternate" type="text/html" title="何必觅闲愁：斯佳丽的幻梦" /><published>2026-05-30T08:00:00+00:00</published><updated>2026-05-30T08:00:00+00:00</updated><id>https://zyhe.github.io/2026/05/30/gone-with-the-wind</id><content type="html" xml:base="https://zyhe.github.io/2026/05/30/gone-with-the-wind.html"><![CDATA[<h1 id="何必觅闲愁斯佳丽的幻梦">何必觅闲愁：斯佳丽的幻梦</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zyhe.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zyhe.github.io/" rel="alternate" type="text/html" /><updated>2026-09-15T15:08:13+00:00</updated><id>https://zyhe.github.io/feed.xml</id><title type="html">Zhiyu He</title><subtitle>Homepage of Zhiyu He</subtitle><author><name>Zhiyu He</name></author><entry><title type="html">Random Matrix Theory</title><link href="https://zyhe.github.io/2026/09/15/random-matrix-theory.html" rel="alternate" type="text/html" title="Random Matrix Theory" /><published>2026-09-15T08:00:00+00:00</published><updated>2026-09-15T08:00:00+00:00</updated><id>https://zyhe.github.io/2026/09/15/random-matrix-theory</id><content type="html" xml:base="https://zyhe.github.io/2026/09/15/random-matrix-theory.html"><![CDATA[<h1 id="random-matrix-theory">Random Matrix Theory</h1>
+
+<p>Zhiyu He, September 15, 2026</p>
+
+<p>This note is adapted from the following sources:</p>
+<ul>
+  <li>Tropp, J. A. (2015). <em>An Introduction to Matrix Concentration Inequalities.</em> Foundations and Trends in Machine Learning, 8(1–2), 1–230. <a href="https://doi.org/10.1561/2200000048">doi</a> &amp; <a href="https://arxiv.org/pdf/1501.01571">pdf</a></li>
+  <li>Chen, Y. (2020). <em>Matrix Concentration Inequalities.</em> Lecture notes, Princeton University (ELE 520: Mathematics of High-Dimensional Data). <a href="https://yuxinchen2020.github.io/ele520_math_data/lectures/matrix_concentration.pdf">pdf</a></li>
+</ul>
+
+<hr />
+
+<h2 id="1-what-is-a-random-matrix-and-why-care">1. What Is a Random Matrix, and Why Care?</h2>
+
+<p>A random matrix is a matrix whose entries are drawn at random — say a symmetric \(\mathbf{X} \in \mathbb{R}^{d \times d}\) with \(X_{ij} = X_{ji} \sim \mathcal{N}(0,1)\) independent and identically distributed. Classical random matrix theory asks what the <em>spectrum</em> of such a matrix looks like, and answers in the <strong>asymptotic</strong> regime when \(d \to \infty\), where the empirical eigenvalue distribution converges to a limiting spectral density.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/fig_random_matrix.png" alt="Random matrix and its limiting spectral density" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>This tutorial takes a different route. Instead of examining one large matrix, we study a <strong>sum of independent random matrices</strong>,</p>
+
+\[\mathbf{S} = \sum_{k=1}^{n} \mathbf{X}_k \in \mathbb{R}^{d_1 \times d_2}, \qquad (\mathbf{X}_1, \ldots, \mathbf{X}_n) \ \text{independent},\]
+
+<p>and we ask for <strong>finite-sample</strong> (non-asymptotic) guarantees — bounds that hold for <em>every</em> \(n\) and \(d\), not only in the limit.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/fig_independent_sum.png" alt="Sum of independent random matrices" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>The object of interest is the deviation of \(\mathbf{S}\) from its expectation \(\mathbb{E}[\mathbf{S}]\), measured in the <strong>spectral norm</strong>. The key question is</p>
+
+\[\mathbb{P}\left\{ \|\mathbf{S} - \mathbb{E}[\mathbf{S}]\| \geq t \right\} \leq \ \underline{\quad \textbf{?} \quad}\]
+
+<p>There are three things to take away:</p>
+
+<ul>
+  <li><strong>Applications</strong> in statistics and machine learning;</li>
+  <li>The <strong>setup and guarantee</strong> of the matrix Bernstein inequality;</li>
+  <li>The <strong>proof</strong> for the basic case with a symmetric matrix.</li>
+</ul>
+
+<!-- **Warm up.** For a symmetric $$\mathbf{A} \in \mathbb{R}^{2 \times 2}$$ with eigendecomposition $$\mathbf{A} = \mathbf{U} \boldsymbol{\Lambda} \mathbf{U}^*$$,
+
+$$\mathbf{A} = \begin{bmatrix} -1 & 2 \\ 2 & -1 \end{bmatrix}, \qquad
+\mathbf{U} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}, \qquad
+\boldsymbol{\Lambda} = \begin{bmatrix} -3 & 0 \\ 0 & 1 \end{bmatrix},$$
+
+the spectral norm is $$\|\mathbf{A}\| = \max_i \lvert\lambda_i\rvert = 3$$ — the largest eigenvalue *in magnitude*, not the largest signed one. -->
+
+<hr />
+
+<h2 id="2-the-relevance-of-the-independent-sum-model">2. The Relevance of the Independent Sum Model</h2>
+
+<h3 id="sample-covariance-estimation">Sample covariance estimation</h3>
+
+<p>Let \(\mathbf{x}_1, \ldots, \mathbf{x}_n \in \mathbb{R}^{d}\) be i.i.d., zero mean, with unknown covariance \(\mathbf{C} = \mathbb{E}[\mathbf{x} \mathbf{x}^*]\). The empirical covariance</p>
+
+\[\hat{\mathbf{C}}_n = \frac{1}{n} \sum_{k=1}^{n} \mathbf{x}_k \mathbf{x}_k^*, \qquad \mathbb{E}[\hat{\mathbf{C}}_n] = \mathbf{C},\]
+
+<p>has error \(\hat{\mathbf{C}}_n - \mathbf{C} = \sum_{k=1}^{n} \mathbf{X}_k\) with \(\mathbf{X}_k = \tfrac{1}{n}(\mathbf{x}_k \mathbf{x}_k^* - \mathbf{C})\). This is an independent sum of centered matrices.</p>
+
+<p>The question is <em>how many samples guarantee \(\|\hat{\mathbf{C}}_n - \mathbf{C}\| \leq \varepsilon \|\mathbf{C}\|\)?</em></p>
+
+<h3 id="least-squares-with-random-data">Least squares with random data</h3>
+
+<p>Given i.i.d. data \((\mathbf{a}_k, y_k)_{k=1}^{n}\), the empirical risk and its Hessian are</p>
+
+\[\hat{f}_n(\mathbf{x}) = \frac{1}{2n} \sum_{k=1}^{n} (\mathbf{a}_k^* \mathbf{x} - y_k)^2,
+\qquad
+\hat{\mathbf{H}}_n \triangleq \nabla^2 \hat{f}_n(\mathbf{x}) = \frac{1}{n} \sum_{k=1}^{n} \mathbf{a}_k \mathbf{a}_k^*.\]
+
+<p>With the population Hessian \(\mathbf{H} = \mathbb{E}[\mathbf{a} \mathbf{a}^*]\) we again get \(\hat{\mathbf{H}}_n - \mathbf{H} = \sum_{k=1}^{n} \mathbf{X}_k\), \(\mathbf{X}_k = \tfrac{1}{n}(\mathbf{a}_k \mathbf{a}_k^* - \mathbf{H})\). Controlling this deviation means the empirical problem inherits the curvature of the population one.</p>
+
+<p><em>How many samples ensure \(\|\hat{\mathbf{H}}_n - \mathbf{H}\| \leq \varepsilon \|\mathbf{H}\|\)?</em></p>
+
+<h3 id="randomized-matrix-multiplication">Randomized matrix multiplication</h3>
+
+<p>Computing \(\mathbf{A} \mathbf{B}\) with \(\mathbf{A} \in \mathbb{R}^{d_1 \times N}\), \(\mathbf{B} \in \mathbb{R}^{N \times d_2}\) costs \(\mathcal{O}(N d_1 d_2)\). This operation can become prohibitive when the inner dimension \(N\) is huge. The column–row view</p>
+
+\[\mathbf{A} \mathbf{B} = \sum_{i=1}^{N} \mathbf{a}_i \mathbf{b}_i^*\]
+
+<p>writes the product as a sum of \(N\) rank-one terms, so we may keep only \(n \ll N\) <strong>sampled</strong> terms.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/fig_colrow.png" alt="Column-row view of the matrix product" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>Sample indices \(i_1, \ldots, i_n\) i.i.d. with \(\mathbb{P}(i_k = j) = p_j\), then reweight to stay unbiased:</p>
+
+\[\mathbf{M}_{i_k} = \frac{1}{p_{i_k}} \mathbf{a}_{i_k} \mathbf{b}_{i_k}^*, \qquad
+\hat{\mathbf{M}}_n = \frac{1}{n} \sum_{k=1}^{n} \mathbf{M}_{i_k}, \qquad
+\mathbb{E}[\hat{\mathbf{M}}_n] = \mathbf{A} \mathbf{B}.\]
+
+<p>This is once more an independent sum, now at cost \(\mathcal{O}(n d_1 d_2)\).</p>
+
+<p>The question is again <em>how many samples \(n \ll N\) suffice for a given accuracy?</em></p>
+
+<h3 id="the-common-structure">The common structure</h3>
+
+<p>All three problems share the model \(\mathbf{S} = \sum_{k=1}^{n} \mathbf{X}_k\) with independent summands, and all three ask for \(\|\mathbf{S} - \mathbb{E}[\mathbf{S}]\|\) in spectral norm.</p>
+
+<p>In the scalar case \(d_1 = d_2 = 1\) the answer is the classical Bernstein inequality, whose tail is driven by the variance \(\sum_k \operatorname{Var}(X_k)\); the matrix case needs a matrix analogue of that variance. The similar machinery extends beyond independence, e.g. to matrix martingales with \(\mathbb{E}[\mathbf{X}_{k+1} \mid \mathbf{X}_1, \ldots, \mathbf{X}_k] = \mathbf{X}_k\).</p>
+
+<hr />
+
+<h2 id="3-the-matrix-bernstein-inequality">3. The Matrix Bernstein Inequality</h2>
+
+<p>Let \(\mathbf{X}_1, \ldots, \mathbf{X}_n \in \mathbb{R}^{d \times d}\) be independent and symmetric — they may follow <em>different</em> distributions — with</p>
+
+\[\mathbb{E}[\mathbf{X}_k] = \mathbf{0}, \qquad \|\mathbf{X}_k\| \leq B, \qquad
+v \triangleq \Big\|\mathbb{E}\Big[\sum_{k} \mathbf{X}_k^2\Big]\Big\|, \qquad
+\mathbf{S} = \sum_{k=1}^{n} \mathbf{X}_k.\]
+
+<blockquote style="background:#f4f7fa; border-left:4px solid #0085A1; padding:1.25rem 1.5rem; border-radius:4px; margin:1rem 0; color:#212529; font-style:normal;">
+  <p><strong>Matrix Bernstein (symmetric case).</strong> For all \(t \geq 0\),</p>
+
+\[\begin{align*}
+\mathbb{P}\{\lambda_{\max}(\mathbf{S}) &amp;\geq t\} \leq d \exp\left(\frac{-t^2/2}{v + Bt/3}\right), \\
+\mathbb{E}\, \lambda_{\max}(\mathbf{S}) &amp;\leq \sqrt{2 v \log d} + \tfrac{1}{3} B \log d.
+\end{align*}\]
+</blockquote>
+
+<p>Two quantities shape the bound: the <strong>matrix variance statistic</strong> \(v\) and the <strong>problem dimension</strong> \(d\), the latter entering only logarithmically in expectation.</p>
+
+<p>The bound interpolates between two tail behaviors, with the crossover at \(t \approx v/B\):</p>
+
+\[\mathbb{P}\{\lambda_{\max}(\mathbf{S}) \geq t\} \lesssim
+\begin{cases}
+d \exp\big(-t^2/(2v)\big), &amp; t \ll v/B \quad \text{(Gaussian tail)} \\[.4em]
+d \exp\big(-t/B\big),      &amp; t \gg v/B \quad \text{(exponential tail)}
+\end{cases}\]
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/fig_tails.png" alt="Gaussian core and exponential tails" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>Small deviations are governed by the variance statistic \(v\); large deviations by the uniform bound \(B\).</p>
+
+<hr />
+
+<h2 id="4-application-randomized-matrix-multiplication">4. Application: Randomized Matrix Multiplication</h2>
+
+<p>Return to \(\hat{\mathbf{M}}_n\) and choose the sampling probabilities proportional to squared norms,</p>
+
+\[p_j = \frac{\|\mathbf{a}_j\|^2 + \|\mathbf{b}_j\|^2}{\|\mathbf{A}\|_{\mathrm{F}}^2 + \|\mathbf{B}\|_{\mathrm{F}}^2}, \quad j = 1, \ldots, N,\]
+
+<p>which costs only \(\mathcal{O}(N(d_1 + d_2))\) to form. Normalize \(\|\mathbf{A}\| = \|\mathbf{B}\| = 1\) and define the <strong>average stable rank</strong></p>
+
+\[\operatorname{asr} \triangleq \tfrac{1}{2}\big(\operatorname{srank}(\mathbf{A}) + \operatorname{srank}(\mathbf{B})\big), \qquad
+\operatorname{srank}(\mathbf{X}) = \frac{\|\mathbf{X}\|_{\mathrm{F}}^2}{\|\mathbf{X}\|^2} \leq \operatorname{rank}(\mathbf{X}).\]
+
+<p>The Bernstein parameters then satisfy \(\|\mathbf{M}_j\| \leq \operatorname{asr}\) and \(v(\mathbf{M}_j) \leq 2\operatorname{asr}\), so with \(d \triangleq d_1 + d_2\),</p>
+
+\[\mathbb{E}\,\|\hat{\mathbf{M}}_n - \mathbf{A} \mathbf{B}\| \leq \sqrt{\frac{4 \operatorname{asr} \log d}{n}} + \frac{2 \operatorname{asr} \log d}{3 n}.\]
+
+<p>Consequently \(n \geq \varepsilon^{-2} \cdot \operatorname{asr} \cdot \log d\) samples give \(\mathbb{E}\|\hat{\mathbf{M}}_n - \mathbf{A}\mathbf{B}\| \leq 2\varepsilon + \tfrac{2}{3}\varepsilon^2\). The <strong>stable rank replaces the inner dimension \(N\)</strong>, for a total cost \(\mathcal{O}(\varepsilon^{-2} \operatorname{asr} d_1 d_2 \log d)\).</p>
+
+<h3 id="numerical-experiments">Numerical experiments</h3>
+
+<p>Take \(\mathbf{A} \in \mathbb{R}^{80 \times 4000}\) and \(\mathbf{B} \in \mathbb{R}^{4000 \times 60}\) with \(\|\mathbf{A}\| = \|\mathbf{B}\| = 1\) and \(d = 140\). Here \(\operatorname{srank}(\mathbf{A}) = \operatorname{srank}(\mathbf{B}) = 9.6\), so \(\operatorname{asr} = 9.6 \ll N = 4000\) — the regime where sampling pays off. Each trial draws \(n\) index pairs with \(p_j \propto \|\mathbf{a}_j\|^2 + \|\mathbf{b}_j\|^2\), reweights by \(1/(n p_j)\), and averages.</p>
+
+<p><em>Try it yourself:</em> fill in <code class="language-plaintext highlighter-rouge">rand_matmul(A, B, n, p, rng)</code> and run the code in <a href="https://colab.research.google.com/drive/1ET9YarT---UeYfj2YZ_lUhHkl7rO33Do?usp=sharing">Google Colab</a>.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/error_vs_n.png" alt="Error versus sample size" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>The estimation error follows the predicted \(n^{-1/2}\) rate; the bound is loose only in the constant.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/error_distribution.png" alt="Distribution of the error over 800 trials" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>Across 800 trials at \(n = 250\), the error is sharply concentrated — exactly what a matrix concentration inequality promises.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/error_heatmap.png" alt="Heatmap of the true product and its estimate" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>At \(n = 1000\) the estimate already reproduces \(\mathbf{A}\mathbf{B}\) closely, entry by entry.</p>
+
+<p><img src="/img/posts/2026-9-15-random-matrix-theory/wall_clock_times.png" alt="Accuracy versus wall-clock time" style="display:block; max-width:90%; height:auto; margin:2rem auto;" /></p>
+
+<p>With \(N = 50\,000\), choosing \(n = 228\) (0.5% of the terms) runs about \(18\times\) faster at error \(0.23\).</p>
+
+<hr />
+
+<h2 id="5-proof-ideas">5. Proof Ideas</h2>
+
+<p>The proof follows the scalar Chernoff recipe</p>
+
+\[\mathbb{P}\{S \geq t\} \leq e^{-\theta t} \prod_{k} \mathbb{E}[e^{\theta X_k}], \qquad \forall \theta &gt; 0,\]
+
+<p>but the product rule <strong>fails</strong> for matrices, since \(e^{\mathbf{A} + \mathbf{B}} \neq e^{\mathbf{A}} e^{\mathbf{B}}\) in general. The fix runs in four steps: a trace matrix moment generating function, subadditivity in place of the product rule, a moment bound per summand, and optimization over \(\theta\).</p>
+
+<h3 id="step-1-matrix-laplace-transform">Step 1: Matrix Laplace transform</h3>
+
+\[\mathbb{P}\{\lambda_{\max}(\mathbf{S}) \geq t\} \leq e^{-\theta t}\, \mathbb{E}\operatorname{Tr} e^{\theta \mathbf{S}}, \qquad \forall \theta &gt; 0.\]
+
+<p>The proof is as follows
+\(\begin{aligned}
+\mathbb{P}\{\lambda_{\max}(\mathbf{S}) \geq t\}
+&amp;= \mathbb{P}\{e^{\theta \lambda_{\max}(\mathbf{S})} \geq e^{\theta t}\}
+&amp;&amp; x \mapsto e^{\theta x} \text{ increasing} \\
+&amp;\leq e^{-\theta t}\, \mathbb{E}\big[e^{\theta \lambda_{\max}(\mathbf{S})}\big]
+&amp;&amp; \text{Markov's inequality} \\
+&amp;= e^{-\theta t}\, \mathbb{E}\big[e^{\lambda_{\max}(\theta \mathbf{S})}\big]
+&amp;&amp; \theta \lambda_{\max}(\mathbf{S}) = \lambda_{\max}(\theta \mathbf{S}) \\
+&amp;= e^{-\theta t}\, \mathbb{E}\big[\lambda_{\max}(e^{\theta \mathbf{S}})\big]
+&amp;&amp; \text{spectral mapping} \\
+&amp;\leq e^{-\theta t}\, \mathbb{E}\big[\operatorname{Tr} e^{\theta \mathbf{S}}\big]
+&amp;&amp; \lambda_{\max}(\mathbf{M}) \leq \operatorname{Tr}\mathbf{M},\ \mathbf{M} \succ 0
+\end{aligned}\)</p>
+
+<p>Bounding the trace in the other direction, \(\operatorname{Tr}\mathbf{M} \leq d\,\lambda_{\max}(\mathbf{M})\), is where the dimensional factor \(d\) enters the final result.</p>
+
+<h3 id="step-2-subadditivity">Step 2: Subadditivity</h3>
+
+<p><strong>Lieb (1973).</strong> The map \(\mathbf{A} \mapsto \operatorname{Tr}\exp(\mathbf{H} + \log \mathbf{A})\) is <em>concave</em> on positive definite \(\mathbf{A}\).</p>
+
+<p>Combined with Jensen’s inequality, this replaces the failed product rule:</p>
+
+\[\mathbb{E}\big[\operatorname{Tr} e^{\theta \mathbf{S}}\big] = \mathbb{E}\Big[\operatorname{Tr} e^{\theta \sum_{k=1}^n \mathbf{X}_k}\Big] \leq
+\operatorname{Tr} \exp\Big(\sum_{k=1}^{n} \log \mathbb{E}\big[e^{\theta \mathbf{X}_k}\big]\Big).\]
+
+<h3 id="step-3-one-summand-at-a-time">Step 3: One summand at a time</h3>
+
+<p>For \(\mathbb{E}[\mathbf{X}] = \mathbf{0}\), \(\|\mathbf{X}\| \leq B\) and \(0 &lt; \theta &lt; 3/B\), a scalar bound plus the spectral theorem give</p>
+
+\[\log \mathbb{E}\big[e^{\theta \mathbf{X}}\big] \preccurlyeq \mathbb{E}\big[e^{\theta \mathbf{X}}\big] - \mathbf{I} \preccurlyeq g(\theta)\, \mathbb{E}[\mathbf{X}^2], \qquad
+g(\theta) = \frac{\theta^2/2}{1 - \theta B/3}.\]
+
+<p>Only two features of each summand are used: the uniform bound \(B\) and the second moment \(\mathbb{E}[\mathbf{X}^2]\).</p>
+
+<h3 id="step-4-assemble-and-optimize">Step 4: Assemble and optimize</h3>
+
+\[\mathbb{P}\{\lambda_{\max}(\mathbf{S}) \geq t\} \leq
+e^{-\theta t}\operatorname{Tr}\exp\Big(g(\theta) \sum_{k} \mathbb{E}[\mathbf{X}_k^2]\Big) \leq
+d\, e^{-\theta t} \exp\big(g(\theta) v\big).\]
+
+<p>Choosing \(\theta_\star = t / (v + Bt/3)\) yields the stated inequality</p>
+
+\[\mathbb{P}\{\lambda_{\max}(\mathbf{S}) \geq t\} \leq d \exp\left(\frac{-t^2/2}{v + Bt/3}\right).\]
+
+<hr />
+
+<h2 id="key-messages">Key Messages</h2>
+
+<ul>
+  <li>Matrix concentration gives <strong>non-asymptotic</strong> bounds, valid for every \(n\) and \(d\).</li>
+  <li>One independent-sum model covers covariance estimation, empirical Hessians, and randomized matrix multiplication.</li>
+  <li>The proof runs through the matrix moment generating function, with Lieb’s theorem replacing the scalar product rule.</li>
+</ul>
+
+<p><strong>Further reading.</strong> Tropp, J. A. (2015). <em>An introduction to matrix concentration inequalities.</em> Foundations and Trends in Machine Learning.</p>
+
+<!-- *Source: [Tutorial.tex](../Slides/Tutorial.tex)* -->]]></content><author><name>Zhiyu He</name></author><summary type="html"><![CDATA[Random Matrix Theory]]></summary></entry><entry><title type="html">何必觅闲愁：斯佳丽的幻梦</title><link href="https://zyhe.github.io/2026/05/30/gone-with-the-wind.html" rel="alternate" type="text/html" title="何必觅闲愁：斯佳丽的幻梦" /><published>2026-05-30T08:00:00+00:00</published><updated>2026-05-30T08:00:00+00:00</updated><id>https://zyhe.github.io/2026/05/30/gone-with-the-wind</id><content type="html" xml:base="https://zyhe.github.io/2026/05/30/gone-with-the-wind.html"><![CDATA[<h1 id="何必觅闲愁斯佳丽的幻梦">何必觅闲愁：斯佳丽的幻梦</h1>
 
 <p>何志宇 2026年5月30日</p>
 
@@ -644,7 +887,7 @@ $n$ independent bandit processes $B_i, i=1,\ldots,N$</p>
     <p>High-level idea<br />
 (i) Construct an upper bound; (ii) show that this upper bound can be attained<br />
 Abstract example<br />
-Suppose that we have two functions $f,g$ such that $f(\pi) \leq g(\pi), \forall \pi$. If we find a policy $\pi^<em>$ such that $f(\pi^</em>) = g(\pi^<em>)$ and $g(\pi) \leq g(\pi^</em>), \forall \pi$, then $\pi^*$ maximizes $f(\pi)$</p>
+Suppose that we have two functions $f,g$ such that $f(\pi) \leq g(\pi), \forall \pi$. If we find a policy \(\pi^*\) such that \(f(\pi^*) = g(\pi^*)\) and \(g(\pi) \leq g(\pi^*), \forall \pi\), then $\pi^*$ maximizes $f(\pi)$</p>
   </li>
   <li>
     <p>Prevailing charge $g_i(x_i)$: fixed charge that we pay to continue playing the bandit $i$ at state $x_i$<br />
