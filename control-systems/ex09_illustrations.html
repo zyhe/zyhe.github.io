@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exercise 9 Illustrations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one tabbed page; each tab = short notes + controls on the left, live canvases on the right, stacking on phones. */
+:root{
+  --bg:#f4f6f8; --panel:#ffffff; --fg:#1b2330; --muted:#5d6878; --line:#d5dbe3; --grid:#e8ebf0;
+  --in:#1f5fa8; --out:#d9552a; --exact:#d9552a; --ok:#1f8a4c; --bad:#c62828;
+  --e1:#2a9d8f; --e2:#1f5fa8; --e3:#5a8f2a; --e4:#7a3fb5; --s1:#2a9d8f; --s2:#b08a1e;
+  --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13171e; --panel:#1b2029; --fg:#e7eaef; --muted:#9ba6b5; --line:#2f3844; --grid:#262d38;
+    --in:#73a9ec; --out:#f28a60; --exact:#f28a60; --ok:#4fcd82; --bad:#ff6f6f;
+    --e1:#5fd3c4; --e2:#73a9ec; --e3:#9bd35a; --e4:#c48ff2; --s1:#5fd3c4; --s2:#e0bb55;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13171e; --panel:#1b2029; --fg:#e7eaef; --muted:#9ba6b5; --line:#2f3844; --grid:#262d38;
+  --in:#73a9ec; --out:#f28a60; --exact:#f28a60; --ok:#4fcd82; --bad:#ff6f6f;
+  --e1:#5fd3c4; --e2:#73a9ec; --e3:#9bd35a; --e4:#c48ff2; --s1:#5fd3c4; --s2:#e0bb55;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.wrap{max-width:1180px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-bottom:12px}
+header h1{font-size:22px;margin:0;font-weight:700;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+nav.tabs button{font:600 14px var(--sans);padding:7px 12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:6px;cursor:pointer}
+nav.tabs button:hover{border-color:var(--muted)}
+nav.tabs button:focus-visible{outline:2px solid var(--in);outline-offset:2px}
+nav.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.panel{display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:840px){.panel{grid-template-columns:1fr}}
+.notes{display:grid;gap:12px;min-width:0}
+.notes p{margin:0}
+.notes h2{font-size:17px;margin:0;font-weight:700}
+.key{border-left:3px solid var(--in);padding-left:10px;color:var(--fg)}
+.small{font-size:13.5px;color:var(--muted)}
+.plots{min-width:0;display:grid;gap:14px}
+canvas{width:100%;max-width:100%;display:block;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.tall{height:540px}.mid{height:300px}.sq{height:270px}.two{height:430px}
+.ctl{display:grid;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.ctl label.row{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ctl label.row input{margin:0}
+.ctl .sw{display:inline-block;width:14px;height:3px;border-radius:2px;flex:none}
+.ctl .what{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-left:auto;text-align:right}
+input[type=range]{width:100%;accent-color:var(--in)}
+.readout{font-family:var(--mono);font-size:13px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;white-space:pre-wrap;font-variant-numeric:tabular-nums}
+.m{font-family:var(--mono);font-size:13.5px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:var(--mono);font-size:13px;line-height:1.25;margin:0 2px}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 3px}
+.frac>span:last-child{padding:0 3px}
+.mat{display:inline-grid;grid-auto-flow:column;gap:0 8px;font-family:var(--mono);font-size:13px;padding:0 5px;border-left:1.5px solid currentColor;border-right:1.5px solid currentColor;border-radius:4px;vertical-align:middle;line-height:1.3}
+.mat span{display:grid}
+.pill{display:inline-block;font:600 12px var(--sans);padding:2px 8px;border-radius:999px;color:#fff}
+.pill.ok{background:var(--ok)}.pill.bad{background:var(--bad)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+<style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Control Systems I · Exercise 9</span>
+  <h1>I/O maps and the frequency domain</h1>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="t1">1 · Bode sketch</button>
+  <button role="tab" aria-selected="false" data-tab="t2">2 · Sinusoid in, sinusoid out</button>
+  <button role="tab" aria-selected="false" data-tab="t3">3 · What a zero does</button>
+  <button role="tab" aria-selected="false" data-tab="t4">4 · BIBO vs. internal</button>
+  <button role="tab" aria-selected="false" data-tab="t5">5 · Feedback gain K</button>
+</nav>
+
+<!-- ============ TAB 1: BODE ============ -->
+<section class="panel" id="t1">
+  <div class="notes">
+    <h2>Task 9.1 · Sketch the Bode plot</h2>
+    <p class="m">G(s) = <span class="frac"><span>0.1s + 1</span><span>s (s+1) (0.02s+1)²</span></span></p>
+    <p class="key">Magnitude in dB and phase are both <b>additive</b>. Sketch each standard element, then add the straight lines.</p>
+    <div class="ctl">
+      <label class="row"><input type="checkbox" id="el-int" checked><span class="sw" style="background:var(--e1)"></span><span class="m">1 / s</span><span class="what">−20 dB/dec, −90°</span></label>
+      <label class="row"><input type="checkbox" id="el-p1" checked><span class="sw" style="background:var(--e2)"></span><span class="m">1 / (s+1)</span><span class="what">pole, ω<sub>c</sub> = 1</span></label>
+      <label class="row"><input type="checkbox" id="el-z10" checked><span class="sw" style="background:var(--e3)"></span><span class="m">0.1s + 1</span><span class="what">zero, ω<sub>c</sub> = 10</span></label>
+      <label class="row"><input type="checkbox" id="el-p50" checked><span class="sw" style="background:var(--e4)"></span><span class="m">1 / (0.02s+1)²</span><span class="what">double pole, ω<sub>c</sub> = 50</span></label>
+      <hr style="border:0;border-top:1px solid var(--line);margin:2px 0">
+      <label class="row"><input type="checkbox" id="showEl" checked>Show each element's asymptote</label>
+      <label class="row"><input type="checkbox" id="showExact">Show exact curve (Python check)</label>
+    </div>
+    <div class="ctl">
+      <label for="w1">Cursor ω = <b id="w1v">1</b> rad/s</label>
+      <input type="range" id="w1" min="-2" max="3" step="0.01" value="0">
+    </div>
+    <div class="readout" id="read1"></div>
+    <p class="small">Rules used: pole at ω<sub>c</sub> → slope −20 dB/dec above ω<sub>c</sub>, phase 0° → −90° between ω<sub>c</sub>/10 and 10ω<sub>c</sub>. Zero: the opposite sign. Integrator: −20 dB/dec everywhere, 0 dB at ω = 1, phase −90° everywhere.</p>
+  </div>
+  <div class="plots">
+    <canvas id="c1" class="tall"></canvas>
+    <div class="legend"><span style="--c:var(--fg)">sum of asymptotes (your sketch)</span><span style="--c:var(--exact)">exact |G(iω)|, arg G(iω)</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 2: FREQUENCY RESPONSE ============ -->
+<section class="panel" id="t2" hidden>
+  <div class="notes">
+    <h2>What a point on the Bode plot means</h2>
+    <p class="key">Send a sinusoid into an asymptotically stable LTI system. Once the transient has died out, the output is a sinusoid at the <b>same frequency</b>, with amplitude |G(iω)| and phase shift arg G(iω).</p>
+    <p class="m">G(s) = <span class="frac"><span>1</span><span>s² + 0.6s + 1</span></span>&nbsp; u(t) = sin(ωt)</p>
+    <div class="ctl">
+      <label for="w2">ω = <b id="w2v">1</b> rad/s</label>
+      <input type="range" id="w2" min="-1" max="1" step="0.01" value="0">
+      <label class="row"><input type="checkbox" id="showTrans" checked>Show the transient (simulate from x(0) = 0)</label>
+    </div>
+    <div class="readout" id="read2"></div>
+    <p class="small">The Bode plot is a catalogue of such experiments, one per frequency. The steady-state formula needs asymptotic stability; for an unstable system the Bode plot is only a plot of the complex function G(iω).</p>
+  </div>
+  <div class="plots">
+    <canvas id="c2a" class="mid"></canvas>
+    <canvas id="c2b" class="mid"></canvas>
+    <div class="legend"><span style="--c:var(--in)">input u(t)</span><span style="--c:var(--out)">output y(t), simulated</span><span style="--c:var(--muted)">steady-state |G| sin(ωt + φ)</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 3: ZEROS ============ -->
+<section class="panel" id="t3" hidden>
+  <div class="notes">
+    <h2>Task 9.2 · Poles, zeros, and a blocked input</h2>
+    <p class="m">A = <span class="mat"><span><i>0</i><i>0</i></span><span><i>1</i><i>−2</i></span></span>&nbsp; B = <span class="mat"><span><i>0</i><i>1</i></span></span>&nbsp; C = <span class="mat"><span><i>1</i></span><span><i>1</i></span></span>&nbsp; D = 0</p>
+    <p class="m">G(s) = C(sI−A)<sup>−1</sup>B = <span class="frac"><span>s + 1</span><span>s (s + 2)</span></span></p>
+    <p>Poles at 0 and −2 (eigenvalues of A), zero at −1. The input u(t) = 5e<sup>−t</sup> has U(s) = 5/(s+1): its pole sits exactly on the zero.</p>
+    <p class="key">A zero at s = z means the input e<sup>zt</sup> can be <b>completely blocked</b>: with the right initial state the states move, but the output stays zero.</p>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="x0" value="a" checked>x(0) = [0, 0]ᵀ &nbsp;(part iii)</label>
+      <label class="row"><input type="radio" name="x0" value="b">x(0) = [−5, 5]ᵀ &nbsp;(part iv)</label>
+    </div>
+    <div class="readout" id="read3"></div>
+  </div>
+  <div class="plots">
+    <canvas id="c3a" class="mid"></canvas>
+    <canvas id="c3b" class="sq"></canvas>
+    <div class="legend"><span style="--c:var(--s1)">x₁(t)</span><span style="--c:var(--s2)">x₂(t)</span><span style="--c:var(--in)">u(t) = 5e<sup>−t</sup></span><span style="--c:var(--out)">y(t) = x₁ + x₂</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 4: BIBO ============ -->
+<section class="panel" id="t4" hidden>
+  <div class="notes">
+    <h2>Task 9.3 iv, v · BIBO vs. internal stability</h2>
+    <p class="key"><b>Internal</b> stability: eigenvalues of A. <b>BIBO</b> stability: poles of G(s). They agree unless an unstable pole is <b>cancelled</b> by a zero, which hides it from the output.</p>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="sys4" value="iv" checked>System (iv)</label>
+      <p class="m" style="margin-left:22px">A = <span class="mat"><span><i>−1</i><i>0</i></span><span><i>2</i><i>1</i></span></span> B = <span class="mat"><span><i>0</i><i>−1</i></span></span> C = <span class="mat"><span><i>−1</i></span><span><i>3</i></span></span> → G(s) = −<span class="frac"><span>3s + 1</span><span>(s+1)(s−1)</span></span></p>
+      <label class="row"><input type="radio" name="sys4" value="v">System (v)</label>
+      <p class="m" style="margin-left:22px">A = <span class="mat"><span><i>−1</i><i>5</i></span><span><i>0</i><i>1</i></span></span> B = <span class="mat"><span><i>1</i><i>1</i></span></span> C = <span class="mat"><span><i>1</i></span><span><i>0</i></span></span> → G(s) = <span class="frac"><span>s − 1</span><span>(s+1)(s−1)</span></span> = <span class="frac"><span>1</span><span>s + 1</span></span></p>
+    </div>
+    <div class="readout" id="read4"></div>
+    <p class="small">Shown: impulse response, i.e. u = δ(t), which is the same as u = 0 with x(0) = B.</p>
+  </div>
+  <div class="plots">
+    <canvas id="c4a" class="two"></canvas>
+    <canvas id="c4b" class="sq"></canvas>
+    <div class="legend"><span style="--c:var(--s1)">x₁(t)</span><span style="--c:var(--s2)">x₂(t)</span><span style="--c:var(--out)">y(t)</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 5: FEEDBACK ============ -->
+<section class="panel" id="t5" hidden>
+  <div class="notes">
+    <h2>Task 9.5 · Negative feedback with G<sub>R</sub>(s) = K</h2>
+    <p class="m">closed loop: <span class="frac"><span>K G<sub>P</sub>(s)</span><span>1 + K G<sub>P</sub>(s)</span></span>&nbsp; poles: 1 + K G<sub>P</sub>(s) = 0</p>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="plant" value="oven" checked>Oven &nbsp;<span class="m">G<sub>P</sub>(s) = 0.01 / (s + 0.01)</span></label>
+      <label class="row"><input type="radio" name="plant" value="third">Plant &nbsp;<span class="m">G<sub>P</sub>(s) = (s+1) / (s²(s+9))</span></label>
+    </div>
+    <div class="ctl">
+      <label for="k5">K = <b id="k5v">9</b></label>
+      <input type="range" id="k5" min="0" max="20" step="0.5" value="9">
+    </div>
+    <div class="readout" id="read5"></div>
+    <p class="key" id="key5"></p>
+  </div>
+  <div class="plots">
+    <canvas id="c5b" class="mid"></canvas>
+    <canvas id="c5a" class="sq"></canvas>
+    <div class="legend"><span style="--c:var(--out)">y(t) for a unit step r(t) = 1</span><span style="--c:var(--muted)">open-loop poles (faint ×) and zero (○)</span><span style="--c:var(--fg)">closed-loop poles (×)</span></div>
+  </div>
+</section>
+</div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const PI=Math.PI, log10=Math.log10;
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=v=>Number.isInteger(v)?String(v):String(+v.toPrecision(3));
+const f1=v=>(Math.round(v*10)/10).toFixed(1), f2=v=>(Math.round(v*100)/100).toFixed(2);
+const deg=r=>r*180/PI;
+function logspace(a,b,n){const r=[];for(let i=0;i<n;i++)r.push(10**(log10(a)+(log10(b)-log10(a))*i/(n-1)));return r;}
+function range(a,b,s){const r=[];for(let v=a;v<=b+1e-9;v+=s)r.push(+v.toFixed(10));return r;}
+function rk4(f,x0,t0,t1,n){const dt=(t1-t0)/n,T=[t0],X=[x0.slice()];let x=x0.slice(),t=t0;
+  const ad=(x,k,h)=>x.map((v,i)=>v+h*k[i]);
+  for(let i=0;i<n;i++){const k1=f(t,x),k2=f(t+dt/2,ad(x,k1,dt/2)),k3=f(t+dt/2,ad(x,k2,dt/2)),k4=f(t+dt,ad(x,k3,dt));
+    x=x.map((xi,j)=>xi+dt/6*(k1[j]+2*k2[j]+2*k3[j]+k4[j]));t+=dt;T.push(t);X.push(x);}
+  return {t:T,x:X};}
+const cmul=(a,b)=>[a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]];
+const cdiv=(a,b)=>{const d=b[0]*b[0]+b[1]*b[1];return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d];};
+function roots(c){ // c = [1, a_{n-1}, ..., a_0]; Durand–Kerner
+  const n=c.length-1;let z=[];for(let i=0;i<n;i++){const a=2*PI*i/n+0.4;z.push([0.9*Math.cos(a),0.9*Math.sin(a)]);}
+  const pe=x=>{let r=[c[0],0];for(let i=1;i<=n;i++)r=[r[0]*x[0]-r[1]*x[1]+c[i],r[0]*x[1]+r[1]*x[0]];return r;};
+  for(let it=0;it<500;it++){let md=0;const nz=z.map((zi,i)=>{let den=[1,0];z.forEach((zj,j)=>{if(j!==i)den=cmul(den,[zi[0]-zj[0],zi[1]-zj[1]]);});
+    const d=cdiv(pe(zi),den);md=Math.max(md,Math.hypot(d[0],d[1]));return [zi[0]-d[0],zi[1]-d[1]];});z=nz;if(md<1e-13)break;}
+  return z.map(r=>[r[0],Math.abs(r[1])<1e-7?0:r[1]]);}
+
+/* ---------- tiny canvas chart ---------- */
+class Chart{
+  constructor(cv){this.cv=cv;this.ctx=cv.getContext('2d');}
+  begin(){const dpr=window.devicePixelRatio||1,r=this.cv.getBoundingClientRect();this.w=Math.max(10,r.width);this.h=Math.max(10,r.height);
+    const pw=Math.round(this.w*dpr),ph=Math.round(this.h*dpr);if(this.cv.width!==pw||this.cv.height!==ph){this.cv.width=pw;this.cv.height=ph;}
+    this.ctx.setTransform(dpr,0,0,dpr,0,0);this.ctx.clearRect(0,0,this.w,this.h);}
+  axes(box,a){this.box=box;this.a=a;const c=this.ctx;c.font='12px '+cssVar('--mono');c.lineWidth=1;c.strokeStyle=cssVar('--grid');c.fillStyle=cssVar('--muted');
+    c.textAlign='center';c.textBaseline='top';
+    for(const t of a.xticks||[]){const v=typeof t==='object'?t.v:t,l=typeof t==='object'?t.l:fmt(v);const x=this.X(v);c.beginPath();c.moveTo(x,box.y);c.lineTo(x,box.y+box.h);c.stroke();c.fillText(l,x,box.y+box.h+4);}
+    c.textAlign='right';c.textBaseline='middle';
+    for(const t of a.yticks||[]){const v=typeof t==='object'?t.v:t,l=typeof t==='object'?t.l:fmt(v);const y=this.Y(v);c.beginPath();c.moveTo(box.x,y);c.lineTo(box.x+box.w,y);c.stroke();c.fillText(l,box.x-6,y);}
+    c.strokeStyle=cssVar('--line');c.strokeRect(box.x+.5,box.y+.5,box.w,box.h);
+    c.fillStyle=cssVar('--muted');
+    if(a.xlabel){c.textAlign='right';c.textBaseline='top';c.fillText(a.xlabel,box.x+box.w,box.y+box.h+18);}
+    if(a.ylabel){c.textAlign='right';c.textBaseline='bottom';c.fillText(a.ylabel,box.x+box.w,box.y-5);}
+    if(a.title){c.fillStyle=cssVar('--fg');c.font='600 13px '+cssVar('--sans');c.textAlign='left';c.textBaseline='bottom';c.fillText(a.title,box.x,box.y-5);}}
+  X(x){const a=this.a,b=this.box;const f=a.xlog?(log10(x)-log10(a.xmin))/(log10(a.xmax)-log10(a.xmin)):(x-a.xmin)/(a.xmax-a.xmin);return b.x+f*b.w;}
+  Y(y){const a=this.a,b=this.box;return b.y+b.h-(y-a.ymin)/(a.ymax-a.ymin)*b.h;}
+  clip(){const c=this.ctx,b=this.box;c.save();c.beginPath();c.rect(b.x,b.y-1,b.w,b.h+2);c.clip();}
+  line(xs,ys,o={}){const c=this.ctx,b=this.box;this.clip();c.beginPath();c.strokeStyle=o.color||cssVar('--fg');c.lineWidth=o.width||1.6;c.setLineDash(o.dash||[]);c.globalAlpha=o.alpha??1;
+    let up=true;for(let i=0;i<xs.length;i++){const y=ys[i];if(!isFinite(y)||!isFinite(xs[i])){up=true;continue;}let py=this.Y(y);py=Math.max(b.y-5000,Math.min(b.y+b.h+5000,py));const px=this.X(xs[i]);if(up){c.moveTo(px,py);up=false;}else c.lineTo(px,py);}
+    c.stroke();c.restore();}
+  vline(x,o={}){const c=this.ctx,b=this.box;c.save();c.beginPath();c.strokeStyle=o.color||cssVar('--muted');c.lineWidth=o.width||1;c.setLineDash(o.dash||[]);const px=this.X(x);c.moveTo(px,b.y);c.lineTo(px,b.y+b.h);c.stroke();c.restore();}
+  hline(y,o={}){const c=this.ctx,b=this.box;c.save();c.beginPath();c.strokeStyle=o.color||cssVar('--muted');c.lineWidth=o.width||1;c.setLineDash(o.dash||[]);const py=this.Y(y);c.moveTo(b.x,py);c.lineTo(b.x+b.w,py);c.stroke();c.restore();}
+  mark(x,y,o={}){const c=this.ctx,px=this.X(x),py=this.Y(y),s=o.size||6;c.save();c.globalAlpha=o.alpha??1;c.strokeStyle=o.color||cssVar('--fg');c.fillStyle=o.color||cssVar('--fg');c.lineWidth=o.width||2;c.setLineDash([]);
+    if(o.shape==='x'){c.beginPath();c.moveTo(px-s,py-s);c.lineTo(px+s,py+s);c.moveTo(px+s,py-s);c.lineTo(px-s,py+s);c.stroke();}
+    else if(o.shape==='o'){c.beginPath();c.arc(px,py,s,0,2*PI);c.stroke();}
+    else{c.beginPath();c.arc(px,py,s*0.6,0,2*PI);c.fill();}
+    c.restore();}
+  text(x,y,str,o={}){const c=this.ctx;c.save();c.fillStyle=o.color||cssVar('--fg');c.font=o.font||('12px '+cssVar('--mono'));c.textAlign=o.align||'left';c.textBaseline=o.base||'bottom';c.fillText(str,this.X(x)+(o.dx||0),this.Y(y)+(o.dy||0));c.restore();}
+}
+function splane(ch,box,r,items){
+  ch.axes(box,{xmin:r.xmin,xmax:r.xmax,ymin:r.ymin,ymax:r.ymax,xticks:r.xt,yticks:r.yt,xlabel:'Re s',ylabel:'Im s',title:r.title});
+  const c=ch.ctx;c.save();c.globalAlpha=.07;c.fillStyle=cssVar('--ok');c.fillRect(box.x,box.y,Math.max(0,ch.X(0)-box.x),box.h);c.restore();
+  if(r.xmin<0&&r.xmax>0)ch.vline(0,{color:cssVar('--muted')});if(r.ymin<0&&r.ymax>0)ch.hline(0,{color:cssVar('--muted')});
+  for(const it of items){ch.mark(it.re,it.im,{shape:it.kind==='zero'?'o':'x',color:it.color||cssVar('--fg'),alpha:it.faint?.35:1,size:it.size||6,width:it.faint?1.5:2.2});
+    if(it.label)ch.text(it.re,it.im,it.label,{color:it.color||cssVar('--fg'),dx:9,dy:-8,font:'12px '+cssVar('--mono')});}
+}
+const wTicks=(a,b)=>{const r=[];for(let e=Math.ceil(log10(a));e<=log10(b)+1e-9;e++)r.push({v:10**e,l:fmt(10**e)});return r;};
+
+/* ===================== TAB 1: Bode build-up ===================== */
+const EL=[
+  {id:'int',color:'--e1',exMag:w=>-20*log10(w),exPh:()=>-90,asMag:w=>-20*log10(w),asPh:()=>-90},
+  {id:'p1',color:'--e2',wc:1,m:-1},{id:'z10',color:'--e3',wc:10,m:1},{id:'p50',color:'--e4',wc:50,m:-2},
+];
+for(const e of EL){if(e.wc){e.exMag=w=>e.m*20*log10(Math.hypot(1,w/e.wc));e.exPh=w=>e.m*deg(Math.atan(w/e.wc));
+  e.asMag=w=>w<e.wc?0:e.m*20*log10(w/e.wc);e.asPh=w=>{const l=log10(w/e.wc);return l<-1?0:l>1?e.m*90:e.m*90*(l+1)/2;};}}
+const c1=new Chart($('#c1'));
+function drawBode(){
+  const ch=c1;ch.begin();const W=ch.w,H=ch.h,L=58,R=16,h=(H-96)/2;
+  const b1={x:L,y:28,w:W-L-R,h},b2={x:L,y:28+h+46,w:W-L-R,h};
+  const ws=logspace(0.01,1000,600),sel=EL.filter(e=>$('#el-'+e.id).checked),showEl=$('#showEl').checked,showEx=$('#showExact').checked;
+  const w0=10**(+$('#w1').value);
+  const sum=(fn)=>ws.map(w=>sel.reduce((s,e)=>s+e[fn](w),0));
+  const xt=wTicks(0.01,1000);
+  // magnitude
+  ch.axes(b1,{xmin:.01,xmax:1000,xlog:true,ymin:-140,ymax:60,xticks:xt,yticks:range(-140,60,20),ylabel:'|G(iω)| in dB',title:'Magnitude'});
+  if(showEl)for(const e of sel)ch.line(ws,ws.map(e.asMag),{color:cssVar(e.color),width:1.4,alpha:.85});
+  if(showEx)ch.line(ws,sum('exMag'),{color:cssVar('--exact'),width:2,dash:[7,5]});
+  ch.line(ws,sum('asMag'),{color:cssVar('--fg'),width:2.6});
+  ch.vline(w0,{color:cssVar('--in'),dash:[3,3]});
+  for(const e of sel)if(e.wc)ch.vline(e.wc,{color:cssVar(e.color),dash:[2,4],width:1});
+  // phase
+  ch.axes(b2,{xmin:.01,xmax:1000,xlog:true,ymin:-270,ymax:90,xticks:xt,yticks:range(-270,90,45).map(v=>({v,l:v%90===0?String(v):''})),ylabel:'arg G(iω) in degrees',xlabel:'ω in rad/s',title:'Phase'});
+  if(showEl)for(const e of sel)ch.line(ws,ws.map(e.asPh),{color:cssVar(e.color),width:1.4,alpha:.85});
+  if(showEx)ch.line(ws,sum('exPh'),{color:cssVar('--exact'),width:2,dash:[7,5]});
+  ch.line(ws,sum('asPh'),{color:cssVar('--fg'),width:2.6});
+  ch.vline(w0,{color:cssVar('--in'),dash:[3,3]});
+  // readout
+  const am=sel.reduce((s,e)=>s+e.asMag(w0),0),ap=sel.reduce((s,e)=>s+e.asPh(w0),0),em=sel.reduce((s,e)=>s+e.exMag(w0),0),ep=sel.reduce((s,e)=>s+e.exPh(w0),0);
+  ch.axes(b1,{xmin:.01,xmax:1000,xlog:true,ymin:-140,ymax:60,xticks:[],yticks:[]});ch.mark(w0,am,{color:cssVar('--in'),size:7});
+  ch.axes(b2,{xmin:.01,xmax:1000,xlog:true,ymin:-270,ymax:90,xticks:[],yticks:[]});ch.mark(w0,ap,{color:cssVar('--in'),size:7});
+  $('#w1v').textContent=fmt(+w0.toPrecision(3));
+  let slope=sel.some(e=>e.id==='int')?-20:0;let s='slope: '+slope+' dB/dec';
+  for(const e of sel.filter(e=>e.wc).sort((a,b)=>a.wc-b.wc)){slope+=e.m*20;s+='  →(ω='+e.wc+')→ '+slope;}
+  const tail=sel.filter(e=>e.wc).length?' dB/dec':'';
+  $('#read1').textContent='at ω = '+fmt(+w0.toPrecision(3))+' rad/s\nsketch : '+f1(am)+' dB, '+f1(ap)+'°\nexact  : '+f1(em)+' dB, '+f1(ep)+'°\n'+s+tail+'\nphase at ω→∞: '+(sel.reduce((t,e)=>t+e.asPh(1e9),0))+'°';
+}
+
+/* ===================== TAB 2: sinusoid in / out ===================== */
+const c2a=new Chart($('#c2a')),c2b=new Chart($('#c2b'));
+const ZETA=0.3;const G2=w=>{const re=1-w*w,im=2*ZETA*w;return {mag:1/Math.hypot(re,im),ph:-Math.atan2(im,re)};};
+function drawFreq(){
+  const w=10**(+$('#w2').value),g=G2(w),showT=$('#showTrans').checked;$('#w2v').textContent=fmt(+w.toPrecision(3));
+  // mini Bode
+  let ch=c2a;ch.begin();const W=ch.w,H=ch.h,L=58,R=16,h=(H-96)/2;
+  const ws=logspace(.1,10,300),xt=wTicks(.1,10);
+  const b1={x:L,y:28,w:W-L-R,h},b2={x:L,y:28+h+46,w:W-L-R,h};
+  ch.axes(b1,{xmin:.1,xmax:10,xlog:true,ymin:-40,ymax:10,xticks:xt,yticks:range(-40,10,10),ylabel:'dB',title:'Bode plot of G'});
+  ch.line(ws,ws.map(x=>20*log10(G2(x).mag)),{color:cssVar('--fg'),width:2});ch.vline(w,{color:cssVar('--in'),dash:[3,3]});ch.mark(w,20*log10(g.mag),{color:cssVar('--out'),size:7});
+  ch.axes(b2,{xmin:.1,xmax:10,xlog:true,ymin:-180,ymax:0,xticks:xt,yticks:range(-180,0,45),ylabel:'degrees',xlabel:'ω in rad/s'});
+  ch.line(ws,ws.map(x=>deg(G2(x).ph)),{color:cssVar('--fg'),width:2});ch.vline(w,{color:cssVar('--in'),dash:[3,3]});ch.mark(w,deg(g.ph),{color:cssVar('--out'),size:7});
+  // time domain
+  ch=c2b;ch.begin();const T=14+3*2*PI/w,n=3000;
+  const sim=rk4((t,x)=>[x[1],-x[0]-2*ZETA*x[1]+Math.sin(w*t)],[0,0],0,T,n);
+  const ts=sim.t,u=ts.map(t=>Math.sin(w*t)),yss=ts.map(t=>g.mag*Math.sin(w*t+g.ph)),y=sim.x.map(x=>x[0]);
+  const A=Math.max(1,g.mag)*1.2;
+  const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const tt=[];const step=T>120?30:T>60?10:T>25?5:2;for(let v=0;v<=T;v+=step)tt.push(v);
+  ch.axes(box,{xmin:0,xmax:T,ymin:-A,ymax:A,xticks:tt,yticks:[-A/1.2,0,A/1.2].map(v=>({v,l:f2(v)})),xlabel:'t in s',title:'Time domain'});
+  ch.hline(g.mag,{color:cssVar('--out'),dash:[2,4]});ch.hline(-g.mag,{color:cssVar('--out'),dash:[2,4]});
+  ch.line(ts,u,{color:cssVar('--in'),width:1.6});
+  ch.line(ts,yss,{color:cssVar('--muted'),width:1.4,dash:[5,4]});
+  if(showT)ch.line(ts,y,{color:cssVar('--out'),width:2.2});
+  const lag=-g.ph/w;
+  $('#read2').textContent='|G(iω)| = '+f2(g.mag)+'  ('+f1(20*log10(g.mag))+' dB)\narg G(iω) = '+f1(deg(g.ph))+'°\n→ output lags by '+f2(lag)+' s  (= −φ/ω)\nsteady state: y(t) = '+f2(g.mag)+'·sin('+fmt(+w.toPrecision(3))+'t '+(deg(g.ph)<0?'− ':'+ ')+f1(Math.abs(deg(g.ph)))+'°)';
+}
+
+/* ===================== TAB 3: zero blocks an input ===================== */
+const c3a=new Chart($('#c3a')),c3b=new Chart($('#c3b'));
+function drawZero(){
+  const caseB=$('input[name=x0]:checked').value==='b',x0=caseB?[-5,5]:[0,0];
+  const sim=rk4((t,x)=>[x[1],-2*x[1]+5*Math.exp(-t)],x0,0,6,1200);
+  const ts=sim.t,x1=sim.x.map(x=>x[0]),x2=sim.x.map(x=>x[1]),y=sim.x.map(x=>x[0]+x[1]),u=ts.map(t=>5*Math.exp(-t));
+  let ch=c3a;ch.begin();const L=50,R=16;const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  ch.axes(box,{xmin:0,xmax:6,ymin:-5.5,ymax:5.5,xticks:range(0,6,1),yticks:range(-5,5,2.5),xlabel:'t in s',title:'States, input and output'});
+  ch.hline(0,{color:cssVar('--muted')});
+  ch.line(ts,u,{color:cssVar('--in'),width:1.4,dash:[4,3]});
+  ch.line(ts,x1,{color:cssVar('--s1'),width:1.6});ch.line(ts,x2,{color:cssVar('--s2'),width:1.6});
+  ch.line(ts,y,{color:cssVar('--out'),width:3});
+  ch.text(5.9,y[y.length-1],caseB?'y ≡ 0':'y → 2.5',{color:cssVar('--out'),align:'right',dy:caseB?-6:-6,font:'600 13px '+cssVar('--sans')});
+  ch=c3b;ch.begin();const bx={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  splane(ch,bx,{xmin:-3,xmax:1,ymin:-1.5,ymax:1.5,xt:range(-3,1,1),yt:[-1,0,1],title:'s-plane'},[
+    {re:0,im:0,kind:'pole',label:'pole'},{re:-2,im:0,kind:'pole',label:'pole'},{re:-1,im:0,kind:'zero',size:8,label:'zero'},
+    {re:-1,im:0,kind:'pole',color:cssVar('--in'),size:4,width:1.6},
+  ]);
+  ch.text(-1,0,'pole of U(s)=5/(s+1)',{color:cssVar('--in'),align:'center',dy:26});
+  $('#read3').textContent=caseB
+    ?'Y(s) = G(s)U(s) + C(sI−A)⁻¹x(0)\n     = 5/(s(s+2)) − 5/(s(s+2)) = 0\n\nx(t) = [−5, 5]ᵀ e⁻ᵗ   (states move)\ny(t) = 0 for all t ≥ 0'
+    :'Y(s) = G(s)U(s) = (s+1)/(s(s+2)) · 5/(s+1)\n     = 5/(s(s+2))\n\ny(t) = 2.5 − 2.5 e⁻²ᵗ\nnot zero: the zero alone does not block u';
+}
+
+/* ===================== TAB 4: BIBO vs internal ===================== */
+const c4a=new Chart($('#c4a')),c4b=new Chart($('#c4b'));
+const SYS4={
+  iv:{A:[[-1,2],[0,1]],B:[0,-1],C:[-1,3],poles:[-1,1],zeros:[-1/3],cancel:false,
+      read:'eig(A) = {−1, +1}      → internally unstable\npoles of G: {−1, +1}  → not BIBO stable\n\nthe unstable mode reaches the output'},
+  v: {A:[[-1,0],[5,1]],B:[1,1],C:[1,0],poles:[-1,1],zeros:[1],cancel:true,
+      read:'eig(A) = {−1, +1}      → internally unstable\nG(s) = 1/(s+1), pole {−1} → BIBO stable\n\nx₂ grows like eᵗ but y = x₁ never sees it'},
+};
+function drawBibo(){
+  const key=$('input[name=sys4]:checked').value,S=SYS4[key];
+  const sim=rk4((t,x)=>[S.A[0][0]*x[0]+S.A[0][1]*x[1],S.A[1][0]*x[0]+S.A[1][1]*x[1]],S.B.slice(),0,4,800);
+  const ts=sim.t,x1=sim.x.map(x=>x[0]),x2=sim.x.map(x=>x[1]),y=sim.x.map(x=>S.C[0]*x[0]+S.C[1]*x[1]);
+  let ch=c4a;ch.begin();const L=58,R=16,h=(ch.h-96)/2;
+  const b1={x:L,y:28,w:ch.w-L-R,h},b2={x:L,y:28+h+46,w:ch.w-L-R,h};
+  const nice=v=>{const p=10**Math.floor(log10(v));return Math.ceil(v/p)*p;};
+  const mx=nice(Math.max(...x1.map(Math.abs),...x2.map(Math.abs))),my=nice(Math.max(1e-3,...y.map(Math.abs)));
+  ch.axes(b1,{xmin:0,xmax:4,ymin:-mx,ymax:mx,xticks:range(0,4,1),yticks:[-mx,0,mx],title:'States x₁, x₂  (impulse response, x(0) = B)'});
+  ch.hline(0,{color:cssVar('--muted')});ch.line(ts,x1,{color:cssVar('--s1'),width:2});ch.line(ts,x2,{color:cssVar('--s2'),width:2});
+  ch.axes(b2,{xmin:0,xmax:4,ymin:-my,ymax:my,xticks:range(0,4,1),yticks:[-my,0,my],xlabel:'t in s',title:'Output y'});
+  ch.hline(0,{color:cssVar('--muted')});ch.line(ts,y,{color:cssVar('--out'),width:2.6});
+  ch.text(3.9,y[y.length-1],S.cancel?'bounded':'unbounded',{color:S.cancel?cssVar('--ok'):cssVar('--bad'),align:'right',dy:S.cancel?-6:(y[y.length-1]<0?-6:14),font:'600 13px '+cssVar('--sans')});
+  ch=c4b;ch.begin();const bx={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const items=S.poles.map(p=>({re:p,im:0,kind:'pole',label:'pole'})).concat(S.zeros.map(z=>({re:z,im:0,kind:'zero',size:9,color:S.cancel?cssVar('--bad'):undefined,label:S.cancel?'zero cancels pole':'zero'})));
+  splane(ch,bx,{xmin:-2,xmax:2,ymin:-1.5,ymax:1.5,xt:range(-2,2,1),yt:[-1,0,1],title:'Poles of G(s) and eigenvalues of A'},items);
+  $('#read4').innerHTML='';
+  const pre=document.createElement('span');pre.textContent=S.read;$('#read4').appendChild(pre);
+  const pill=document.createElement('div');pill.style.marginTop='6px';
+  pill.innerHTML='<span class="pill bad">internally unstable</span> &nbsp;<span class="pill '+(S.cancel?'ok':'bad')+'">'+(S.cancel?'BIBO stable':'not BIBO stable')+'</span>';
+  $('#read4').appendChild(pill);
+}
+
+/* ===================== TAB 5: feedback gain ===================== */
+const c5a=new Chart($('#c5a')),c5b=new Chart($('#c5b'));
+function drawFb(){
+  const plant=$('input[name=plant]:checked').value,K=+$('#k5').value;$('#k5v').textContent=fmt(K);
+  let ch=c5b;ch.begin();const L=50,R=16;const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  let pz=c5a;
+  if(plant==='oven'){
+    const a=0.01*(1+K),yss=K/(1+K),T=120;const ts=range(0,T,0.5),y=ts.map(t=>yss*(1-Math.exp(-a*t)));
+    ch.axes(box,{xmin:0,xmax:T,ymin:0,ymax:1.1,xticks:range(0,T,20),yticks:[0,0.25,0.5,0.75,1],xlabel:'t in s',title:'Closed-loop step response'});
+    ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});ch.text(T,1,'r = 1',{color:cssVar('--muted'),align:'right',dy:-4});
+    ch.line(ts,y,{color:cssVar('--out'),width:2.6});ch.hline(yss,{color:cssVar('--out'),dash:[2,4]});
+    ch.text(T,yss,'y∞ = K/(1+K) = '+f2(yss),{color:cssVar('--out'),align:'right',dy:14});
+    pz.begin();const bx={x:L,y:28,w:pz.w-L-R,h:pz.h-28-40};
+    splane(pz,bx,{xmin:-0.25,xmax:0.05,ymin:-0.08,ymax:0.08,xt:[-0.2,-0.1,0],yt:[0],title:'Closed-loop pole  s = −0.01(1+K)'},[
+      {re:-0.01,im:0,kind:'pole',faint:true,label:'open loop'},{re:-a,im:0,kind:'pole',size:7,label:f2(-a)}]);
+    $('#read5').textContent='G(s) = 0.01K / (s + 0.01 + 0.01K)\ncharacteristic polynomial: s + '+f2(0.01+0.01*K)+'\ntime constant: '+f1(1/a)+' s   (open loop: 100 s)\nsteady state: '+f2(yss)+'   (error '+f2(1-yss)+')';
+    $('#key5').innerHTML='Part iii: a characteristic polynomial s + 0.1 needs 0.01 + 0.01K = 0.1, so <b>K = 9</b>. Larger K is faster, but a P controller always leaves a steady-state error for this plant.';
+  }else{
+    const T=40,n=4000;
+    const sim=rk4((t,x)=>[x[1],x[2],-K*x[0]-K*x[1]-9*x[2]+1],[0,0,0],0,T,n);
+    const ts=sim.t,y=sim.x.map(x=>K*x[0]+K*x[1]);
+    const ymax=Math.min(4,Math.max(1.5,...y.map(v=>Math.abs(v))*1.05)),ymin=Math.max(-4,Math.min(0,...y));
+    ch.axes(box,{xmin:0,xmax:T,ymin:ymin-0.1,ymax:ymax,xticks:range(0,T,5),yticks:range(Math.ceil(ymin),Math.floor(ymax),1),xlabel:'t in s',title:'Closed-loop step response'});
+    ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});ch.text(T,1,'r = 1',{color:cssVar('--muted'),align:'right',dy:-4});
+    ch.line(ts,y,{color:cssVar('--out'),width:2.6});
+    const rt=roots([1,9,K,K]);const stable=K>0;
+    if(!stable)ch.text(T/2,ymax,K===0?'pole at s = 0: no convergence':'diverges',{color:cssVar('--bad'),align:'center',dy:18,font:'600 13px '+cssVar('--sans')});
+    pz.begin();const bx={x:L,y:28,w:pz.w-L-R,h:pz.h-28-40};
+    splane(pz,bx,{xmin:-10,xmax:2,ymin:-4,ymax:4,xt:range(-10,2,2),yt:range(-4,4,2),title:'Closed-loop poles: s³ + 9s² + Ks + K = 0'},[
+      {re:0,im:0,kind:'pole',faint:true,label:'2× open loop'},{re:-9,im:0,kind:'pole',faint:true},{re:-1,im:0,kind:'zero',faint:true,size:7},
+      ...rt.map(r=>({re:r[0],im:r[1],kind:'pole',size:7,color:r[0]<-1e-9?cssVar('--ok'):cssVar('--bad')}))]);
+    const rs=rt.map(r=>r[1]===0?f2(r[0]):f2(r[0])+(r[1]>0?' + ':' − ')+f2(Math.abs(r[1]))+'i').join(',  ');
+    $('#read5').textContent='G(s) = K(s+1) / (s³ + 9s² + Ks + K)\nRouth–Hurwitz: a₀ = K > 0, a₂ = 9 > 0, a₁a₂ = 9K > a₀ = K\n→ asymptotically stable  ⇔  K > 0\n\npoles for K = '+fmt(K)+':  '+rs;
+    $('#key5').innerHTML=stable?'All three closed-loop poles sit in the left half-plane: <span class="pill ok">stable</span>. Move K and watch the poles; they never cross the imaginary axis while K &gt; 0.'
+      :'With K = 0 the loop is open: the double integrator stays at s = 0. <span class="pill bad">not asymptotically stable</span>';
+  }
+}
+
+/* ===================== tabs, events, redraw ===================== */
+const DRAW={t1:drawBode,t2:drawFreq,t3:drawZero,t4:drawBibo,t5:drawFb};
+let active='t1';
+function redraw(){try{DRAW[active]();}catch(e){console.error(e);}}
+$$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  active=b.dataset.tab;$$('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b?'true':'false'));
+  $$('.panel').forEach(p=>p.hidden=p.id!==active);redraw();}));
+$$('input').forEach(i=>i.addEventListener('input',redraw));
+window.addEventListener('resize',redraw);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+redraw();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(redraw);
+</script>
+</body>
+</html>
