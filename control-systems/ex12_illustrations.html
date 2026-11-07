@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exercise 12 Illustrations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one tabbed page; each tab = short notes + controls on the left, live canvases on the right, stacking on phones. */
+:root{
+  --bg:#f4f6f8; --panel:#ffffff; --fg:#1b2330; --muted:#5d6878; --line:#d5dbe3; --grid:#e8ebf0;
+  --in:#1f5fa8; --out:#d9552a; --crit:#b5179e; --ok:#1f8a4c; --bad:#c62828;
+  --e1:#2a9d8f; --e2:#1f5fa8; --e3:#5a8f2a; --e4:#7a3fb5; --s1:#2a9d8f; --s2:#b08a1e;
+  --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13171e; --panel:#1b2029; --fg:#e7eaef; --muted:#9ba6b5; --line:#2f3844; --grid:#262d38;
+    --in:#73a9ec; --out:#f28a60; --crit:#f06ad9; --ok:#4fcd82; --bad:#ff6f6f;
+    --e1:#5fd3c4; --e2:#73a9ec; --e3:#9bd35a; --e4:#c48ff2; --s1:#5fd3c4; --s2:#e0bb55;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13171e; --panel:#1b2029; --fg:#e7eaef; --muted:#9ba6b5; --line:#2f3844; --grid:#262d38;
+  --in:#73a9ec; --out:#f28a60; --crit:#f06ad9; --ok:#4fcd82; --bad:#ff6f6f;
+  --e1:#5fd3c4; --e2:#73a9ec; --e3:#9bd35a; --e4:#c48ff2; --s1:#5fd3c4; --s2:#e0bb55;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.wrap{max-width:1180px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-bottom:12px}
+header h1{font-size:22px;margin:0;font-weight:700;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+nav.tabs button{font:600 14px var(--sans);padding:7px 12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:6px;cursor:pointer}
+nav.tabs button:hover{border-color:var(--muted)}
+nav.tabs button:focus-visible{outline:2px solid var(--in);outline-offset:2px}
+nav.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.panel{display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:840px){.panel{grid-template-columns:1fr}}
+.notes{display:grid;gap:12px;min-width:0}
+.notes p{margin:0}
+.notes h2{font-size:17px;margin:0;font-weight:700}
+.key{border-left:3px solid var(--in);padding-left:10px;color:var(--fg)}
+.small{font-size:13.5px;color:var(--muted)}
+.plots{min-width:0;display:grid;gap:14px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-width:0}
+@media (max-width:560px){.pair{grid-template-columns:1fr}}
+canvas{width:100%;max-width:100%;display:block;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.tall{height:540px}.mid{height:300px}.sq{height:270px}.two{height:430px}
+.ctl{display:grid;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.ctl label.row{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ctl label.row input{margin:0}
+.ctl .what{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-left:auto;text-align:right}
+.ctl hr{border:0;border-top:1px solid var(--line);margin:2px 0}
+input[type=range]{width:100%;accent-color:var(--in)}
+.readout{font-family:var(--mono);font-size:13px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;white-space:pre-wrap;font-variant-numeric:tabular-nums}
+.m{font-family:var(--mono);font-size:13.5px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:var(--mono);font-size:13px;line-height:1.25;margin:0 2px}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 3px}
+.frac>span:last-child{padding:0 3px}
+.pill{display:inline-block;font:600 12px var(--sans);padding:2px 8px;border-radius:999px;color:#fff}
+.pill.ok{background:var(--ok)}.pill.bad{background:var(--bad)}.pill.warn{background:var(--s2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
+ol.req{margin:0;padding-left:20px;font-size:13.5px;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+<style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Control Systems I · Exercise 12</span>
+  <h1>Loop shaping design</h1>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="t1">1 · Controller elements</button>
+  <button role="tab" aria-selected="false" data-tab="t2">2 · Lead compensator</button>
+  <button role="tab" aria-selected="false" data-tab="t3">3 · Lead–lag design</button>
+  <button role="tab" aria-selected="false" data-tab="t4">4 · Internal model control</button>
+</nav>
+
+<!-- ============ TAB 1: ELEMENTS ============ -->
+<section class="panel" id="t1">
+  <div class="notes">
+    <h2>What each element does to the loop shape</h2>
+    <p class="key">Loop shaping modifies L = KG on the Bode plot. In series, controller elements <b>add</b> their dB and degrees to the plant. Pick an element and watch where it acts.</p>
+    <ol class="req">
+      <li>nominal stability</li><li>gain margin</li><li>phase margin</li><li>|L(0)| ≫ 1, small stationary error</li><li>crossover frequency, bandwidth</li>
+    </ol>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="el1" value="P" checked><span class="m">P &nbsp; K = k</span><span class="what">shifts gain, (1)–(5)</span></label>
+      <label class="row"><input type="radio" name="el1" value="PI"><span class="m">PI &nbsp; K = k(1 + 1/(T<sub>I</sub>s))</span><span class="what">(4): |K(0)| = ∞</span></label>
+      <label class="row"><input type="radio" name="el1" value="PD"><span class="m">PD &nbsp; K = k(1 + T<sub>D</sub>s)</span><span class="what">(3): +90° lead</span></label>
+      <label class="row"><input type="radio" name="el1" value="lead"><span class="m">lead &nbsp; k(Ts+1)/(αTs+1), α&lt;1</span><span class="what">(3): filtered PD</span></label>
+      <label class="row"><input type="radio" name="el1" value="lag"><span class="m">lag &nbsp; α(Ts+1)/(αTs+1), α&gt;1</span><span class="what">(4): finite PI</span></label>
+    </div>
+    <div class="ctl">
+      <div id="rk1"><label for="k1">k = <b id="k1v">1</b></label><input type="range" id="k1" min="-1" max="1" step="0.02" value="0"></div>
+      <div id="rT1"><label for="T1"><span id="T1n">T</span> = <b id="T1v">1</b> s &nbsp;<span class="small">corner at 1/T = <b id="T1w">1</b> rad/s</span></label><input type="range" id="T1" min="-2" max="1" step="0.02" value="0"></div>
+      <div id="ra1"><label for="a1">α = <b id="a1v">0.2</b></label><input type="range" id="a1" min="-1.3" max="1.3" step="0.02" value="-0.7"></div>
+    </div>
+    <div class="readout" id="read1"></div>
+    <p class="key" id="key1"></p>
+  </div>
+  <div class="plots">
+    <canvas id="c1a" class="tall"></canvas>
+    <div class="legend"><span style="--c:var(--fg)">K(iω)</span><span style="--c:var(--e4)">corner frequencies 1/T and 1/(αT)</span><span style="--c:var(--out)">ω<sub>max</sub>, φ<sub>max</sub></span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 2: LEAD COMPENSATOR ============ -->
+<section class="panel" id="t2" hidden>
+  <div class="notes">
+    <h2>Task 12.1 · Lead compensator</h2>
+    <p class="m">G(s) = <span class="frac"><span>s + 10</span><span>s (s + 1)</span></span>&nbsp; K(s) = k · <span class="frac"><span>1</span><span>(1 + 0.01s)²</span></span> · <span class="frac"><span>1 + s/ω<sub>z</sub></span><span>1 + s/ω<sub>p</sub></span></span></p>
+    <p class="key">Specs: ramp error ≤ 0.02, slope −60 dB/dec above 100 rad/s, <b>PM ≥ 70°</b>, <b>GM ≥ 20 dB</b>. Build the controller step by step and watch the margins.</p>
+    <div class="ctl">
+      <label for="k2">k = <b id="k2v">5</b> &nbsp;<span class="small">ramp error 1/(10k) = <b id="e2v">0.02</b></span></label>
+      <input type="range" id="k2" min="1" max="20" step="0.5" value="5">
+      <hr>
+      <label class="row"><input type="checkbox" id="filt2" checked>Roll-off filter 1/(1 + 0.01s)²  <span class="what">part iii</span></label>
+      <label class="row"><input type="checkbox" id="lead2" checked>Lead compensator  <span class="what">part iv</span></label>
+      <div id="rz2"><label for="wz2">zero ω<sub>z</sub> = <b id="wz2v">5</b> rad/s</label><input type="range" id="wz2" min="0" max="1.7" step="0.02" value="0.699"></div>
+      <div id="rp2"><label for="wp2">pole ω<sub>p</sub> = <b id="wp2v">20</b> rad/s</label><input type="range" id="wp2" min="0.7" max="2.3" step="0.02" value="1.301"></div>
+    </div>
+    <div class="readout" id="read2"></div>
+    <p class="key" id="key2"></p>
+    <p class="small">Rule of thumb: put the lead zero a little below the crossover (it lifts the phase there) and the pole above it (it limits the high-frequency gain, which protects the gain margin and keeps noise down).</p>
+  </div>
+  <div class="plots">
+    <canvas id="c2a" class="tall"></canvas>
+    <canvas id="c2b" class="mid"></canvas>
+    <div class="legend"><span style="--c:var(--muted)">plant G alone</span><span style="--c:var(--fg)">L = KG</span><span style="--c:var(--in)">ω<sub>c</sub>, PM</span><span style="--c:var(--out)">ω<sub>180</sub>, GM</span><span style="--c:var(--out)">closed-loop step response</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 3: LEAD-LAG ============ -->
+<section class="panel" id="t3" hidden>
+  <div class="notes">
+    <h2>Task 12.2 · Lead–lag design</h2>
+    <p class="m">G(s) = <span class="frac"><span>1</span><span>s (1 + s/10)(1 + s/200)</span></span>&nbsp; k = 100 for e<sub>ramp</sub> = 1/k ≤ 0.01</p>
+    <p class="key">The <b>lead</b> adds phase at ω<sub>c</sub> but also gain, so k₁ &lt; 1 restores the crossover and the ramp error grows. The <b>lag</b> puts the low-frequency gain back without touching the phase at ω<sub>c</sub>, if its corner is far below ω<sub>c</sub>.</p>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="st3" value="0">i) &nbsp; L₀ = kG</label>
+      <label class="row"><input type="radio" name="st3" value="1" checked>ii) &nbsp; L₁ = k·K<sub>lead</sub>·G</label>
+      <label class="row"><input type="radio" name="st3" value="2">iii) &nbsp; L₂ = k·K<sub>lead</sub>·K<sub>lag</sub>·G</label>
+    </div>
+    <div class="ctl">
+      <label for="phi3">lead: φ<sub>max</sub> = <b id="phi3v">30.6</b>° &nbsp;<span class="small">α₁ = (1 − sin φ)/(1 + sin φ) = <b id="a3v"></b></span></label>
+      <input type="range" id="phi3" min="0" max="60" step="0.2" value="30.6">
+      <label class="row"><input type="checkbox" id="keep3" checked>k₁ chosen so that ω<sub>c</sub> stays at ω<sub>max</sub></label>
+      <hr>
+      <label for="a23">lag: α₂ = <b id="a23v">1.75</b></label>
+      <input type="range" id="a23" min="1" max="3" step="0.05" value="1.75">
+      <label for="T23">lag: T₂ = <b id="T23v">1</b> s &nbsp;<span class="small">corner 1/T₂ = <b id="T23w">1</b> rad/s</span></label>
+      <input type="range" id="T23" min="-2" max="1" step="0.05" value="0">
+    </div>
+    <div class="readout" id="read3"></div>
+    <p class="key" id="key3"></p>
+  </div>
+  <div class="plots">
+    <canvas id="c3a" class="tall"></canvas>
+    <canvas id="c3b" class="mid"></canvas>
+    <div class="legend"><span style="--c:var(--e1)">L₀ = kG</span><span style="--c:var(--e2)">L₁ with lead</span><span style="--c:var(--e4)">L₂ with lead and lag</span><span style="--c:var(--in)">ω<sub>c</sub>, PM of the selected stage</span><span style="--c:var(--out)">closed-loop step response</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 4: IMC ============ -->
+<section class="panel" id="t4" hidden>
+  <div class="notes">
+    <h2>Task 12.3 · Internal model control gives a PI</h2>
+    <p class="m">G(s) = <span class="frac"><span>a</span><span>bs + 1</span></span>&nbsp; T(s) = <span class="frac"><span>1</span><span>T<sub>f</sub>s + 1</span></span>&nbsp; Q = G<sup>−1</sup>T &nbsp; K = <span class="frac"><span>Q</span><span>1 − ĜQ</span></span></p>
+    <p class="key">With a perfect model, T = GQ and S = 1 − GQ are affine in Q: pick the closed loop you want, then read off K. For this plant K is exactly a <b>PI controller</b> with k = b/(aT<sub>f</sub>) and T<sub>I</sub> = b.</p>
+    <div class="ctl">
+      <label for="a4">plant gain a = <b id="a4v">1</b></label><input type="range" id="a4" min="0.5" max="3" step="0.1" value="1">
+      <label for="b4">plant time constant b = <b id="b4v">1</b> s</label><input type="range" id="b4" min="0.2" max="3" step="0.1" value="1">
+      <label for="tf4">desired T<sub>f</sub> = <b id="tf4v">0.3</b> s</label><input type="range" id="tf4" min="0.05" max="2" step="0.05" value="0.3">
+    </div>
+    <div class="ctl">
+      <label for="ga4">model mismatch: true gain = <b id="ga4v">1</b> × a</label><input type="range" id="ga4" min="0.3" max="3" step="0.05" value="1">
+      <label for="gb4">model mismatch: true time constant = <b id="gb4v">1</b> × b</label><input type="range" id="gb4" min="0.3" max="3" step="0.05" value="1">
+    </div>
+    <div class="readout" id="read4"></div>
+    <p class="key" id="key4"></p>
+    <p class="small">T = 1 is not achievable: a causal controller cannot make the closed loop faster than order 0 for a first-order plant. For a second-order plant the same recipe with T = 1/(T<sub>f</sub>s+1)² gives a PID with a first-order filter 1/(T<sub>f</sub>s/2 + 1).</p>
+  </div>
+  <div class="plots">
+    <canvas id="c4a" class="mid"></canvas>
+    <div class="pair">
+      <canvas id="c4b" class="sq"></canvas>
+      <canvas id="c4c" class="sq"></canvas>
+    </div>
+    <div class="legend"><span style="--c:var(--muted)">designed T: y = 1 − e<sup>−t/T<sub>f</sub></sup></span><span style="--c:var(--out)">y(t) with K on the true plant</span><span style="--c:var(--in)">control input u(t)</span><span style="--c:var(--fg)">closed-loop poles (×), PI zero (○)</span></div>
+  </div>
+</section>
+</div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const PI=Math.PI, log10=Math.log10, atan=Math.atan;
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=v=>Number.isInteger(v)?String(v):String(+v.toPrecision(3));
+const f1=v=>(Math.round(v*10)/10).toFixed(1), f2=v=>(Math.round(v*100)/100).toFixed(2), f3=v=>(Math.round(v*1000)/1000).toFixed(3), f4=v=>(Math.round(v*10000)/10000).toFixed(4);
+const deg=r=>r*180/PI, rad=d=>d*PI/180;
+function logspace(a,b,n){const r=[];for(let i=0;i<n;i++)r.push(10**(log10(a)+(log10(b)-log10(a))*i/(n-1)));return r;}
+function range(a,b,s){const r=[];for(let v=a;v<=b+1e-9;v+=s)r.push(+v.toFixed(10));return r;}
+function rk4(f,x0,t0,t1,n){const dt=(t1-t0)/n,T=[t0],X=[x0.slice()];let x=x0.slice(),t=t0;
+  const ad=(x,k,h)=>x.map((v,i)=>v+h*k[i]);
+  for(let i=0;i<n;i++){const k1=f(t,x),k2=f(t+dt/2,ad(x,k1,dt/2)),k3=f(t+dt/2,ad(x,k2,dt/2)),k4=f(t+dt,ad(x,k3,dt));
+    x=x.map((xi,j)=>xi+dt/6*(k1[j]+2*k2[j]+2*k3[j]+k4[j]));t+=dt;T.push(t);X.push(x);}
+  return {t:T,x:X};}
+const cmul=(a,b)=>[a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]];
+const cdiv=(a,b)=>{const d=b[0]*b[0]+b[1]*b[1];return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d];};
+function roots(c){ // c = [1, a_{n-1}, ..., a_0]; Durand–Kerner
+  const n=c.length-1;if(n<1)return [];let z=[];for(let i=0;i<n;i++){const a=2*PI*i/n+0.4;z.push([0.9*Math.cos(a),0.9*Math.sin(a)]);}
+  const pe=x=>{let r=[c[0],0];for(let i=1;i<=n;i++)r=[r[0]*x[0]-r[1]*x[1]+c[i],r[0]*x[1]+r[1]*x[0]];return r;};
+  for(let it=0;it<500;it++){let md=0;const nz=z.map((zi,i)=>{let den=[1,0];z.forEach((zj,j)=>{if(j!==i)den=cmul(den,[zi[0]-zj[0],zi[1]-zj[1]]);});
+    const d=cdiv(pe(zi),den);md=Math.max(md,Math.hypot(d[0],d[1]));return [zi[0]-d[0],zi[1]-d[1]];});z=nz;if(md<1e-13)break;}
+  return z.map(r=>[r[0],Math.abs(r[1])<1e-7?0:r[1]]);}
+const rootStr=rt=>rt.map(r=>r[1]===0?f2(r[0]):f2(r[0])+(r[1]>0?' + ':' − ')+f2(Math.abs(r[1]))+'i').join(',  ');
+const rhpCount=rt=>rt.filter(r=>r[0]>1e-6).length;
+
+/* ---------- transfer functions in factored form: k · Π(1+s/z) / (s^nI · Π(1+s/p)) ---------- */
+const tf=(k,z=[],p=[],nI=0)=>({k,z,p,nI});
+const tmul=(...ts)=>ts.reduce((a,b)=>tf(a.k*b.k,a.z.concat(b.z),a.p.concat(b.p),a.nI+b.nI));
+const tmag=(T,w)=>{let m=Math.abs(T.k)/w**T.nI;for(const z of T.z)m*=Math.hypot(1,w/z);for(const p of T.p)m/=Math.hypot(1,w/p);return m;};
+const tph=(T,w)=>{let ph=(T.k<0?-180:0)-90*T.nI;for(const z of T.z)ph+=deg(atan(w/z));for(const p of T.p)ph-=deg(atan(w/p));return ph;};
+const pconv=(a,b)=>{const r=Array(a.length+b.length-1).fill(0);a.forEach((x,i)=>b.forEach((y,j)=>{r[i+j]+=x*y;}));return r;};
+function tpoly(T){let num=[T.k];for(const z of T.z)num=pconv(num,[1/z,1]);let den=[1];for(const p of T.p)den=pconv(den,[1/p,1]);for(let i=0;i<T.nI;i++)den=pconv(den,[1,0]);
+  const l=den[0];return {num:num.map(c=>c/l),den:den.map(c=>c/l)};}
+function crossing(f,a,b){const n=900;let w0=a,f0=f(a);for(let i=1;i<=n;i++){const w=10**(log10(a)+(log10(b)-log10(a))*i/n),fv=f(w);
+  if(isFinite(f0)&&isFinite(fv)&&f0*fv<=0){let lo=w0,hi=w;for(let j=0;j<60;j++){const m=Math.sqrt(lo*hi);if(f(lo)*f(m)<=0)hi=m;else lo=m;}return Math.sqrt(lo*hi);}w0=w;f0=fv;}return null;}
+function margins(L){const wc=crossing(w=>log10(tmag(L,w)),1e-3,1e4),w180=crossing(w=>tph(L,w)+180,1e-3,1e4);
+  return {wc,PM:wc!==null?180+tph(L,wc):null,w180,GM:w180!==null?1/tmag(L,w180):null};}
+// closed-loop unit step of L/(1+L); S = {num, den} with den monic and deg num < deg den
+function closedLoopStep(S,T,n=4000){const d=S.den.length-1,b=Array(d).fill(0),m=S.num.length;for(let i=0;i<m;i++)b[d-m+i]=S.num[i];
+  const a=S.den.slice(1).map((c,i)=>c+b[i]);
+  const f=(t,x)=>{const dx=x.slice(1);let top=1;for(let i=0;i<d;i++)top-=a[i]*x[d-1-i];dx.push(top);return dx;};
+  const sim=rk4(f,Array(d).fill(0),0,T,n);
+  const y=sim.x.map(x=>{let s=0;for(let i=0;i<d;i++)s+=b[i]*x[d-1-i];return s;});
+  return {t:sim.t,y,poly:[1,...a]};}
+
+/* ---------- tiny canvas chart ---------- */
+class Chart{
+  constructor(cv){this.cv=cv;this.ctx=cv.getContext('2d');}
+  begin(){const dpr=window.devicePixelRatio||1,r=this.cv.getBoundingClientRect();this.w=Math.max(10,r.width);this.h=Math.max(10,r.height);
+    const pw=Math.round(this.w*dpr),ph=Math.round(this.h*dpr);if(this.cv.width!==pw||this.cv.height!==ph){this.cv.width=pw;this.cv.height=ph;}
+    this.ctx.setTransform(dpr,0,0,dpr,0,0);this.ctx.clearRect(0,0,this.w,this.h);}
+  axes(box,a){this.box=box;this.a=a;const c=this.ctx;c.font='12px '+cssVar('--mono');c.lineWidth=1;c.strokeStyle=cssVar('--grid');c.fillStyle=cssVar('--muted');
+    c.textAlign='center';c.textBaseline='top';
+    for(const t of a.xticks||[]){const v=typeof t==='object'?t.v:t,l=typeof t==='object'?t.l:fmt(v);const x=this.X(v);c.beginPath();c.moveTo(x,box.y);c.lineTo(x,box.y+box.h);c.stroke();c.fillText(l,x,box.y+box.h+4);}
+    c.textAlign='right';c.textBaseline='middle';
+    for(const t of a.yticks||[]){const v=typeof t==='object'?t.v:t,l=typeof t==='object'?t.l:fmt(v);const y=this.Y(v);c.beginPath();c.moveTo(box.x,y);c.lineTo(box.x+box.w,y);c.stroke();c.fillText(l,box.x-6,y);}
+    c.strokeStyle=cssVar('--line');c.strokeRect(box.x+.5,box.y+.5,box.w,box.h);
+    c.fillStyle=cssVar('--muted');
+    if(a.xlabel){c.textAlign='right';c.textBaseline='top';c.fillText(a.xlabel,box.x+box.w,box.y+box.h+18);}
+    if(a.ylabel){c.textAlign='right';c.textBaseline='bottom';c.fillText(a.ylabel,box.x+box.w,box.y-5);}
+    if(a.title){c.fillStyle=cssVar('--fg');c.font='600 13px '+cssVar('--sans');c.textAlign='left';c.textBaseline='bottom';c.fillText(a.title,box.x,box.y-5);}}
+  X(x){const a=this.a,b=this.box;const f=a.xlog?(log10(x)-log10(a.xmin))/(log10(a.xmax)-log10(a.xmin)):(x-a.xmin)/(a.xmax-a.xmin);return b.x+f*b.w;}
+  Y(y){const a=this.a,b=this.box;return b.y+b.h-(y-a.ymin)/(a.ymax-a.ymin)*b.h;}
+  clip(){const c=this.ctx,b=this.box;c.save();c.beginPath();c.rect(b.x,b.y-1,b.w,b.h+2);c.clip();}
+  line(xs,ys,o={}){const c=this.ctx,b=this.box;this.clip();c.beginPath();c.strokeStyle=o.color||cssVar('--fg');c.lineWidth=o.width||1.6;c.setLineDash(o.dash||[]);c.globalAlpha=o.alpha??1;
+    let up=true;for(let i=0;i<xs.length;i++){const y=ys[i];if(!isFinite(y)||!isFinite(xs[i])){up=true;continue;}let py=this.Y(y);py=Math.max(b.y-5000,Math.min(b.y+b.h+5000,py));let px=this.X(xs[i]);px=Math.max(b.x-5000,Math.min(b.x+b.w+5000,px));if(up){c.moveTo(px,py);up=false;}else c.lineTo(px,py);}
+    c.stroke();c.restore();}
+  vline(x,o={}){const c=this.ctx,b=this.box;c.save();c.beginPath();c.strokeStyle=o.color||cssVar('--muted');c.lineWidth=o.width||1;c.setLineDash(o.dash||[]);const px=this.X(x);c.moveTo(px,b.y);c.lineTo(px,b.y+b.h);c.stroke();c.restore();}
+  hline(y,o={}){const c=this.ctx,b=this.box;c.save();c.beginPath();c.strokeStyle=o.color||cssVar('--muted');c.lineWidth=o.width||1;c.setLineDash(o.dash||[]);const py=this.Y(y);c.moveTo(b.x,py);c.lineTo(b.x+b.w,py);c.stroke();c.restore();}
+  seg(x1,y1,x2,y2,o={}){const c=this.ctx;this.clip();c.beginPath();c.strokeStyle=o.color||cssVar('--fg');c.lineWidth=o.width||3;c.setLineDash(o.dash||[]);c.moveTo(this.X(x1),this.Y(y1));c.lineTo(this.X(x2),this.Y(y2));c.stroke();c.restore();}
+  mark(x,y,o={}){const c=this.ctx,px=this.X(x),py=this.Y(y),s=o.size||6;c.save();c.globalAlpha=o.alpha??1;c.strokeStyle=o.color||cssVar('--fg');c.fillStyle=o.color||cssVar('--fg');c.lineWidth=o.width||2;c.setLineDash([]);
+    if(o.shape==='x'){c.beginPath();c.moveTo(px-s,py-s);c.lineTo(px+s,py+s);c.moveTo(px+s,py-s);c.lineTo(px-s,py+s);c.stroke();}
+    else if(o.shape==='o'){c.beginPath();c.arc(px,py,s,0,2*PI);c.stroke();}
+    else{c.beginPath();c.arc(px,py,s*0.6,0,2*PI);c.fill();}
+    c.restore();}
+  text(x,y,str,o={}){const c=this.ctx;c.save();c.fillStyle=o.color||cssVar('--fg');c.font=o.font||('12px '+cssVar('--mono'));c.textAlign=o.align||'left';c.textBaseline=o.base||'bottom';c.fillText(str,this.X(x)+(o.dx||0),this.Y(y)+(o.dy||0));c.restore();}
+}
+function splane(ch,box,r,items){
+  ch.axes(box,{xmin:r.xmin,xmax:r.xmax,ymin:r.ymin,ymax:r.ymax,xticks:r.xt,yticks:r.yt,xlabel:'Re s',ylabel:'Im s',title:r.title});
+  const c=ch.ctx;c.save();c.globalAlpha=.07;c.fillStyle=cssVar('--ok');c.fillRect(box.x,box.y,Math.max(0,ch.X(0)-box.x),box.h);c.restore();
+  if(r.xmin<0&&r.xmax>0)ch.vline(0,{color:cssVar('--muted')});if(r.ymin<0&&r.ymax>0)ch.hline(0,{color:cssVar('--muted')});
+  for(const it of items){ch.mark(it.re,it.im,{shape:it.kind==='zero'?'o':'x',color:it.color||cssVar('--fg'),alpha:it.faint?.35:1,size:it.size||6,width:it.faint?1.5:2.2});
+    if(it.label)ch.text(it.re,it.im,it.label,{color:it.color||cssVar('--fg'),dx:9,dy:-8,font:'12px '+cssVar('--mono')});}
+}
+const wTicks=(a,b)=>{const r=[];for(let e=Math.ceil(log10(a));e<=log10(b)+1e-9;e++)r.push({v:10**e,l:fmt(10**e)});return r;};
+function pills(el,list){const d=document.createElement('div');d.style.marginTop='6px';d.innerHTML=list.map(p=>'<span class="pill '+p[0]+'">'+p[1]+'</span>').join(' &nbsp;');el.appendChild(d);}
+function setRead(id,txt,pl){const el=$(id);el.innerHTML='';const s=document.createElement('span');s.textContent=txt;el.appendChild(s);if(pl)pills(el,pl);}
+const niceCeil=(v,s)=>Math.ceil(v/s)*s, niceFloor=(v,s)=>Math.floor(v/s)*s;
+
+/* ---------- generic Bode panel: several curves, margins for the main one ---------- */
+function bodePanel(ch,o){
+  ch.begin();const W=ch.w,H=ch.h,L=58,R=16,h=(H-96)/2;const b1={x:L,y:28,w:W-L-R,h},b2={x:L,y:28+h+46,w:W-L-R,h};
+  const ws=logspace(o.wmin,o.wmax,500),xt=wTicks(o.wmin,o.wmax);
+  const data=o.curves.map(c=>({c,m:ws.map(w=>20*log10(tmag(c.T,w))),p:ws.map(w=>tph(c.T,w))}));
+  const allm=data.flatMap(d=>d.m).filter(isFinite),allp=data.flatMap(d=>d.p);
+  let lo=Math.max(-100,niceFloor(Math.min(...allm),20)),hi=Math.min(120,niceCeil(Math.max(...allm),20));if(hi<=lo+20)hi=lo+40;if(o.mag0&&lo>-20)lo=-20;if(o.mag0&&hi<20)hi=20;
+  let plo=Math.max(-360,niceFloor(Math.min(...allp)-5,45)),phi=Math.min(180,niceCeil(Math.max(...allp)+5,45));if(o.ph180&&plo>-225)plo=-225;if(phi<=plo)phi=plo+90;
+  ch.axes(b1,{xmin:o.wmin,xmax:o.wmax,xlog:true,ymin:lo,ymax:hi,xticks:xt,yticks:range(lo,hi,20),ylabel:'magnitude in dB',title:o.title||'Magnitude'});
+  if(lo<0&&hi>0)ch.hline(0,{color:cssVar('--muted'),dash:[4,4]});
+  for(const d of data)ch.line(ws,d.m,{color:d.c.color,width:d.c.width||1.6,dash:d.c.dash,alpha:d.c.alpha});
+  if(o.extra)o.extra(ch,b1,'mag',{lo,hi});
+  const mg=o.main?margins(o.main):null;
+  if(mg&&mg.wc!==null)ch.vline(mg.wc,{color:cssVar('--in'),dash:[3,3]});
+  if(mg&&mg.w180!==null){ch.vline(mg.w180,{color:cssVar('--out'),dash:[3,3]});const g=20*log10(tmag(o.main,mg.w180));ch.seg(mg.w180,g,mg.w180,0,{color:cssVar('--out'),width:4});
+    ch.text(mg.w180,g/2,'GM = '+f1(20*log10(mg.GM))+' dB',{color:cssVar('--out'),dx:8,base:'middle',font:'600 12px '+cssVar('--mono')});}
+  if(mg&&mg.wc!==null)ch.text(mg.wc,hi,'ω_c = '+f2(mg.wc),{color:cssVar('--in'),dx:6,dy:14,base:'top'});
+  ch.axes(b2,{xmin:o.wmin,xmax:o.wmax,xlog:true,ymin:plo,ymax:phi,xticks:xt,yticks:range(plo,phi,45).map(v=>({v,l:v%90===0?String(v):''})),ylabel:'phase in degrees',xlabel:'ω in rad/s',title:'Phase'});
+  if(plo<-180&&phi>-180)ch.hline(-180,{color:cssVar('--muted'),dash:[4,4]});if(plo<0&&phi>0)ch.hline(0,{color:cssVar('--muted'),dash:[4,4]});
+  for(const d of data)ch.line(ws,d.p,{color:d.c.color,width:d.c.width||1.6,dash:d.c.dash,alpha:d.c.alpha});
+  if(o.extra)o.extra(ch,b2,'ph',{lo:plo,hi:phi});
+  if(mg&&mg.w180!==null){ch.vline(mg.w180,{color:cssVar('--out'),dash:[3,3]});ch.text(mg.w180,plo,'ω₁₈₀ = '+f2(mg.w180),{color:cssVar('--out'),dx:6,dy:-4});}
+  if(mg&&mg.wc!==null){ch.vline(mg.wc,{color:cssVar('--in'),dash:[3,3]});ch.seg(mg.wc,-180,mg.wc,tph(o.main,mg.wc),{color:cssVar('--in'),width:4});
+    ch.text(mg.wc,(tph(o.main,mg.wc)-180)/2,'PM = '+f1(mg.PM)+'°',{color:cssVar('--in'),dx:8,base:'middle',font:'600 12px '+cssVar('--mono')});}
+  return mg;
+}
+function stepPanel(ch,L,T,title){
+  const st=closedLoopStep(tpoly(L),T),rt=roots(st.poly),Z=rhpCount(rt),marg=rt.some(r=>Math.abs(r[0])<=1e-6);
+  ch.begin();const Lm=58,R=16;const box={x:Lm,y:28,w:ch.w-Lm-R,h:ch.h-28-40};
+  const ymax=Math.min(3,Math.max(1.6,Math.max(...st.y)*1.08)),ymin=Math.max(-1.5,Math.min(-0.2,Math.min(...st.y)));
+  ch.axes(box,{xmin:0,xmax:T,ymin,ymax,xticks:range(0,T,T/5).map(v=>({v,l:fmt(+v.toPrecision(2))})),yticks:range(Math.ceil(ymin),Math.floor(ymax),0.5),xlabel:'t in s',title:title||'Closed-loop step response  L/(1+L)'});
+  ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});ch.hline(0,{color:cssVar('--muted')});
+  ch.line(st.t,st.y,{color:cssVar('--out'),width:2.4});
+  if(Z>0||marg)ch.text(T/2,ymax,marg?'sustained oscillation':'diverges',{color:cssVar('--bad'),align:'center',dy:18,font:'600 13px '+cssVar('--sans')});
+  const ov=Math.max(0,(Math.max(...st.y)-1)*100);
+  return {rt,Z,marg,overshoot:ov};
+}
+const msStr=(mg)=>(mg.wc!==null?'ω_c = '+f2(mg.wc)+' rad/s,  PM = '+f1(mg.PM)+'°':'no gain crossover')+'\n'+(mg.w180!==null?'ω₁₈₀ = '+f2(mg.w180)+' rad/s,  GM = '+f2(mg.GM)+' ('+f1(20*log10(mg.GM))+' dB)':'phase stays above −180°: GM = ∞');
+
+/* ===================== TAB 1: controller elements ===================== */
+const c1a=new Chart($('#c1a'));
+function drawElem(){
+  const el=$('input[name=el1]:checked').value,k=10**(+$('#k1').value),T=10**(+$('#T1').value);
+  const av=+$('#a1').value,alpha=el==='lag'?1+9*(av+1.3)/2.6:10**Math.min(0,av);
+  $('#k1v').textContent=fmt(+k.toPrecision(3));$('#T1v').textContent=fmt(+T.toPrecision(3));$('#T1w').textContent=fmt(+(1/T).toPrecision(3));$('#a1v').textContent=fmt(+alpha.toPrecision(3));
+  $('#rk1').hidden=el==='lag';$('#rT1').hidden=el==='P';$('#ra1').hidden=!(el==='lead'||el==='lag');
+  $('#T1n').textContent=el==='PI'?'T_I':el==='PD'?'T_D':'T';
+  let K,txt,key;
+  const wmax=1/(Math.sqrt(alpha)*T),phimax=deg(Math.asin(Math.abs(1-alpha)/(1+alpha)))*(alpha<1?1:-1);
+  if(el==='P'){K=tf(k);txt='K(s) = '+f2(k)+'   ('+f1(20*log10(k))+' dB, 0°)\nmagnitude shifts up or down, phase untouched';
+    key='A gain moves the whole magnitude curve vertically. It changes ω<sub>c</sub>, both margins and the stationary error at once, so it is the coarse knob.';}
+  else if(el==='PI'){K=tf(k/T,[1/T],[],1);txt='K(s) = k(1 + 1/(T_I s)) = k (T_I s + 1)/(T_I s)\n|K(0)| = ∞ → no stationary error for a step\nphase: −90° at low ω, 0° above 1/T_I\nphase at 1/T_I: −45°';
+    key='The integrator gives infinite DC gain, requirement (4). Its price is −90° of phase below 1/T<sub>I</sub>. Put 1/T<sub>I</sub> well below the crossover so the phase margin is not touched.';}
+  else if(el==='PD'){K=tf(k,[1/T]);txt='K(s) = k(1 + T_D s)\nphase: 0° → +90°, +45° at ω = 1/T_D\nmagnitude: +20 dB/dec above 1/T_D, unbounded';
+    key='The derivative adds up to 90° of phase lead, requirement (3), if 1/T<sub>D</sub> sits near the crossover. Problem: the gain keeps rising, so sensor noise is amplified, and the element is not causal. The lead compensator fixes both.';}
+  else if(el==='lead'){K=tf(k,[1/T],[1/(alpha*T)]);txt='K(s) = k (Ts + 1)/(αTs + 1),  α = '+f2(alpha)+'\nzero at 1/T = '+f2(1/T)+', pole at 1/(αT) = '+f2(1/(alpha*T))+'\nω_max = 1/(√α T) = '+f2(wmax)+' rad/s\nsin φ_max = (1 − α)/(1 + α) → φ_max = '+f1(phimax)+'°\nhigh-frequency gain: k/α = '+f2(k/alpha)+' ('+f1(20*log10(k/alpha))+' dB)';
+    key='A filtered PD: the pole at 1/(αT) stops the gain at k/α. The phase lead peaks at ω<sub>max</sub>, the geometric mean of zero and pole. Place ω<sub>max</sub> at the crossover to buy phase margin; smaller α buys more phase but more high-frequency gain.';}
+  else{K=tf(alpha,[1/T],[1/(alpha*T)]);txt='K(s) = α (Ts + 1)/(αTs + 1),  α = '+f2(alpha)+'\n|K(0)| = α = '+f2(alpha)+' ('+f1(20*log10(alpha))+' dB), |K(∞)| = 1\npole at 1/(αT) = '+f2(1/(alpha*T))+', zero at 1/T = '+f2(1/T)+'\nphase dip: '+f1(phimax)+'° at ω = '+f2(wmax)+' rad/s';
+    key='A PI with finite DC gain α: it raises the low-frequency gain, requirement (4), and leaves high frequencies alone. The phase lag in between must stay away from the crossover, so put 1/T at least a decade below ω<sub>c</sub>.';}
+  bodePanel(c1a,{wmin:1e-3,wmax:1e3,curves:[{T:K,color:cssVar('--fg'),width:2.4}],title:'Bode plot of the element K(iω)',extra:(ch,b,which,r)=>{
+    if(el==='P')return;ch.vline(1/T,{color:cssVar('--e4'),dash:[2,4]});if(el==='lead'||el==='lag')ch.vline(1/(alpha*T),{color:cssVar('--e4'),dash:[2,4]});
+    if((el==='lead'||el==='lag')&&which==='ph'){ch.vline(wmax,{color:cssVar('--out'),dash:[3,3]});ch.mark(wmax,tph(K,wmax),{color:cssVar('--out'),size:7});ch.text(wmax,tph(K,wmax),'φ_max = '+f1(phimax)+'°',{color:cssVar('--out'),dx:8,dy:-6,font:'600 12px '+cssVar('--mono')});}
+    if(which==='mag'){ch.text(1/T,r.hi,'1/T',{color:cssVar('--e4'),dx:4,dy:14,base:'top'});}
+  }});
+  setRead('#read1',txt);$('#key1').innerHTML=key;
+}
+
+/* ===================== TAB 2: lead compensator (Task 12.1) ===================== */
+const c2a=new Chart($('#c2a')),c2b=new Chart($('#c2b'));
+const G1=tf(10,[10],[1],1); // (s+10)/(s(s+1)) = 10(1+s/10)/(s(1+s))
+function drawLead(){
+  const k=+$('#k2').value,filt=$('#filt2').checked,lead=$('#lead2').checked,wz=10**(+$('#wz2').value),wp=10**(+$('#wp2').value);
+  $('#k2v').textContent=fmt(k);$('#e2v').textContent=f3(1/(10*k));$('#wz2v').textContent=fmt(+wz.toPrecision(3));$('#wp2v').textContent=fmt(+wp.toPrecision(3));
+  $('#rz2').hidden=!lead;$('#rp2').hidden=!lead;
+  let K=tf(k);if(filt)K=tmul(K,tf(1,[],[100,100]));if(lead)K=tmul(K,tf(1,[wz],[wp]));
+  const L=tmul(K,G1);
+  const mg=bodePanel(c2a,{wmin:0.01,wmax:1000,curves:[{T:G1,color:cssVar('--muted'),width:1.4,dash:[5,4]},{T:L,color:cssVar('--fg'),width:2.4}],main:L,mag0:true,ph180:true,title:'Open loop L = KG'});
+  const slope=-20*(1+L.p.length-L.z.length);
+  const Tend=mg.wc?Math.min(20,Math.max(1.5,25/mg.wc)):10;
+  const st=stepPanel(c2b,L,Tend);
+  const okE=1/(10*k)<=0.02+1e-9,okS=slope<=-60,okPM=mg.PM!==null&&mg.PM>=70,okGM=mg.GM===null||20*log10(mg.GM)>=20;
+  const txt='K(s) = '+f2(k)+(filt?' / (1 + 0.01s)²':'')+(lead?' · (1 + s/'+fmt(+wz.toPrecision(3))+')/(1 + s/'+fmt(+wp.toPrecision(3))+')':'')
+    +'\nramp error = lim s·E(s) = 1/(10k) = '+f3(1/(10*k))
+    +'\nslope for ω → ∞: '+slope+' dB/dec\n'+msStr(mg)+'\novershoot of the step response: '+f1(st.overshoot)+' %';
+  setRead('#read2',txt,[[okE?'ok':'bad','e_ramp ≤ 0.02'],[okS?'ok':'bad','−60 dB/dec'],[okPM?'ok':'bad','PM ≥ 70°'],[okGM?'ok':'bad','GM ≥ 20 dB'],[st.Z===0&&!st.marg?'ok':'bad',st.Z===0&&!st.marg?'stable':'unstable']]);
+  $('#key2').innerHTML=!filt&&!lead?'Part ii: with K = k the ramp error is 1/(10k), so k ≥ 5. The plant already rolls off at only −20 dB/dec, and its phase never reaches −180°: GM = ∞, but PM ≈ 35°.'
+    :filt&&!lead?'Part iii: two poles at 100 rad/s bend the slope to −60 dB/dec. They cost a little phase at ω<sub>c</sub> and create a phase crossover, so the GM becomes finite (about 30 dB at k = 5) while PM ≈ 36°.'
+    :'Part iv: the zero at ω<sub>z</sub> lifts the phase before the crossover, the pole at ω<sub>p</sub> caps the extra gain. With zero 5 and pole 20 the solution gets PM ≈ 78°, GM ≈ 21 dB, ω<sub>c</sub> ≈ 15 rad/s. Move the zero and pole and watch the trade-off: a pole too far out eats the gain margin.';
+}
+
+/* ===================== TAB 3: lead–lag (Task 12.2) ===================== */
+const c3a=new Chart($('#c3a')),c3b=new Chart($('#c3b'));
+const G2=tf(1,[],[10,200],1),K3=100;
+function drawLeadLag(){
+  const stage=+$('input[name=st3]:checked').value,phi=+$('#phi3').value,keep=$('#keep3').checked,a2=+$('#a23').value,T2=10**(+$('#T23').value);
+  const L0=tmul(tf(K3),G2),m0=margins(L0),wc0=m0.wc;
+  const s=Math.sin(rad(phi)),a1=(1-s)/(1+s),T1=1/(wc0*Math.sqrt(a1)),k1=keep?Math.sqrt((1+(a1*wc0*T1)**2)/(1+(wc0*T1)**2)):1;
+  const lead=tf(k1,[1/T1],[1/(a1*T1)]),L1=tmul(L0,lead),lag=tf(a2,[1/T2],[1/(a2*T2)]),L2=tmul(L1,lag);
+  $('#phi3v').textContent=f1(phi);$('#a3v').textContent=f3(a1);$('#a23v').textContent=f2(a2);$('#T23v').textContent=fmt(+T2.toPrecision(3));$('#T23w').textContent=fmt(+(1/T2).toPrecision(3));
+  const Ls=[L0,L1,L2],cols=[cssVar('--e1'),cssVar('--e2'),cssVar('--e4')],main=Ls[stage];
+  const curves=Ls.map((T,i)=>({T,color:cols[i],width:i===stage?2.6:1.4,alpha:i===stage?1:.45}));
+  const mg=bodePanel(c3a,{wmin:0.01,wmax:1000,curves,main,mag0:true,ph180:true,title:'Open loop, three design stages',extra:(ch,b,which)=>{
+    if(stage>=1&&which==='ph'){ch.vline(1/T1,{color:cssVar('--e2'),dash:[2,4]});ch.vline(1/(a1*T1),{color:cssVar('--e2'),dash:[2,4]});}
+    if(stage===2){ch.vline(1/T2,{color:cssVar('--e4'),dash:[2,4]});ch.vline(1/(a2*T2),{color:cssVar('--e4'),dash:[2,4]});}
+  }});
+  const st=stepPanel(c3b,main,Math.min(5,Math.max(0.3,30/(mg.wc||30))));
+  const eR=1/main.k;
+  const txt=['L₀ = 100·G','L₁ = 100·K_lead·G','L₂ = 100·K_lead·K_lag·G'][stage]+'\n'
+    +(stage>=1?'lead: α₁ = '+f3(a1)+', T₁ = 1/(ω_c√α₁) = '+f3(T1)+' s, k₁ = '+f3(k1)+'\n':'')
+    +(stage===2?'lag: α₂ = '+f2(a2)+', T₂ = '+fmt(+T2.toPrecision(3))+' s (corner at '+f2(1/T2)+' rad/s)\n':'')
+    +msStr(mg)+'\nramp error = 1/lim sL(s) = '+f4(eR)+'\novershoot: '+f1(st.overshoot)+' %';
+  setRead('#read3',txt,[[eR<=0.01+1e-9?'ok':'bad','e_ramp ≤ 0.01'],[mg.PM!==null&&mg.PM>=39.5?'ok':'bad','PM ≥ 40°'],[st.Z===0&&!st.marg?'ok':'bad',st.Z===0&&!st.marg?'stable':'unstable']]);
+  $('#key3').innerHTML=stage===0?'k = 100 meets the ramp spec but leaves only PM ≈ 9° at ω<sub>c</sub> ≈ 31 rad/s: the step response rings badly. A lead must add about 31° right there.'
+    :stage===1?'φ<sub>max</sub> = 40° − 9.4° gives α₁ = 0.325, ω<sub>max</sub> = ω<sub>c</sub> fixes T₁ = 0.057 s, and k₁ = 0.57 cancels the lead\'s gain at ω<sub>c</sub>. Price: the ramp error rises to 1/(k k₁) ≈ 0.0175.'
+    :'The lag restores the low-frequency gain by α₂ ≥ 1/k₁ = 1.75 while its phase dip stays below ω<sub>c</sub>. Slide T₂ down to 0.03 s and watch the lag\'s phase lag bite into the margin: the corner must be at least a decade below ω<sub>c</sub>.';
+}
+/* ===================== TAB 4: IMC → PI (Task 12.3) ===================== */
+const c4a=new Chart($('#c4a')),c4b=new Chart($('#c4b')),c4c=new Chart($('#c4c'));
+function drawIMC(){
+  const a=+$('#a4').value,b=+$('#b4').value,Tf=+$('#tf4').value,ga=+$('#ga4').value,gb=+$('#gb4').value;
+  $('#a4v').textContent=f1(a);$('#b4v').textContent=f1(b);$('#tf4v').textContent=f2(Tf);$('#ga4v').textContent=f2(ga);$('#gb4v').textContent=f2(gb);
+  const kp=b/(a*Tf),TI=b,ar=a*ga,br=b*gb;
+  // simulate PI on the true plant: states [y, xi], xi = ∫e
+  const T=Math.max(3*Tf,2*br,1.5)*2.5;
+  const sim=rk4((t,x)=>{const e=1-x[0],u=kp*(e+x[1]/TI);return [(-x[0]+ar*u)/br,e];},[0,0],0,T,3000);
+  const ts=sim.t,y=sim.x.map(x=>x[0]),u=sim.x.map(x=>kp*((1-x[0])+x[1]/TI)),yn=ts.map(t=>1-Math.exp(-t/Tf));
+  let ch=c4a;ch.begin();const Lm=58,R=16;let box={x:Lm,y:28,w:ch.w-Lm-R,h:ch.h-28-40};
+  const ymax=Math.max(1.3,Math.max(...y)*1.08);
+  ch.axes(box,{xmin:0,xmax:T,ymin:0,ymax,xticks:range(0,T,T/5).map(v=>({v,l:fmt(+v.toPrecision(2))})),yticks:range(0,ymax,0.5),xlabel:'t in s',title:'Output y(t) for a unit step reference'});
+  ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});
+  ch.line(ts,yn,{color:cssVar('--muted'),width:1.8,dash:[6,4]});ch.line(ts,y,{color:cssVar('--out'),width:2.4});
+  ch.mark(Tf,1-Math.exp(-1),{color:cssVar('--muted'),size:5});ch.text(Tf,1-Math.exp(-1),'T_f: 63 %',{color:cssVar('--muted'),dx:8,dy:10});
+  ch=c4b;ch.begin();box={x:Lm,y:28,w:ch.w-Lm-R,h:ch.h-28-40};
+  const umax=Math.max(...u)*1.1,umin=Math.min(0,Math.min(...u));
+  ch.axes(box,{xmin:0,xmax:T,ymin:umin,ymax:umax,xticks:range(0,T,T/5).map(v=>({v,l:fmt(+v.toPrecision(2))})),yticks:[0,+(1/ar).toPrecision(2),+umax.toPrecision(2)].map(v=>({v,l:f2(v)})),xlabel:'t in s',title:'Control input u(t)'});
+  ch.hline(1/ar,{color:cssVar('--muted'),dash:[4,4]});ch.text(T,1/ar,'u∞ = 1/a',{color:cssVar('--muted'),align:'right',dy:-4});
+  ch.line(ts,u,{color:cssVar('--in'),width:2.2});
+  ch.text(0,u[0],'u(0⁺) = k = '+f2(kp),{color:cssVar('--in'),dx:8,dy:-4});
+  // closed-loop poles: TI br s² + TI(1 + kp ar) s + kp ar = 0
+  const poly=[1,(1+kp*ar)/br,kp*ar/(TI*br)],rt=roots(poly);
+  ch=c4c;ch.begin();box={x:Lm,y:28,w:ch.w-Lm-R,h:ch.h-28-40};
+  const xm=-Math.max(1.5,Math.max(...rt.map(r=>Math.abs(r[0])))*1.4,1/Tf*1.2),ym=Math.max(1,...rt.map(r=>Math.abs(r[1])))*1.3;
+  const xt=range(Math.ceil(xm),0,Math.max(1,Math.round(-xm/4)));
+  splane(ch,box,{xmin:xm,xmax:-xm*0.15,ymin:-ym,ymax:ym,xt,yt:[0],title:'Closed-loop poles of K·G_true/(1 + K·G_true)'},[
+    {re:-1/TI,im:0,kind:'zero',size:8,color:cssVar('--in'),label:'PI zero −1/T_I'},
+    {re:-1/Tf,im:0,kind:'pole',faint:true,label:'−1/T_f'},
+    ...rt.map(r=>({re:r[0],im:r[1],kind:'pole',size:7,color:r[0]<-1e-6?cssVar('--ok'):cssVar('--bad')}))]);
+  const nominal=Math.abs(ga-1)<1e-9&&Math.abs(gb-1)<1e-9;
+  const txt='Q(s) = G⁻¹T = (bs + 1)/(a(T_f s + 1))\nK(s) = Q/(1 − GQ) = k(1 + 1/(T_I s))\n   k = b/(aT_f) = '+f3(kp)+',   T_I = b = '+f2(TI)+' s\n'
+    +(nominal?'true plant = model: y follows T exactly\nclosed-loop poles: −1/T_f = '+f2(-1/Tf)+' and −1/b = '+f2(-1/b)+' (cancelled, hidden)':'true plant: a\' = '+f2(ar)+', b\' = '+f2(br)+'\nclosed-loop poles: '+rootStr(rt))
+    +'\novershoot: '+f1(Math.max(0,(Math.max(...y)-1)*100))+' %';
+  setRead('#read4',txt,[['ok','stable for all a, b, T_f > 0'],[nominal?'ok':'warn',nominal?'response = T(s)':'model mismatch']]);
+  $('#key4').innerHTML=nominal?'The PI zero at −1/b cancels the plant pole, so from r to y only the designed pole −1/T<sub>f</sub> remains. The cancelled pole still exists as a closed-loop pole but is invisible in y. Smaller T<sub>f</sub> means a faster loop and a larger initial control kick u(0⁺) = k.'
+    :'With a wrong model the cancellation fails: both poles move and the response is no longer first order. The loop stays stable for any positive gains here, but gain errors change speed and overshoot. IMC with a filter on Q is how one trades speed for robustness.';
+}
+
+/* ===================== tabs, events, redraw ===================== */
+const DRAW={t1:drawElem,t2:drawLead,t3:drawLeadLag,t4:drawIMC};
+let active='t1';
+function redraw(){try{DRAW[active]();}catch(e){console.error(e);}}
+$$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  active=b.dataset.tab;$$('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b?'true':'false'));
+  $$('.panel').forEach(p=>p.hidden=p.id!==active);redraw();}));
+$$('input').forEach(i=>i.addEventListener('input',redraw));
+window.addEventListener('resize',redraw);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+redraw();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(redraw);
+</script>
+</body>
+</html>

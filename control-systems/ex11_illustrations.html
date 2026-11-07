@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exercise 11 Illustrations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one tabbed page; each tab = short notes + controls on the left, live canvases on the right, stacking on phones. */
+:root{
+  --bg:#f4f6f8; --panel:#ffffff; --fg:#1b2330; --muted:#5d6878; --line:#d5dbe3; --grid:#e8ebf0;
+  --in:#1f5fa8; --out:#d9552a; --crit:#b5179e; --ok:#1f8a4c; --bad:#c62828;
+  --e1:#2a9d8f; --e2:#1f5fa8; --e3:#5a8f2a; --e4:#7a3fb5; --s1:#2a9d8f; --s2:#b08a1e;
+  --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13171e; --panel:#1b2029; --fg:#e7eaef; --muted:#9ba6b5; --line:#2f3844; --grid:#262d38;
+    --in:#73a9ec; --out:#f28a60; --crit:#f06ad9; --ok:#4fcd82; --bad:#ff6f6f;
+    --e1:#5fd3c4; --e2:#73a9ec; --e3:#9bd35a; --e4:#c48ff2; --s1:#5fd3c4; --s2:#e0bb55;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13171e; --panel:#1b2029; --fg:#e7eaef; --muted:#9ba6b5; --line:#2f3844; --grid:#262d38;
+  --in:#73a9ec; --out:#f28a60; --crit:#f06ad9; --ok:#4fcd82; --bad:#ff6f6f;
+  --e1:#5fd3c4; --e2:#73a9ec; --e3:#9bd35a; --e4:#c48ff2; --s1:#5fd3c4; --s2:#e0bb55;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.wrap{max-width:1180px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-bottom:12px}
+header h1{font-size:22px;margin:0;font-weight:700;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+nav.tabs button{font:600 14px var(--sans);padding:7px 12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:6px;cursor:pointer}
+nav.tabs button:hover{border-color:var(--muted)}
+nav.tabs button:focus-visible{outline:2px solid var(--in);outline-offset:2px}
+nav.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.panel{display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:840px){.panel{grid-template-columns:1fr}}
+.notes{display:grid;gap:12px;min-width:0}
+.notes p{margin:0}
+.notes h2{font-size:17px;margin:0;font-weight:700}
+.key{border-left:3px solid var(--in);padding-left:10px;color:var(--fg)}
+.small{font-size:13.5px;color:var(--muted)}
+.plots{min-width:0;display:grid;gap:14px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-width:0}
+@media (max-width:560px){.pair{grid-template-columns:1fr}}
+canvas{width:100%;max-width:100%;display:block;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.tall{height:540px}.mid{height:300px}.sq{height:270px}.two{height:430px}
+.ctl{display:grid;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.ctl label.row{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ctl label.row input{margin:0}
+.ctl .sw{display:inline-block;width:14px;height:3px;border-radius:2px;flex:none}
+.ctl .what{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-left:auto;text-align:right}
+input[type=range]{width:100%;accent-color:var(--in)}
+.readout{font-family:var(--mono);font-size:13px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;white-space:pre-wrap;font-variant-numeric:tabular-nums}
+.m{font-family:var(--mono);font-size:13.5px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:var(--mono);font-size:13px;line-height:1.25;margin:0 2px}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 3px}
+.frac>span:last-child{padding:0 3px}
+.pill{display:inline-block;font:600 12px var(--sans);padding:2px 8px;border-radius:999px;color:#fff}
+.pill.ok{background:var(--ok)}.pill.bad{background:var(--bad)}.pill.warn{background:var(--s2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+<style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Control Systems I · Exercise 11</span>
+  <h1>Closed-loop stability inferred from loop shapes</h1>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="t1">1 · Nyquist criterion</button>
+  <button role="tab" aria-selected="false" data-tab="t2">2 · Pole on the contour</button>
+  <button role="tab" aria-selected="false" data-tab="t3">3 · Gain and phase margins</button>
+  <button role="tab" aria-selected="false" data-tab="t4">4 · Time delay</button>
+</nav>
+
+<!-- ============ TAB 1: NYQUIST CRITERION ============ -->
+<section class="panel" id="t1">
+  <div class="notes">
+    <h2>Task 11.1 · Nyquist plot and the critical point</h2>
+    <p class="m">L(s) = <span class="frac"><span>1</span><span>(s+1)³</span></span>&nbsp; closed with a gain k, negative feedback</p>
+    <p class="key"><b>Z = N + P.</b> N counts clockwise encirclements of <b>−1/k</b> by the full Nyquist plot, P the open-loop poles in the right half-plane, Z the closed-loop poles there. Stable iff Z = 0.</p>
+    <div class="ctl">
+      <label for="k1">k = <b id="k1v">1</b> &nbsp;<span class="small">(−1/k is the critical point)</span></label>
+      <input type="range" id="k1" min="-2" max="12" step="0.05" value="1">
+      <label class="row"><input type="checkbox" id="neg1" checked>Show the ω &lt; 0 half (mirror image)</label>
+      <label class="row"><input type="checkbox" id="sg1">Small-gain circle: |kL| &lt; 1 ⇔ curve inside radius 1/|k|</label>
+    </div>
+    <div class="readout" id="read1"></div>
+    <p class="key" id="key1"></p>
+    <p class="small">L(iω) = (1 − 3ω²)/(1+ω²)³ + i (ω³ − 3ω)/(1+ω²)³. It starts at 1 (ω = 0), crosses the imaginary axis at ω = 1/√3, the negative real axis at −1/8 (ω = √3), and ends at the origin with phase −270°.</p>
+  </div>
+  <div class="plots">
+    <canvas id="c1a" class="two"></canvas>
+    <canvas id="c1b" class="sq"></canvas>
+    <div class="legend"><span style="--c:var(--in)">L(iω), ω &gt; 0 (arrows: increasing ω)</span><span style="--c:var(--crit)">critical point −1/k</span><span style="--c:var(--e4)">small-gain circle</span><span style="--c:var(--fg)">closed-loop poles (×), green = LHP, red = RHP</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 2: POLE ON THE CONTOUR ============ -->
+<section class="panel" id="t2" hidden>
+  <div class="notes">
+    <h2>Task 11.2 · A pole on the D-contour</h2>
+    <p class="m">L₁(s) = <span class="frac"><span>1</span><span>s (s+1)²</span></span></p>
+    <p class="key">The pole at s = 0 lies on the contour, so the contour must <b>detour</b> around it (segment D4). The detour maps to a huge arc that closes the Nyquist plot. Which side you detour on changes N and P, but never Z.</p>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="ind2" value="right" checked>D4 passes to the <b>right</b> of the pole &nbsp;<span class="what">P = 0</span></label>
+      <label class="row"><input type="radio" name="ind2" value="left">D4 passes to the <b>left</b> of the pole &nbsp;<span class="what">P = 1</span></label>
+    </div>
+    <div class="ctl">
+      <label for="k2">k = <b id="k2v">1</b></label>
+      <input type="range" id="k2" min="-1" max="3" step="0.05" value="1">
+      <label class="row"><input type="radio" name="view2" value="far">Far view: see how the plot closes</label>
+      <label class="row"><input type="radio" name="view2" value="mid" checked>Normal view</label>
+      <label class="row"><input type="radio" name="view2" value="zoom">Zoom near the real-axis crossing</label>
+    </div>
+    <div class="readout" id="read2"></div>
+    <p class="key" id="key2"></p>
+    <p class="small">L₁(iω) = −2/(1+ω²)² + i (ω² − 1)/(ω(1+ω²)²). For ω → 0⁺: Re → −2, Im → −∞. Crosses the real axis at −1/2 (ω = 1). On the detour s = εe<sup>iθ</sup>: L₁ ≈ e<sup>−iθ</sup>/ε − 2, an arc of radius 1/ε (here ε = 0.05).</p>
+  </div>
+  <div class="plots">
+    <canvas id="c2a" class="two"></canvas>
+    <div class="pair">
+      <canvas id="c2b" class="sq"></canvas>
+      <canvas id="c2c" class="sq"></canvas>
+    </div>
+    <div class="legend"><span style="--c:var(--in)">image of D1 (ω &gt; 0) solid, D3 (ω &lt; 0) dashed</span><span style="--c:var(--out)">image of the detour D4</span><span style="--c:var(--crit)">critical point −1/k</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 3: MARGINS ============ -->
+<section class="panel" id="t3" hidden>
+  <div class="notes">
+    <h2>Robustness · gain margin and phase margin</h2>
+    <p class="key"><b>GM</b>: factor by which |kL| may grow before |kL| = 1 at the phase crossover ω<sub>180</sub>. <b>PM</b>: how far the phase is above −180° at the gain crossover ω<sub>c</sub>. k scales the magnitude only; the phase curve never moves.</p>
+    <div class="ctl">
+      <label class="row"><input type="radio" name="sys3" value="cube" checked><span class="m">L = 1/(s+1)³</span><span class="what">Task 11.1 v</span></label>
+      <label class="row"><input type="radio" name="sys3" value="int"><span class="m">L₁ = 1/(s(s+1)²)</span><span class="what">Task 11.2 i</span></label>
+      <label class="row"><input type="radio" name="sys3" value="space"><span class="m">L = 10/(s(s+1))</span><span class="what">Task 11.3 iii</span></label>
+    </div>
+    <div class="ctl">
+      <label for="k3">k = <b id="k3v">1</b></label>
+      <input type="range" id="k3" min="0.1" max="12" step="0.05" value="1">
+    </div>
+    <div class="readout" id="read3"></div>
+    <p class="key" id="key3"></p>
+  </div>
+  <div class="plots">
+    <canvas id="c3a" class="tall"></canvas>
+    <canvas id="c3b" class="mid"></canvas>
+    <div class="legend"><span style="--c:var(--fg)">kL(iω)</span><span style="--c:var(--in)">gain crossover ω<sub>c</sub> and PM</span><span style="--c:var(--out)">phase crossover ω<sub>180</sub> and GM</span><span style="--c:var(--out)">closed-loop step response</span></div>
+  </div>
+</section>
+
+<!-- ============ TAB 4: TIME DELAY ============ -->
+<section class="panel" id="t4" hidden>
+  <div class="notes">
+    <h2>Task 11.3 · Spacecraft with a round-trip delay</h2>
+    <p class="m">G(s) = <span class="frac"><span>1</span><span>s+1</span></span>&nbsp; K(s) = <span class="frac"><span>1</span><span>T<sub>I</sub> s</span></span>&nbsp; L(s) = K(s)G(s) e<sup>−2T<sub>t</sub> s</sup></p>
+    <p class="key">A delay leaves |L(iω)| untouched and subtracts the phase <b>2T<sub>t</sub>ω</b>. The Nyquist curve spirals clockwise and eats the phase margin. Stability is lost when the lag at ω<sub>c</sub> equals the phase margin.</p>
+    <div class="ctl">
+      <label for="tt">one-way delay T<sub>t</sub> = <b id="ttv">0</b> s &nbsp;<span class="small">(round trip 2T<sub>t</sub>)</span></label>
+      <input type="range" id="tt" min="0" max="0.1" step="0.001" value="0">
+      <label for="ti">T<sub>I</sub> = <b id="tiv">0.1</b> s</label>
+      <input type="range" id="ti" min="0.05" max="0.5" step="0.01" value="0.1">
+    </div>
+    <div class="readout" id="read4"></div>
+    <p class="key" id="key4"></p>
+    <p class="small">The closed loop from r to the physical output is e<sup>−T<sub>t</sub>s</sup>/(e<sup>−2T<sub>t</sub>s</sup> + T<sub>I</sub>s(s+1)). Only the round-trip delay in the denominator matters for stability.</p>
+  </div>
+  <div class="plots">
+    <canvas id="c4a" class="two"></canvas>
+    <canvas id="c4b" class="mid"></canvas>
+    <div class="legend"><span style="--c:var(--in)">L(iω) with delay</span><span style="--c:var(--muted)">L(iω) without delay, unit circle</span><span style="--c:var(--out)">gain crossover point and phase margin arc</span><span style="--c:var(--out)">step response y(t), simulated with the delays</span></div>
+  </div>
+</section>
+</div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const PI=Math.PI, log10=Math.log10, atan=Math.atan;
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=v=>Number.isInteger(v)?String(v):String(+v.toPrecision(3));
+const f1=v=>(Math.round(v*10)/10).toFixed(1), f2=v=>(Math.round(v*100)/100).toFixed(2), f3=v=>(Math.round(v*1000)/1000).toFixed(3);
+const deg=r=>r*180/PI, rad=d=>d*PI/180;
+function logspace(a,b,n){const r=[];for(let i=0;i<n;i++)r.push(10**(log10(a)+(log10(b)-log10(a))*i/(n-1)));return r;}
+function range(a,b,s){const r=[];for(let v=a;v<=b+1e-9;v+=s)r.push(+v.toFixed(10));return r;}
+function rk4(f,x0,t0,t1,n){const dt=(t1-t0)/n,T=[t0],X=[x0.slice()];let x=x0.slice(),t=t0;
+  const ad=(x,k,h)=>x.map((v,i)=>v+h*k[i]);
+  for(let i=0;i<n;i++){const k1=f(t,x),k2=f(t+dt/2,ad(x,k1,dt/2)),k3=f(t+dt/2,ad(x,k2,dt/2)),k4=f(t+dt,ad(x,k3,dt));
+    x=x.map((xi,j)=>xi+dt/6*(k1[j]+2*k2[j]+2*k3[j]+k4[j]));t+=dt;T.push(t);X.push(x);}
+  return {t:T,x:X};}
+const cmul=(a,b)=>[a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]];
+const cdiv=(a,b)=>{const d=b[0]*b[0]+b[1]*b[1];return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d];};
+function roots(c){ // c = [1, a_{n-1}, ..., a_0]; Durand–Kerner
+  const n=c.length-1;let z=[];for(let i=0;i<n;i++){const a=2*PI*i/n+0.4;z.push([0.9*Math.cos(a),0.9*Math.sin(a)]);}
+  const pe=x=>{let r=[c[0],0];for(let i=1;i<=n;i++)r=[r[0]*x[0]-r[1]*x[1]+c[i],r[0]*x[1]+r[1]*x[0]];return r;};
+  for(let it=0;it<500;it++){let md=0;const nz=z.map((zi,i)=>{let den=[1,0];z.forEach((zj,j)=>{if(j!==i)den=cmul(den,[zi[0]-zj[0],zi[1]-zj[1]]);});
+    const d=cdiv(pe(zi),den);md=Math.max(md,Math.hypot(d[0],d[1]));return [zi[0]-d[0],zi[1]-d[1]];});z=nz;if(md<1e-13)break;}
+  return z.map(r=>[r[0],Math.abs(r[1])<1e-7?0:r[1]]);}
+const rootStr=rt=>rt.map(r=>r[1]===0?f2(r[0]):f2(r[0])+(r[1]>0?' + ':' − ')+f2(Math.abs(r[1]))+'i').join(',  ');
+const rhpCount=rt=>rt.filter(r=>r[0]>1e-6).length;
+// winding number of a closed polygon around p: +1 per counter-clockwise turn
+function winding(pts,p){let tot=0;const n=pts.length;for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%n];const ax=a[0]-p[0],ay=a[1]-p[1],bx=b[0]-p[0],by=b[1]-p[1];tot+=Math.atan2(ax*by-ay*bx,ax*bx+ay*by);}return tot/(2*PI);}
+
+/* ---------- tiny canvas chart ---------- */
+class Chart{
+  constructor(cv){this.cv=cv;this.ctx=cv.getContext('2d');}
+  begin(){const dpr=window.devicePixelRatio||1,r=this.cv.getBoundingClientRect();this.w=Math.max(10,r.width);this.h=Math.max(10,r.height);
+    const pw=Math.round(this.w*dpr),ph=Math.round(this.h*dpr);if(this.cv.width!==pw||this.cv.height!==ph){this.cv.width=pw;this.cv.height=ph;}
+    this.ctx.setTransform(dpr,0,0,dpr,0,0);this.ctx.clearRect(0,0,this.w,this.h);}
+  axes(box,a){this.box=box;this.a=a;const c=this.ctx;c.font='12px '+cssVar('--mono');c.lineWidth=1;c.strokeStyle=cssVar('--grid');c.fillStyle=cssVar('--muted');
+    c.textAlign='center';c.textBaseline='top';
+    for(const t of a.xticks||[]){const v=typeof t==='object'?t.v:t,l=typeof t==='object'?t.l:fmt(v);const x=this.X(v);c.beginPath();c.moveTo(x,box.y);c.lineTo(x,box.y+box.h);c.stroke();c.fillText(l,x,box.y+box.h+4);}
+    c.textAlign='right';c.textBaseline='middle';
+    for(const t of a.yticks||[]){const v=typeof t==='object'?t.v:t,l=typeof t==='object'?t.l:fmt(v);const y=this.Y(v);c.beginPath();c.moveTo(box.x,y);c.lineTo(box.x+box.w,y);c.stroke();c.fillText(l,box.x-6,y);}
+    c.strokeStyle=cssVar('--line');c.strokeRect(box.x+.5,box.y+.5,box.w,box.h);
+    c.fillStyle=cssVar('--muted');
+    if(a.xlabel){c.textAlign='right';c.textBaseline='top';c.fillText(a.xlabel,box.x+box.w,box.y+box.h+18);}
+    if(a.ylabel){c.textAlign='right';c.textBaseline='bottom';c.fillText(a.ylabel,box.x+box.w,box.y-5);}
+    if(a.title){c.fillStyle=cssVar('--fg');c.font='600 13px '+cssVar('--sans');c.textAlign='left';c.textBaseline='bottom';c.fillText(a.title,box.x,box.y-5);}}
+  X(x){const a=this.a,b=this.box;const f=a.xlog?(log10(x)-log10(a.xmin))/(log10(a.xmax)-log10(a.xmin)):(x-a.xmin)/(a.xmax-a.xmin);return b.x+f*b.w;}
+  Y(y){const a=this.a,b=this.box;return b.y+b.h-(y-a.ymin)/(a.ymax-a.ymin)*b.h;}
+  clip(){const c=this.ctx,b=this.box;c.save();c.beginPath();c.rect(b.x,b.y-1,b.w,b.h+2);c.clip();}
+  line(xs,ys,o={}){const c=this.ctx,b=this.box;this.clip();c.beginPath();c.strokeStyle=o.color||cssVar('--fg');c.lineWidth=o.width||1.6;c.setLineDash(o.dash||[]);c.globalAlpha=o.alpha??1;
+    let up=true;for(let i=0;i<xs.length;i++){const y=ys[i];if(!isFinite(y)||!isFinite(xs[i])){up=true;continue;}let py=this.Y(y);py=Math.max(b.y-5000,Math.min(b.y+b.h+5000,py));let px=this.X(xs[i]);px=Math.max(b.x-5000,Math.min(b.x+b.w+5000,px));if(up){c.moveTo(px,py);up=false;}else c.lineTo(px,py);}
+    c.stroke();c.restore();}
+  vline(x,o={}){const c=this.ctx,b=this.box;c.save();c.beginPath();c.strokeStyle=o.color||cssVar('--muted');c.lineWidth=o.width||1;c.setLineDash(o.dash||[]);const px=this.X(x);c.moveTo(px,b.y);c.lineTo(px,b.y+b.h);c.stroke();c.restore();}
+  hline(y,o={}){const c=this.ctx,b=this.box;c.save();c.beginPath();c.strokeStyle=o.color||cssVar('--muted');c.lineWidth=o.width||1;c.setLineDash(o.dash||[]);const py=this.Y(y);c.moveTo(b.x,py);c.lineTo(b.x+b.w,py);c.stroke();c.restore();}
+  seg(x1,y1,x2,y2,o={}){const c=this.ctx;this.clip();c.beginPath();c.strokeStyle=o.color||cssVar('--fg');c.lineWidth=o.width||3;c.setLineDash(o.dash||[]);c.moveTo(this.X(x1),this.Y(y1));c.lineTo(this.X(x2),this.Y(y2));c.stroke();c.restore();}
+  mark(x,y,o={}){const c=this.ctx,px=this.X(x),py=this.Y(y),s=o.size||6;c.save();c.globalAlpha=o.alpha??1;c.strokeStyle=o.color||cssVar('--fg');c.fillStyle=o.color||cssVar('--fg');c.lineWidth=o.width||2;c.setLineDash([]);
+    if(o.shape==='x'){c.beginPath();c.moveTo(px-s,py-s);c.lineTo(px+s,py+s);c.moveTo(px+s,py-s);c.lineTo(px-s,py+s);c.stroke();}
+    else if(o.shape==='o'){c.beginPath();c.arc(px,py,s,0,2*PI);c.stroke();}
+    else{c.beginPath();c.arc(px,py,s*0.6,0,2*PI);c.fill();}
+    c.restore();}
+  arrow(x,y,dx,dy,o={}){const c=this.ctx,b=this.box,a=this.a;const px=this.X(x),py=this.Y(y);let sx=dx*b.w/(a.xmax-a.xmin),sy=-dy*b.h/(a.ymax-a.ymin);const n=Math.hypot(sx,sy);if(n<1e-9)return;sx/=n;sy/=n;const s=o.size||7;
+    this.clip();c.fillStyle=o.color||cssVar('--fg');c.beginPath();c.moveTo(px+sx*s,py+sy*s);c.lineTo(px-sy*s*.6,py+sx*s*.6);c.lineTo(px+sy*s*.6,py-sx*s*.6);c.closePath();c.fill();c.restore();}
+  text(x,y,str,o={}){const c=this.ctx;c.save();c.fillStyle=o.color||cssVar('--fg');c.font=o.font||('12px '+cssVar('--mono'));c.textAlign=o.align||'left';c.textBaseline=o.base||'bottom';c.fillText(str,this.X(x)+(o.dx||0),this.Y(y)+(o.dy||0));c.restore();}
+}
+function splane(ch,box,r,items){
+  ch.axes(box,{xmin:r.xmin,xmax:r.xmax,ymin:r.ymin,ymax:r.ymax,xticks:r.xt,yticks:r.yt,xlabel:'Re s',ylabel:'Im s',title:r.title});
+  const c=ch.ctx;c.save();c.globalAlpha=.07;c.fillStyle=cssVar('--ok');c.fillRect(box.x,box.y,Math.max(0,ch.X(0)-box.x),box.h);c.restore();
+  if(r.xmin<0&&r.xmax>0)ch.vline(0,{color:cssVar('--muted')});if(r.ymin<0&&r.ymax>0)ch.hline(0,{color:cssVar('--muted')});
+  for(const it of items){ch.mark(it.re,it.im,{shape:it.kind==='zero'?'o':'x',color:it.color||cssVar('--fg'),alpha:it.faint?.35:1,size:it.size||6,width:it.faint?1.5:2.2});
+    if(it.label)ch.text(it.re,it.im,it.label,{color:it.color||cssVar('--fg'),dx:9,dy:-8,font:'12px '+cssVar('--mono')});}
+}
+const wTicks=(a,b)=>{const r=[];for(let e=Math.ceil(log10(a));e<=log10(b)+1e-9;e++)r.push({v:10**e,l:fmt(10**e)});return r;};
+function ticks(a,b){const span=b-a;const cands=[0.1,0.2,0.25,0.5,1,2,2.5,5,10,20,50];const st=cands.find(c=>span/c<=8)||50;const r=[];for(let v=Math.ceil(a/st-1e-9)*st;v<=b+1e-9;v+=st){const vv=+v.toFixed(6);r.push({v:vv,l:fmt(vv)});}return r;}
+// equal-aspect y range for a given x range and box
+function eqRange(box,xmin,xmax,yc){const hh=(xmax-xmin)/box.w*box.h/2;return {ymin:yc-hh,ymax:yc+hh};}
+function nyqFrame(ch,box,xmin,xmax,yc,title){const r=eqRange(box,xmin,xmax,yc);
+  ch.axes(box,{xmin,xmax,ymin:r.ymin,ymax:r.ymax,xticks:ticks(xmin,xmax),yticks:ticks(r.ymin,r.ymax),xlabel:'Re',ylabel:'Im',title});
+  ch.vline(0,{color:cssVar('--muted')});ch.hline(0,{color:cssVar('--muted')});return r;}
+function circle(ch,cx,cy,r,o){const n=120,xs=[],ys=[];for(let i=0;i<=n;i++){const a=2*PI*i/n;xs.push(cx+r*Math.cos(a));ys.push(cy+r*Math.sin(a));}ch.line(xs,ys,o);}
+const plotPts=(ch,pts,o)=>ch.line(pts.map(p=>p[0]),pts.map(p=>p[1]),o);
+function polyArrows(ch,pts,idxs,color){for(const i of idxs){if(i<1||i>=pts.length-1)continue;ch.arrow(pts[i][0],pts[i][1],pts[i+1][0]-pts[i-1][0],pts[i+1][1]-pts[i-1][1],{color});}}
+function pills(el,list){const d=document.createElement('div');d.style.marginTop='6px';d.innerHTML=list.map(p=>'<span class="pill '+p[0]+'">'+p[1]+'</span>').join(' &nbsp;');el.appendChild(d);}
+function setRead(id,txt,pl){const el=$(id);el.innerHTML='';const s=document.createElement('span');s.textContent=txt;el.appendChild(s);if(pl)pills(el,pl);}
+
+/* ===================== TAB 1: Nyquist criterion for 1/(s+1)^3 ===================== */
+const c1a=new Chart($('#c1a')),c1b=new Chart($('#c1b'));
+const Lcube=w=>{const d=(1+w*w)**3;return [(1-3*w*w)/d,(w*w*w-3*w)/d];};
+function drawNyq1(){
+  const k=+$('#k1').value;$('#k1v').textContent=fmt(k);
+  const W0=1e-3,W1=1e3,NW=700,ws=logspace(W0,W1,NW),idx=w=>Math.round((log10(w)-log10(W0))/(log10(W1)-log10(W0))*(NW-1));
+  const pos=ws.map(Lcube),neg=pos.map(p=>[p[0],-p[1]]).reverse();
+  const full=neg.concat(pos); // D-contour direction: ω from −∞ to +∞; D2 maps to the origin
+  let ch=c1a;ch.begin();const L=50,R=16;const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const xmin=-2.6,xmax=1.4;nyqFrame(ch,box,xmin,xmax,0,'Nyquist plot of L(iω) and the critical point −1/k');
+  const showSG=$('#sg1').checked&&Math.abs(k)>1e-9;
+  if(showSG)circle(ch,0,0,1/Math.abs(k),{color:cssVar('--e4'),dash:[4,4],width:1.4});
+  if($('#neg1').checked)plotPts(ch,neg,{color:cssVar('--in'),dash:[5,4],alpha:.55,width:1.6});
+  plotPts(ch,pos,{color:cssVar('--in'),width:2.4});
+  polyArrows(ch,pos,[idx(0.35),idx(1.1),idx(3)],cssVar('--in'));
+  ch.mark(1,0,{color:cssVar('--muted'),size:4});ch.text(1,0,'ω = 0',{color:cssVar('--muted'),dx:6,dy:-6});
+  ch.mark(-0.125,0,{color:cssVar('--muted'),size:4});ch.text(-0.125,0,'−1/8 at ω = √3',{color:cssVar('--muted'),dx:-8,dy:16,align:'right'});
+  ch.text(0,0,'ω → ∞',{color:cssVar('--muted'),dx:6,dy:14});
+  const open=Math.abs(k)<1e-9,crit=open?null:-1/k;
+  let N=0;if(!open)N=-Math.round(winding(full,[crit,0]));
+  if(!open){
+    if(crit>=xmin&&crit<=xmax){ch.mark(crit,0,{color:cssVar('--crit'),size:8});ch.text(crit,0,'−1/k = '+f2(crit),{color:cssVar('--crit'),align:'center',dy:-11,font:'600 12px '+cssVar('--mono')});}
+    else ch.text(crit<0?xmin:xmax,0,(crit<0?'← ':'')+'−1/k = '+f2(crit)+(crit<0?'':' →'),{color:cssVar('--crit'),align:crit<0?'left':'right',dx:crit<0?6:-6,dy:-11,font:'600 12px '+cssVar('--mono')});
+  }
+  // closed-loop poles
+  const rt=roots([1,3,3,1+k]),Z=rhpCount(rt),marg=rt.some(r=>Math.abs(r[0])<=1e-6);
+  ch=c1b;ch.begin();const bx={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  splane(ch,bx,{xmin:-4,xmax:2,ymin:-2.5,ymax:2.5,xt:range(-4,2,1),yt:[-2,-1,0,1,2],title:'Closed-loop poles: (s+1)³ + k = 0'},[
+    {re:-1,im:0,kind:'pole',faint:true,label:'3× open loop'},
+    ...rt.map(r=>({re:r[0],im:r[1],kind:'pole',size:7,color:r[0]<-1e-6?cssVar('--ok'):cssVar('--bad')}))]);
+  const sg=Math.abs(k)<1;
+  const txt=open?'k = 0: the loop is open\nno critical point, closed loop = open loop\npoles: −1, −1, −1'
+    :'k = '+f2(k)+'  →  −1/k = '+f2(crit)+'\nN = '+N+'   clockwise encirclements of −1/k\nP = 0   (open-loop poles −1, −1, −1)\nZ = N + P = '+N+'   closed-loop poles in the RHP\nclosed-loop poles: '+rootStr(rt)+'\nsmall gain: sup|kL(iω)| = |k| = '+f2(Math.abs(k))+(sg?' < 1 ✓ certified':' ≥ 1, no verdict');
+  setRead('#read1',txt,open?[['ok','asymptotically stable']]:[[marg?'warn':Z===0?'ok':'bad',marg?'marginally stable (poles on iR)':Z===0?'asymptotically stable':'unstable, Z = '+Z],[sg?'ok':'warn',sg?'small gain: certified':'small gain: silent']]);
+  $('#key1').innerHTML=open?'With k = 0 nothing is fed back. The closed loop is just L with its triple pole at −1.'
+    :marg?'A closed-loop pole sits on the imaginary axis: the Nyquist plot passes <b>through</b> −1/k. The boundary cases are k = −1 (pole at 0) and k = 8 (poles at ±i√3).'
+    :Z===0?'−1/k is <b>not encircled</b>, so Z = 0 and all three closed-loop poles stay in the left half-plane. This holds exactly for <b>−1 &lt; k &lt; 8</b>. The small-gain test only certifies |k| &lt; 1, where the whole curve fits inside the circle of radius 1/|k|: sufficient, but conservative.'
+    :k>0?'−1/k now lies between −1/8 and 0, inside the small loop near the origin. It is encircled <b>twice</b> clockwise: N = 2, so Z = 2. A complex pair crossed into the right half-plane at k = 8.'
+    :'−1/k lies in (0, 1], inside the big loop. One clockwise encirclement: N = 1, Z = 1. A real pole crossed the origin at k = −1.';
+}
+
+/* ===================== TAB 2: pole at the origin, D-contour detour ===================== */
+const c2a=new Chart($('#c2a')),c2b=new Chart($('#c2b')),c2c=new Chart($('#c2c'));
+const L1c=s=>{const s1=[s[0]+1,s[1]];return cdiv([1,0],cmul(s,cmul(s1,s1)));};
+const EPS2=0.05,RR2=1e3,NW2=500;
+function contour2(left){const pts=[],seg=[];
+  const w1=logspace(EPS2,RR2,NW2);for(const w of w1)pts.push(L1c([0,w]));seg.push(pts.length);            // D1
+  for(let i=0;i<=40;i++){const th=PI/2-PI*i/40;pts.push(L1c([RR2*Math.cos(th),RR2*Math.sin(th)]));}seg.push(pts.length); // D2
+  for(const w of w1.slice().reverse())pts.push(L1c([0,-w]));seg.push(pts.length);                        // D3
+  for(let i=0;i<=160;i++){const th=-PI/2+(left?-1:1)*PI*i/160;pts.push(L1c([EPS2*Math.cos(th),EPS2*Math.sin(th)]));} // D4
+  return {pts,seg};}
+function drawDContour(ch,box,left){
+  const xmin=-2.6,xmax=2.6,r=eqRange(box,xmin,xmax,0);
+  ch.axes(box,{xmin,xmax,ymin:r.ymin,ymax:r.ymax,xticks:[],yticks:[],xlabel:'Re s',ylabel:'Im s',title:'D-contour in the s-plane'});
+  const c=ch.ctx;c.save();c.globalAlpha=.07;c.fillStyle=cssVar('--ok');c.fillRect(box.x,box.y,Math.max(0,ch.X(0)-box.x),box.h);c.restore();
+  ch.vline(0,{color:cssVar('--muted')});ch.hline(0,{color:cssVar('--muted')});
+  const Rr=1.7,r0=0.45,col=cssVar('--in'),co=cssVar('--out');
+  ch.line([0,0],[r0,Rr],{color:col,width:2});ch.arrow(0,1.2,0,1,{color:col});
+  const xs=[],ys=[];for(let i=0;i<=60;i++){const th=PI/2-PI*i/60;xs.push(Rr*Math.cos(th));ys.push(Rr*Math.sin(th));}
+  ch.line(xs,ys,{color:col,width:2});ch.arrow(Rr,0,0,-1,{color:col});
+  ch.line([0,0],[-Rr,-r0],{color:col,width:2});ch.arrow(0,-1.2,0,1,{color:col});
+  const x4=[],y4=[];for(let i=0;i<=40;i++){const th=-PI/2+(left?-1:1)*PI*i/40;x4.push(r0*Math.cos(th));y4.push(r0*Math.sin(th));}
+  ch.line(x4,y4,{color:co,width:2.4});ch.arrow(left?-r0:r0,0,0,1,{color:co});
+  ch.text(0.12,1.15,'D1',{color:col});ch.text(Rr*.74,Rr*.74,'D2',{color:col});ch.text(0.12,-1.15,'D3',{color:col,base:'top'});
+  ch.text(left?-r0-0.1:r0+0.1,0,'D4',{color:co,align:left?'right':'left',dy:-8});
+  ch.mark(0,0,{shape:'x',size:6});ch.mark(-1,0,{shape:'x',size:6});ch.text(-1,0,'2×',{dx:-9,dy:-8,align:'right'});
+  ch.text(0.6,-0.45,left?'pole at 0 inside: P = 1':'pole at 0 outside: P = 0',{color:co,align:'left',base:'top',font:'600 12px '+cssVar('--sans')});
+}
+function drawNyq2(){
+  const k=+$('#k2').value;$('#k2v').textContent=fmt(k);
+  const left=$('input[name=ind2]:checked').value==='left',view=$('input[name=view2]:checked').value;
+  const {pts,seg}=contour2(left);
+  let ch=c2a;ch.begin();const L=50,R=16;const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const vw={far:[-26,22,0],mid:[-3.2,0.8,0],zoom:[-1.25,0.35,0]}[view];
+  nyqFrame(ch,box,vw[0],vw[1],vw[2],'Nyquist plot of L₁(iω) along the chosen D-contour');
+  const D1=pts.slice(0,seg[0]),D3=pts.slice(seg[1],seg[2]),D4=pts.slice(seg[2]);
+  plotPts(ch,D4,{color:cssVar('--out'),width:2,dash:[6,4]});
+  plotPts(ch,D3,{color:cssVar('--in'),dash:[5,4],alpha:.55,width:1.6});
+  plotPts(ch,D1,{color:cssVar('--in'),width:2.4});
+  const idx=w=>Math.round((log10(w)-log10(EPS2))/(log10(RR2)-log10(EPS2))*(NW2-1));
+  if(view==='far'){polyArrows(ch,D4,[40,80,120],cssVar('--out'));polyArrows(ch,D1,[idx(0.1)],cssVar('--in'));polyArrows(ch,D3,[D3.length-1-idx(0.1)],cssVar('--in'));
+    ch.text(left?-2:-2,0,left?'D4 → arc of radius 1/ε through the LEFT half-plane, counter-clockwise':'D4 → arc of radius 1/ε through the RIGHT half-plane, clockwise',{color:cssVar('--out'),align:'center',dy:-8,font:'600 12px '+cssVar('--sans')});}
+  else{polyArrows(ch,D1,[idx(0.45),idx(1.6)],cssVar('--in'));polyArrows(ch,D3,[D3.length-1-idx(0.45)],cssVar('--in'));
+    ch.text(vw[0],eqRange(box,vw[0],vw[1],0).ymin,left?'closes through the left half-plane (far view)':'closes through the right half-plane (far view)',{color:cssVar('--out'),dx:6,dy:-6,font:'12px '+cssVar('--sans')});}
+  ch.mark(-0.5,0,{color:cssVar('--muted'),size:4});if(view!=='far')ch.text(-0.5,0,'−1/2 at ω = 1',{color:cssVar('--muted'),dx:6,dy:16});
+  if(view!=='far')ch.text(0,0,'ω → ±∞',{color:cssVar('--muted'),dx:6,dy:-6});
+  const open=Math.abs(k)<1e-9,crit=open?null:-1/k,P=left?1:0;
+  let N=0;if(!open)N=-Math.round(winding(pts,[crit,0]));
+  if(!open){if(crit>=vw[0]&&crit<=vw[1]){ch.mark(crit,0,{color:cssVar('--crit'),size:8});ch.text(crit,0,'−1/k = '+f2(crit),{color:cssVar('--crit'),align:'center',dy:-11,font:'600 12px '+cssVar('--mono')});}
+    else ch.text(crit<0?vw[0]:vw[1],0,(crit<0?'← ':'')+'−1/k = '+f2(crit)+(crit<0?'':' →'),{color:cssVar('--crit'),align:crit<0?'left':'right',dx:crit<0?6:-6,dy:-11,font:'600 12px '+cssVar('--mono')});}
+  // D-contour schematic and closed-loop poles
+  ch=c2b;ch.begin();drawDContour(ch,{x:L,y:28,w:ch.w-L-R,h:ch.h-28-40},left);
+  const rt=roots([1,2,1,k]),Z=rhpCount(rt),marg=rt.some(r=>Math.abs(r[0])<=1e-6);
+  ch=c2c;ch.begin();splane(ch,{x:L,y:28,w:ch.w-L-R,h:ch.h-28-40},{xmin:-3,xmax:1,ymin:-1.5,ymax:1.5,xt:range(-3,1,1),yt:[-1,0,1],title:'Closed-loop poles: s³ + 2s² + s + k = 0'},[
+    {re:0,im:0,kind:'pole',faint:true,label:'open loop'},{re:-1,im:0,kind:'pole',faint:true,label:'2×'},
+    ...rt.map(r=>({re:r[0],im:r[1],kind:'pole',size:7,color:r[0]<-1e-6?cssVar('--ok'):cssVar('--bad')}))]);
+  const txt=(open?'k = 0: loop open, the pole at 0 stays\n':'k = '+f2(k)+'  →  −1/k = '+f2(crit)+'\n')
+    +'contour: D4 passes '+(left?'left':'right')+' of the pole  →  P = '+P+'\n'
+    +(open?'':'N = '+N+'   (clockwise encirclements)\nZ = N + P = '+(N+P)+'\n')
+    +'Routh column of s³+2s²+s+k:  1,  2,  (2−k)/2 = '+f2((2-k)/2)+',  k = '+f2(k)+'\nclosed-loop poles: '+rootStr(rt);
+  setRead('#read2',txt,[[open||marg?'warn':Z===0?'ok':'bad',open?'not asymptotically stable (pole at 0)':marg?'marginally stable (poles on iR)':Z===0?'asymptotically stable':'unstable, Z = '+Z]]);
+  $('#key2').innerHTML=open?'k = 0 leaves the integrator pole at the origin: no critical point, not asymptotically stable.'
+    :marg?'Boundary case: the plot passes through −1/k. At k = 2 the closed loop has poles at ±i, at k = 0 a pole at 0.'
+    :(Z===0?'<b>0 &lt; k &lt; 2</b> is stable. '+(left?'With the left detour the pole at 0 counts as P = 1, and −1/k is encircled once <b>counter-clockwise</b> (N = −1). Z = −1 + 1 = 0.':'With the right detour P = 0 and −1/k is not encircled (N = 0). Z = 0.')+' Both detours agree, because Z is a property of the closed loop, not of the contour.'
+      :k>0?'−1/k lies in (−1/2, 0): '+(left?'N = 1 and P = 1, so Z = 2.':'two clockwise encirclements, Z = 2.')+' A complex pair crossed the imaginary axis at k = 2.'
+      :'−1/k &gt; 0 lies inside the big closing arc: '+(left?'N = 0, P = 1, Z = 1.':'N = 1, Z = 1.')+' Negative k pushes a real pole into the right half-plane.')
+    +' The Bode criterion in its basic form needs a stable open loop, which L₁ is not; Routh confirms 0 &lt; k &lt; 2.';
+}
+
+/* ===================== TAB 3: gain and phase margins ===================== */
+const c3a=new Chart($('#c3a')),c3b=new Chart($('#c3b'));
+const SYS3={
+  cube:{name:'kL = k/(s+1)³',num:[1],den:[1,3,3,1],mag:w=>(1+w*w)**-1.5,ph:w=>-3*deg(atan(w)),T:30},
+  int:{name:'kL₁ = k/(s(s+1)²)',num:[1],den:[1,2,1,0],mag:w=>1/(w*(1+w*w)),ph:w=>-90-2*deg(atan(w)),T:40},
+  space:{name:'kL = 10k/(s(s+1))',num:[10],den:[1,1,0],mag:w=>10/(w*Math.hypot(1,w)),ph:w=>-90-deg(atan(w)),T:12},
+};
+function crossing(f,a,b){const n=900;let w0=a,f0=f(a);for(let i=1;i<=n;i++){const w=10**(log10(a)+(log10(b)-log10(a))*i/n),fv=f(w);
+  if(isFinite(f0)&&isFinite(fv)&&f0*fv<=0){let lo=w0,hi=w;for(let j=0;j<60;j++){const m=Math.sqrt(lo*hi);if(f(lo)*f(m)<=0)hi=m;else lo=m;}return Math.sqrt(lo*hi);}w0=w;f0=fv;}return null;}
+function closedLoopStep(S,k,T){const n=S.den.length-1,b=Array(n).fill(0),m=S.num.length;for(let i=0;i<m;i++)b[n-m+i]=S.num[i];
+  const a=S.den.slice(1).map((d,i)=>d+k*b[i]);
+  const f=(t,x)=>{const dx=x.slice(1);let top=1;for(let i=0;i<n;i++)top-=a[i]*x[n-1-i];dx.push(top);return dx;};
+  const sim=rk4(f,Array(n).fill(0),0,T,4000);
+  const y=sim.x.map(x=>{let s=0;for(let i=0;i<n;i++)s+=b[i]*x[n-1-i];return k*s;});
+  return {t:sim.t,y,poly:[1,...a]};}
+function drawMargins(){
+  const key=$('input[name=sys3]:checked').value,S=SYS3[key],k=+$('#k3').value;$('#k3v').textContent=fmt(k);
+  const wc=crossing(w=>20*log10(k*S.mag(w)),1e-3,1e3),w180=crossing(w=>S.ph(w)+180,1e-3,1e3);
+  const PM=wc!==null?180+S.ph(wc):null,GM=w180!==null?1/(k*S.mag(w180)):null;
+  // Bode
+  let ch=c3a;ch.begin();const W=ch.w,H=ch.h,L=58,R=16,h=(H-96)/2;
+  const b1={x:L,y:28,w:W-L-R,h},b2={x:L,y:28+h+46,w:W-L-R,h};
+  const ws=logspace(0.01,100,500),mdb=ws.map(w=>20*log10(k*S.mag(w))),phs=ws.map(S.ph),xt=wTicks(0.01,100);
+  const lo=Math.max(-100,Math.min(-20,Math.floor(Math.min(...mdb)/20)*20)),hi=Math.min(80,Math.max(20,Math.ceil(Math.max(...mdb)/20)*20));
+  ch.axes(b1,{xmin:.01,xmax:100,xlog:true,ymin:lo,ymax:hi,xticks:xt,yticks:range(lo,hi,20),ylabel:'|kL(iω)| in dB',title:'Magnitude  ·  '+S.name});
+  ch.hline(0,{color:cssVar('--muted'),dash:[4,4]});
+  ch.line(ws,mdb,{color:cssVar('--fg'),width:2.4});
+  if(wc!==null)ch.vline(wc,{color:cssVar('--in'),dash:[3,3]});
+  if(w180!==null){ch.vline(w180,{color:cssVar('--out'),dash:[3,3]});const g=20*log10(k*S.mag(w180));ch.seg(w180,g,w180,0,{color:cssVar('--out'),width:4});
+    ch.text(w180,g/2,'GM = '+f1(20*log10(GM))+' dB',{color:cssVar('--out'),dx:8,base:'middle',font:'600 12px '+cssVar('--mono')});}
+  if(wc!==null)ch.text(wc,hi,'ω_c = '+f2(wc),{color:cssVar('--in'),dx:6,dy:14,base:'top'});
+  ch.axes(b2,{xmin:.01,xmax:100,xlog:true,ymin:-270,ymax:0,xticks:xt,yticks:range(-270,0,45).map(v=>({v,l:v%90===0?String(v):''})),ylabel:'arg kL(iω) in degrees',xlabel:'ω in rad/s',title:'Phase (independent of k)'});
+  ch.hline(-180,{color:cssVar('--muted'),dash:[4,4]});
+  ch.line(ws,phs,{color:cssVar('--fg'),width:2.4});
+  if(w180!==null){ch.vline(w180,{color:cssVar('--out'),dash:[3,3]});ch.text(w180,-270,'ω₁₈₀ = '+f2(w180),{color:cssVar('--out'),dx:6,dy:-4});}
+  if(wc!==null){ch.vline(wc,{color:cssVar('--in'),dash:[3,3]});ch.seg(wc,-180,wc,S.ph(wc),{color:cssVar('--in'),width:4});
+    ch.text(wc,(S.ph(wc)-180)/2,'PM = '+f1(PM)+'°',{color:cssVar('--in'),dx:8,base:'middle',font:'600 12px '+cssVar('--mono')});}
+  // step response
+  const st=closedLoopStep(S,k,S.T),rt=roots(st.poly),Z=rhpCount(rt),marg=rt.some(r=>Math.abs(r[0])<=1e-6);
+  ch=c3b;ch.begin();const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const ymax=Math.min(3,Math.max(1.6,Math.max(...st.y)*1.08)),ymin=Math.max(-1.5,Math.min(-0.2,Math.min(...st.y)));
+  ch.axes(box,{xmin:0,xmax:S.T,ymin,ymax,xticks:range(0,S.T,S.T/6),yticks:range(Math.ceil(ymin),Math.floor(ymax),1),xlabel:'t in s',title:'Closed-loop step response  kL/(1+kL)'});
+  ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});ch.hline(0,{color:cssVar('--muted')});
+  ch.line(st.t,st.y,{color:cssVar('--out'),width:2.4});
+  if(Z>0||marg)ch.text(S.T/2,ymax,marg?'sustained oscillation':'diverges',{color:cssVar('--bad'),align:'center',dy:18,font:'600 13px '+cssVar('--sans')});
+  const txt='k = '+f2(k)+'\n'
+    +(wc!==null?'gain crossover  ω_c = '+f3(wc)+' rad/s   (|kL| = 1)\nphase margin    PM = 180° + arg kL(iω_c) = '+f2(PM)+'°':'gain crossover: none, |kL(iω)| < 1 for all ω > 0\nphase margin: undefined (→ 180° as k → 1⁺)')
+    +'\n'+(w180!==null?'phase crossover ω₁₈₀ = '+f3(w180)+' rad/s   (arg = −180°)\ngain margin     GM = 1/|kL(iω₁₈₀)| = '+f2(GM)+'  ('+f2(20*log10(GM))+' dB)':'phase crossover: none, phase stays above −180°\ngain margin: ∞')
+    +'\nclosed-loop poles: '+rootStr(rt);
+  setRead('#read3',txt,[[marg?'warn':Z===0?'ok':'bad',marg?'marginally stable':Z===0?'asymptotically stable':'unstable']]);
+  $('#key3').innerHTML={
+    cube:'ω₁₈₀ = √3 and |L(i√3)| = 1/8, so <b>GM = 8/k</b> (18.1 dB at k = 1). For k ≤ 1 the magnitude never reaches 0 dB and there is no gain crossover. For k &gt; 1: ω_c = √(k<sup>2/3</sup> − 1) and PM = 180° − 3·arctan(ω_c), which shrinks to 0° at k = 8.',
+    int:'ω₁₈₀ = 1 and |L₁(i)| = 1/2, so <b>GM = 2/k</b>: the margin plot suggests 0 &lt; k &lt; 2. Because L₁ has a pole at the origin the basic Bode criterion does not apply directly; the Routh table of s³ + 2s² + s + k confirms the range. Small k: large margins, slow and well damped. k → 2: PM → 0 and the response rings.',
+    space:'The phase −90° − arctan(ω) never reaches −180°: <b>GM = ∞</b>, no positive gain destabilises this loop. At k = 1: ω_c ≈ 3.08 rad/s and PM ≈ 18°. That small phase margin is exactly what a time delay will consume, see tab 4.'}[key];
+}
+
+/* ===================== TAB 4: time delay ===================== */
+const c4a=new Chart($('#c4a')),c4b=new Chart($('#c4b'));
+function delaySim(Tt,TI,T){const dt=0.002,n=Math.round(T/dt),m=Math.round(Tt/dt);const t=[0],Y=[0],U=[0];let y=0,u=0;
+  for(let i=0;i<n;i++){const yd=i-m>=0?Y[i-m]:0,ud=i-m>=0?U[i-m]:0;
+    const f=(yy,uu)=>[-yy+(m?ud:uu),(1-(m?yd:yy))/TI];
+    const k1=f(y,u),k2=f(y+dt/2*k1[0],u+dt/2*k1[1]),k3=f(y+dt/2*k2[0],u+dt/2*k2[1]),k4=f(y+dt*k3[0],u+dt*k3[1]);
+    y+=dt/6*(k1[0]+2*k2[0]+2*k3[0]+k4[0]);u+=dt/6*(k1[1]+2*k2[1]+2*k3[1]+k4[1]);t.push((i+1)*dt);Y.push(y);U.push(u);}
+  return {t,y:Y};}
+function drawDelay(){
+  const Tt=+$('#tt').value,TI=+$('#ti').value;$('#ttv').textContent=f3(Tt);$('#tiv').textContent=f2(TI);
+  const wc=Math.sqrt((-1+Math.sqrt(1+4/(TI*TI)))/2),PM0=90-deg(atan(wc)),lag=deg(2*Tt*wc),PM=PM0-lag,Tcrit=rad(PM0)/(2*wc);
+  const Lp=(w,T)=>{const re=-1/(TI*(1+w*w)),im=-1/(TI*w*(1+w*w)),ph=-2*T*w;return [re*Math.cos(ph)-im*Math.sin(ph),re*Math.sin(ph)+im*Math.cos(ph)];};
+  const ws=logspace(0.3,80,900),cur=ws.map(w=>Lp(w,Tt)),ref=ws.map(w=>Lp(w,0));
+  let ch=c4a;ch.begin();const L=50,R=16;const box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const xmin=-2.6,xmax=1.2;nyqFrame(ch,box,xmin,xmax,-0.55,'Nyquist plot of L(iω) = e^(−2T_t iω) / (T_I iω(iω+1)),  ω > 0');
+  circle(ch,0,0,1,{color:cssVar('--muted'),dash:[4,4],width:1.2});
+  if(Tt>0)plotPts(ch,ref,{color:cssVar('--muted'),width:1.4,alpha:.6});
+  plotPts(ch,cur,{color:cssVar('--in'),width:2.4});
+  const idx=w=>Math.round((log10(w)-log10(0.3))/(log10(80)-log10(0.3))*899);
+  polyArrows(ch,cur,[idx(1.2),idx(2.2),idx(5)],cssVar('--in'));
+  ch.mark(-1,0,{color:cssVar('--crit'),size:8});ch.text(-1,0,'−1',{color:cssVar('--crit'),align:'center',dy:-11,font:'600 12px '+cssVar('--mono')});
+  const pc=Lp(wc,Tt);ch.seg(0,0,pc[0],pc[1],{color:cssVar('--out'),width:1.4,dash:[3,3]});ch.mark(pc[0],pc[1],{color:cssVar('--out'),size:7});
+  ch.text(pc[0],pc[1],'ω_c = '+f2(wc),{color:cssVar('--out'),dx:8,dy:10});
+  const a0=-PI,a1=-PI+rad(PM),ax=[],ay=[];for(let i=0;i<=40;i++){const a=a0+(a1-a0)*i/40;ax.push(0.55*Math.cos(a));ay.push(0.55*Math.sin(a));}
+  ch.line(ax,ay,{color:PM>0?cssVar('--ok'):cssVar('--bad'),width:3});
+  ch.text(0.55*Math.cos((a0+a1)/2),0.55*Math.sin((a0+a1)/2),'PM = '+f1(PM)+'°',{color:PM>0?cssVar('--ok'):cssVar('--bad'),dx:PM>0?8:-8,align:PM>0?'left':'right',base:'middle',font:'600 12px '+cssVar('--mono')});
+  // step response with delays
+  const T=30,sim=delaySim(Tt,TI,T);
+  ch=c4b;ch.begin();const bx={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  const ymax=Math.min(3,Math.max(1.6,Math.max(...sim.y)*1.08)),ymin=Math.max(-1.5,Math.min(-0.2,Math.min(...sim.y)));
+  ch.axes(bx,{xmin:0,xmax:T,ymin,ymax,xticks:range(0,T,5),yticks:range(Math.ceil(ymin),Math.floor(ymax),1),xlabel:'t in s',title:'Spacecraft output for a unit step at the control centre'});
+  ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});ch.hline(0,{color:cssVar('--muted')});
+  ch.line(sim.t,sim.y,{color:cssVar('--out'),width:2.2});
+  const stab=PM>0.05?'ok':Math.abs(PM)<=0.05?'warn':'bad';
+  if(stab!=='ok')ch.text(T/2,ymax,stab==='warn'?'sustained oscillation at ω_c':'diverges',{color:cssVar('--bad'),align:'center',dy:18,font:'600 13px '+cssVar('--sans')});
+  const km=299792.458*Tcrit;
+  const txt='T_I = '+f2(TI)+' s,  one-way delay T_t = '+f3(Tt)+' s,  round trip '+f3(2*Tt)+' s\n'
+    +'gain crossover: T_I·ω√(1+ω²) = 1  →  ω_c = '+f3(wc)+' rad/s\n'
+    +'PM without delay = 90° − arctan(ω_c) = '+f2(PM0)+'°  ('+f3(rad(PM0))+' rad)\n'
+    +'delay removes 2·T_t·ω_c = '+f2(lag)+'°  →  PM = '+f2(PM)+'°\n'
+    +'critical delay: T_t,crit = PM₀/(2ω_c) = '+f3(Tcrit)+' s  (≈ '+Math.round(km/10)*10+' km of radio path)';
+  setRead('#read4',txt,[[stab,stab==='ok'?'asymptotically stable':stab==='warn'?'marginally stable':'unstable']]);
+  $('#key4').innerHTML=Tt===0?'Without delay the loop is 1/(T_I s(s+1)): GM = ∞, PM ≈ '+f1(PM0)+'°. The phase margin is the budget a delay can spend. Slide T<sub>t</sub> to the right.'
+    :stab==='ok'?'The delay rotates every point of the curve clockwise by 2T<sub>t</sub>ω, more at high ω, so the plot spirals. '+f1(lag)+'° of the '+f1(PM0)+'° budget is used. Stable for T<sub>t</sub> &lt; '+f3(Tcrit)+' s. A larger T<sub>I</sub> lowers ω<sub>c</sub> and buys delay margin; a low-Earth-orbit link fits the budget, a geostationary one (≈36 000 km) does not.'
+    :stab==='warn'?'The curve passes through −1: closed-loop poles at ±iω<sub>c</sub>, the output oscillates forever at ω<sub>c</sub> ≈ '+f2(wc)+' rad/s.'
+    :'The curve now encircles −1: the closed loop is unstable. Fix: increase T<sub>I</sub> (slower, more margin) or move the fast feedback loop on board the spacecraft and send only slow reference updates over the link.';
+}
+
+/* ===================== tabs, events, redraw ===================== */
+const DRAW={t1:drawNyq1,t2:drawNyq2,t3:drawMargins,t4:drawDelay};
+let active='t1';
+function redraw(){try{DRAW[active]();}catch(e){console.error(e);}}
+$$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  active=b.dataset.tab;$$('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b?'true':'false'));
+  $$('.panel').forEach(p=>p.hidden=p.id!==active);redraw();}));
+$$('input').forEach(i=>i.addEventListener('input',redraw));
+window.addEventListener('resize',redraw);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+redraw();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(redraw);
+</script>
+</body>
+</html>
