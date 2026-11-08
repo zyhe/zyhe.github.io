@@ -64,7 +64,7 @@ background: '/img/posts/2025-2-2-Journey-to-the-west/journey.jpg'
 <!-- 智若能在审时度势后提取关键事信息，做出准确判断。 -->
 
 <div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
-  <img src="/img/posts/2025-2-2-Journey-to-the-west/monster.webp" alt="狮驼岭" style="width: 45%; display: block; margin: 0 auto;">
+  <img src="/img/posts/2025-2-2-Journey-to-the-west/mountain-beast.png" alt="狮驼岭" style="width: 60%; display: block; margin: 0 auto;">
 </div>
 
 ## 戒骄戒躁，心如止水
@@ -79,7 +79,7 @@ background: '/img/posts/2025-2-2-Journey-to-the-west/journey.jpg'
 <!-- 当然，在冲刺等重要时刻，需调动精神，全力以赴。   -->
 
 <div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
-  <img src="/img/posts/2025-2-2-Journey-to-the-west/mountain.avif" alt="山峰" style="width: 40%; display: block; margin: 0 auto;">
+  <img src="/img/posts/2025-2-2-Journey-to-the-west/mountain.avif" alt="山峰" style="width: 60%; display: block; margin: 0 auto;">
 </div>
 
 <!-- 当然，就故事情节的连贯性和多样性而言，西游记并不如水浒传那般精彩。在西游记中，各回得故事相对独立，且形式单一，一般是唐僧（或与八戒及沙说）一起蒙难，仰仗悟空解救，而悟空常力犹未逮，便需天庭的其它神仙一并助力。 -->

@@ -26,6 +26,9 @@ I am fortunate to work with many excellent students and am proud of their achiev
 ### Decision Dependence
 
 - Yuchen Cai (ETH, SA, 2026), *Stochastic Optimization with Network Distribution Dynamics*  
+  <u>Y. Cai</u>, **Z. He**, M. Muehlebach, and F. Dörfler, Stochastic Optimization with Network Distribution Dynamics via Local Jacobian Approximation, 2026.
+
+- Yuchen Cai (ETH, MA, 2026), *Optimization and On-Demand Sampling under Network Distribution Shifts*  
   
 - Lorenzo Calda (ETH, SA, 2026), *Preference Dynamics of Users at the Confluence of Performative Recommender Systems*  
   Co-supervised with Dr. Stefania Ionescu  
@@ -43,6 +46,14 @@ I am fortunate to work with many excellent students and am proud of their achiev
 - Jisheng Xu (SJTU, 2022), *Inference Attack in Distributed Optimization*  
   <u>J. Xu</u>, **Z. He**, C. Fang, J. He, and Y. Peng, Inference Attack in Distributed Optimization via Interpolation and Manipulation, *61st IEEE Conference on Decision and Control*, 2022.  [[pdf]](https://ieeexplore.ieee.org/document/9993236){:target="_blank"}  [[full text]](https://iwin-fins.com/wp-content/uploads/2022/09/xu22cdc.pdf){:target="_blank"}  
 
+### Generative Modeling
+
+- Thierry Schwaller (ETH, SA, 2026), *Online Generative Modeling for Data-Driven Decision-Making*  
+  Co-supervised with Taiki Nakano  
+
+- Jason Mino (Polimi & ETH, MA, 2026), *Optimal Curation of Self-Consuming Data Loops: A Gaussian Analysis*  
+  Co-supervised with Lucia Pezzetti
+
 ### Applications in Mobility & Energy Systems
 
 - Vinzenz Tütsch (ETH, MA, 2023), *Towards Autonomous and Distributed Traffic Signal Control*  
@@ -51,7 +62,8 @@ I am fortunate to work with many excellent students and am proud of their achiev
 
 - Jan Ghadamian (ETH, MA, 2025), *Hierarchical Decision-Making in Layered Urban Mobility Systems*  
   Co-supervised with Mingjia He  
-  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, *European Control Conference*, 2026. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}
+  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, *European Control Conference*, 2026. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}  
+  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Interactions in Mobility Networks: A Model-Free Feedback Approach, 2026.
 
 - Jiarui Yu (EPFL & Empa, MA, 2025), *Online dynamic pricing for electrical distribution systems*  
   Co-supervised with Dr. Hanmin Cai and Wenbin Wang  
@@ -63,7 +75,7 @@ I am fortunate to work with many excellent students and am proud of their achiev
 ## Teaching Assistants
 
 - *Control Systems*, Prof. Florian Dörfler  
-  2023 Fall, 2025 Fall  
+  2023 Fall, 2025 Fall, 2026 Fall  
   Duties: coding exercises, hands-on experiments, and exercise classes
 
 - *Large-Scale Convex Optimization*, Dr. Michael Muehlebach  
