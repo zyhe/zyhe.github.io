@@ -18,7 +18,7 @@ I am fortunate to work with many excellent students and am proud of their achiev
 
 - Wen Yi Chan (ETH, MA, 2024), *Robustify Feedback Optimization via Regularization*  
   Co-supervised with Dr. Keith Moffat  
-    <u>W. Chan*</u>, **Z. He**\*, K. Moffat, S. Bolognani, M. Muehlebach, and F. Dörfler, Robust Feedback Optimization with Model Uncertainty: A Regularization Approach, *64th IEEE Conference on Decision and Control*, 2025. [[arxiv]](https://arxiv.org/pdf/2503.24151){:target="_blank"}  
+    <u>W. Chan*</u>, **Z. He**\*, K. Moffat, S. Bolognani, M. Muehlebach, and F. Dörfler, Robust Feedback Optimization with Model Uncertainty: A Regularization Approach, *64th IEEE Conference on Decision and Control*, 2025. [[pdf]](https://ieeexplore.ieee.org/document/11312302){:target="_blank"} [[arxiv]](https://arxiv.org/pdf/2503.24151){:target="_blank"}  
 
 - Christian Hartnik (ETH, MA, 2022), *Online Bayesian Optimization: A Closed-Loop Approach*  
   Co-supervised with Dr. Marta Zagorowska and Dr. Alisa Rupenyan
@@ -62,7 +62,7 @@ I am fortunate to work with many excellent students and am proud of their achiev
 
 - Jan Ghadamian (ETH, MA, 2025), *Hierarchical Decision-Making in Layered Urban Mobility Systems*  
   Co-supervised with Mingjia He  
-  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, *European Control Conference*, 2026. [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}  
+  M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Strategic Decision-Making in Layered Mobility Systems, *European Control Conference*, 2026. [[pdf]](https://ieeexplore.ieee.org/document/11625578){:target="_blank"} [[arxiv]](https://arxiv.org/pdf/2511.08734){:target="_blank"}  
   M. He, **Z. He**, <u>J. Ghadamian</u>, F. Dörfler, E. Frazzoli, and G. Zardini, Hierarchical Interactions in Mobility Networks: A Model-Free Feedback Approach, 2026.
 
 - Jiarui Yu (EPFL & Empa, MA, 2025), *Online dynamic pricing for electrical distribution systems*  
