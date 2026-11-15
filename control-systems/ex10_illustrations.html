@@ -81,37 +81,37 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:2px 0}
 </header>
 
 <nav class="tabs" role="tablist">
-  <button role="tab" aria-selected="true" data-tab="t1">1 · Steady-state error</button>
+  <button role="tab" aria-selected="true" data-tab="t1">1 · P, I and D terms</button>
   <button role="tab" aria-selected="false" data-tab="t2">2 · PID pole placement</button>
   <button role="tab" aria-selected="false" data-tab="t3">3 · PD stabilizes</button>
   <button role="tab" aria-selected="false" data-tab="t4">4 · PID and root locus</button>
 </nav>
 
-<!-- ============ TAB 1: STEADY-STATE ERROR ============ -->
+<!-- ============ TAB 1: P, I AND D TERMS ============ -->
 <section class="panel" id="t1">
   <div class="notes">
-    <h2>Task 10.1 · Open loop vs. P vs. PI</h2>
-    <p class="m">G(s) = <span class="frac"><span>10 (0.1s + 1)</span><span>s² + 10s + 1</span></span>&nbsp; H = 0.5 &nbsp; r(t) = 50·σ(t)</p>
-    <p class="key">Final value theorem: for step inputs <b>e<sub>∞</sub> = G<sub>er</sub>(0)·r<sub>ref</sub> + G<sub>ed</sub>(0)·d<sub>c</sub></b>. It only applies if the closed loop is asymptotically stable.</p>
+    <h2>What P, I and D each do</h2>
+    <p class="m">G(s) = <span class="frac"><span>1</span><span>(s + 1)³</span></span>&nbsp; K(s) = k(1 + <span class="frac"><span>1</span><span>T<sub>I</sub>s</span></span> + T<sub>D</sub>s)</p>
+    <p class="key">The control signal is a sum of three parts: <b>u = k·e + (k/T<sub>I</sub>)·∫e dt + k·T<sub>D</sub>·ė</b>. P reacts to the present error, I to its accumulated past, D to its current slope.</p>
     <div class="ctl">
-      <label class="row"><input type="radio" name="dist1" value="step" checked>Step disturbance &nbsp;<span class="m">d(t) = d<sub>c</sub> σ(t)</span></label>
-      <label class="row"><input type="radio" name="dist1" value="ramp">Ramp disturbance &nbsp;<span class="m">d(t) = d<sub>c</sub> t σ(t)</span> (part iii)</label>
-    </div>
-    <div class="ctl">
-      <label for="k1">P / PI gain k = <b id="k1v">100</b></label>
-      <input type="range" id="k1" min="1" max="300" step="1" value="100">
-      <label for="ti1">T<sub>I</sub> = <b id="ti1v">1</b> s</label>
-      <input type="range" id="ti1" min="0.1" max="5" step="0.1" value="1">
-      <label for="dc1">d<sub>c</sub> = <b id="dc1v">1</b></label>
-      <input type="range" id="dc1" min="-5" max="5" step="0.5" value="1">
+      <label for="k1">gain k = <b id="k1v">3</b></label>
+      <input type="range" id="k1" min="0.2" max="12" step="0.1" value="3">
+      <hr class="sep">
+      <label class="row"><input type="checkbox" id="useI1" checked>I term &nbsp;<span class="m">T<sub>I</sub> = <b id="ti1v">2.5</b> s</span><span class="what">removes the offset</span></label>
+      <input type="range" id="ti1" min="0.3" max="10" step="0.1" value="2.5" aria-label="integral time T_I">
+      <label class="row"><input type="checkbox" id="useD1" checked>D term &nbsp;<span class="m">T<sub>D</sub> = <b id="td1v">0.6</b> s</span><span class="what">adds damping</span></label>
+      <input type="range" id="td1" min="0.05" max="2" step="0.05" value="0.6" aria-label="derivative time T_D">
+      <hr class="sep">
+      <label class="row"><input type="checkbox" id="dist1" checked>Load disturbance at the plant input, −0.5 from t = 15 s</label>
     </div>
     <div class="readout" id="read1"></div>
-    <p class="small">Open loop uses K<sub>o</sub> = 1/A: perfect tracking only on paper, and the disturbance passes straight through. P control divides the error by 1 + kA. An integrator in K(s) makes G<sub>er</sub>(0) = G<sub>ed</sub>(0) = 0, so steps leave no error. A ramp needs a double integrator.</p>
+    <p class="key" id="key1"></p>
+    <p class="small">Try it: switch I and D off and raise k. The offset 1/(1 + k) shrinks, but the loop oscillates more and is unstable for k &gt; 8. Then add the terms back one at a time.</p>
   </div>
   <div class="plots">
     <canvas id="c1a" class="mid"></canvas>
     <canvas id="c1b" class="mid"></canvas>
-    <div class="legend"><span style="--c:var(--e4)">open loop, K<sub>o</sub> = 1/A</span><span style="--c:var(--e2)">P, K<sub>c1</sub> = k</span><span style="--c:var(--e1)">PI, K<sub>c2</sub> = k(1 + 1/(T<sub>I</sub>s))</span><span style="--c:var(--muted)">reference r<sub>ref</sub></span></div>
+    <div class="legend"><span style="--c:var(--out)">output y(t)</span><span style="--c:var(--muted)">P only, same k (dashed)</span><span style="--c:var(--fg)">control signal u</span><span style="--c:var(--e2)">P part, k·e</span><span style="--c:var(--e1)">I part, (k/T<sub>I</sub>)·∫e</span><span style="--c:var(--e4)">D part, k·T<sub>D</sub>·ė</span></div>
   </div>
 </section>
 
@@ -297,44 +297,67 @@ function drawLocus(ch,box,r,N,D,k){
 function stepAxes(ch,box,t,ys,extra,title){const lo=Math.min(0,...ys.map(amin),...extra),hi=Math.max(...ys.map(amax),...extra);const nr=niceRange(lo,hi+(hi-lo)*0.08);
   const T=t[t.length-1];ch.axes(box,{xmin:0,xmax:T,ymin:nr.min,ymax:nr.max,xticks:range(0,T,niceStep(T)),yticks:nr.ticks,xlabel:'t in s',title});if(nr.min<0)ch.hline(0,{color:cssVar('--muted')});}
 
-/* ===================== TAB 1: steady-state error ===================== */
+/* ===================== TAB 1: what P, I and D each do ===================== */
 const c1a=new Chart($('#c1a')),c1b=new Chart($('#c1b'));
-const P1={A:10,a:1,b:10,c:0.1,H:0.5,r:50};
-function drawSS(){
-  const k=+$('#k1').value,TI=+$('#ti1').value,dc=+$('#dc1').value,ramp=$('input[name=dist1]:checked').value==='ramp';
-  $('#k1v').textContent=fmt(k);$('#ti1v').textContent=fmt(TI);$('#dc1v').textContent=fmt(dc);
-  const {A,a,b,c,H,r}=P1,T=12,n=6000,d=t=>ramp?dc*t:dc;
-  // plant in controllable canonical form: x1' = x2, x2' = -(1/a)x1 - (b/a)x2 + u, y = (A/a)x1 + (Ac/a)x2
-  const yOf=x=>(A/a)*x[0]+(A*c/a)*x[1];
-  const plant=(x,u)=>[x[1],-(1/a)*x[0]-(b/a)*x[1]+u];
-  const simO=rk4((t,x)=>plant(x,r/A+H*d(t)),[0,0],0,T,n);
-  const simP=rk4((t,x)=>plant(x,k*(r-yOf(x))+H*d(t)),[0,0],0,T,n);
-  const simI=rk4((t,x)=>{const e=r-yOf(x);return [...plant(x,k*e+(k/TI)*x[2]+H*d(t)),e];},[0,0,0],0,T,n);
-  const ts=simO.t,yO=simO.x.map(yOf),yP=simP.x.map(yOf),yI=simI.x.map(yOf);
-  const eO=yO.map(v=>r-v),eP=yP.map(v=>r-v),eI=yI.map(v=>r-v);
-  let ch=c1a;ch.begin();const L=56,R=16;let box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
-  stepAxes(ch,box,ts,[yO,yP,yI],[r*1.15],'Output y(t)  for r = 50·σ(t) and the disturbance');
-  ch.hline(r,{color:cssVar('--muted'),dash:[4,4]});ch.text(T,r,'r = 50',{color:cssVar('--muted'),align:'right',dy:-4});
-  ch.line(ts,yO,{color:cssVar('--e4'),width:2});ch.line(ts,yP,{color:cssVar('--e2'),width:2});ch.line(ts,yI,{color:cssVar('--e1'),width:2.4});
+/* G = 1/(s+1)^3 as three cascaded lags x1 -> x2 -> x3 = y, plus z = ∫e. Unit step in r at t = 0.
+   The ideal D term turns that step into an impulse k·T_D·δ(t) in u, which sets x1(0+) = k·T_D; afterwards ė = −ẏ. */
+function simPID(k,ki,kd,T,n,d){
+  const f=(t,x)=>{const u=k*(1-x[2])+ki*x[3]-kd*(x[1]-x[2])+d(t);return [-x[0]+u,-x[1]+x[0],-x[2]+x[1],1-x[2]];};
+  const s=rk4(f,[kd,0,0,0],0,T,n);
+  return {t:s.t,y:s.x.map(x=>x[2]),uP:s.x.map(x=>k*(1-x[2])),uI:s.x.map(x=>ki*x[3]),uD:s.x.map(x=>-kd*(x[1]-x[2]))};
+}
+function drawTerms(){
+  const k=+$('#k1').value,useI=$('#useI1').checked,useD=$('#useD1').checked,dist=$('#dist1').checked;
+  const TI=+$('#ti1').value,TD=+$('#td1').value;
+  $('#k1v').textContent=fmt(k);$('#ti1v').textContent=fmt(TI);$('#td1v').textContent=fmt(TD);
+  $('#ti1').disabled=!useI;$('#td1').disabled=!useD;
+  const ki=useI?k/TI:0,kd=useD?k*TD:0,td=15,d0=-0.5,T=dist?30:20,n=T*100;
+  const d=t=>dist&&t>=td-1e-9?d0:0;
+  const G3=[1,3,3,1],cl=useI?padd(pmul([1,0],G3),[kd,k,ki]):padd(G3,[kd,k]);
+  const clp=roots(cl),stable=clp.every(p=>p[0]<-1e-9),pStable=k<8,cmp=useI||useD;
+  const sim=simPID(k,ki,kd,T,n,d),ref=cmp?simPID(k,0,0,T,n,d):null,ts=sim.t;
+  const clampTo=(a,lo,hi)=>a.map(v=>Math.max(lo,Math.min(hi,v)));
+  const y=stable?sim.y:clampTo(sim.y,-1,3),yr=ref?(pStable?ref.y:clampTo(ref.y,-1,3)):null;
+  // output
+  let ch=c1a;ch.begin();const L=50,R=16;let box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
+  stepAxes(ch,box,ts,yr?[y,yr]:[y],[1.3],'Output y(t) for a unit step in the reference');
+  ch.hline(1,{color:cssVar('--muted'),dash:[4,4]});ch.text(T,1,'r = 1',{color:cssVar('--muted'),align:'right',dy:-4});
+  if(dist){ch.vline(td,{color:cssVar('--muted'),dash:[2,4]});ch.text(td,ch.a.ymin,'disturbance −0.5',{color:cssVar('--muted'),dx:6,dy:-6});}
+  if(yr)ch.line(ts,yr,{color:cssVar('--muted'),width:1.6,dash:[6,4]});
+  ch.line(ts,y,{color:cssVar('--out'),width:2.6});
+  if(!stable)ch.text(T/2,ch.a.ymax,'diverges',{color:cssVar('--bad'),align:'center',dy:18,font:'600 13px '+cssVar('--sans')});
+  // control signal and its three parts
+  const lim=3*k+2,cu=a=>stable?a:clampTo(a,-lim,lim);
+  const uP=cu(sim.uP),uI=cu(sim.uI),uD=cu(sim.uD),u=cu(sim.uP.map((v,i)=>v+sim.uI[i]+sim.uD[i]));
   ch=c1b;ch.begin();box={x:L,y:28,w:ch.w-L-R,h:ch.h-28-40};
-  stepAxes(ch,box,ts,[eO,eP,eI],[1],'Error e(t) = r(t) − y(t)');
-  ch.line(ts,eO,{color:cssVar('--e4'),width:2});ch.line(ts,eP,{color:cssVar('--e2'),width:2});ch.line(ts,eI,{color:cssVar('--e1'),width:2.4});
-  const eOinf=-A*H*dc,ePinf=(r-A*H*dc)/(1+k*A),eIinf=ramp?-H*TI*dc/k:0;
-  const rh=(b+A*k*c)*(TI+A*k*(TI+c))>a*A*k;
-  let s;
-  if(!ramp)s='step disturbance d = '+fmt(dc)+'·σ(t)\n'+
-    'open : e∞ = −A·H·d_c            = '+f2(eOinf)+'   → |e∞/r_ref| = '+f2(Math.abs(eOinf)/r*100)+' %\n'+
-    'P    : e∞ = (r_ref − A·H·d_c)/(1+kA) = '+f3(ePinf)+'  → '+f2(Math.abs(ePinf)/r*100)+' %\n'+
-    'PI   : e∞ = 0                     → 0 %';
-  else s='ramp disturbance d = '+fmt(dc)+'·t·σ(t)\n'+
-    'open : e(t) → −A·H·d_c·t,  unbounded\n'+
-    'P    : e(t) → −A·H·d_c·t/(1+kA),  unbounded\n'+
-    'PI   : e∞ = −H·T_I·d_c/k = '+f3(eIinf)+'\n'+
-    '       finite, not zero: a ramp needs 1/s² in K(s)';
+  stepAxes(ch,box,ts,[u,uP,uI,uD],[1.25*amax(u)],'Control signal u(t) and its P, I and D parts');
+  if(dist)ch.vline(td,{color:cssVar('--muted'),dash:[2,4]});
+  ch.line(ts,uP,{color:cssVar('--e2'),width:1.8});
+  if(useI)ch.line(ts,uI,{color:cssVar('--e1'),width:1.8});
+  if(useD)ch.line(ts,uD,{color:cssVar('--e4'),width:1.8});
+  ch.line(ts,u,{color:cssVar('--fg'),width:2.4});
+  if(useD){const c=ch.ctx,x=ch.X(0)+4,y0=ch.Y(0),y1=box.y+20;c.save();c.strokeStyle=c.fillStyle=cssVar('--e4');c.lineWidth=2;
+    c.beginPath();c.moveTo(x,y0);c.lineTo(x,y1+6);c.stroke();c.beginPath();c.moveTo(x,y1);c.lineTo(x-4,y1+8);c.lineTo(x+4,y1+8);c.closePath();c.fill();c.restore();
+    ch.text(0,ch.a.ymax,'D kick at t = 0: impulse of area k·T_D = '+fmt(+kd.toPrecision(3)),{color:cssVar('--e4'),dx:12,dy:16});}
+  // readout
+  const yinf=useI?1:k/(1+k),m=dist?td*100:ts.length,mt=stable?metrics(ts.slice(0,m),sim.y.slice(0,m),yinf):null,win=dist?td:T;
+  const name=(useI&&useD)?'PID':useI?'PI':useD?'PD':'P';
+  const s=name+':  K(s) = '+fmt(k)+'·(1'+(useI?' + 1/('+fmt(TI)+'s)':'')+(useD?' + '+fmt(TD)+'s':'')+')\n'+
+    'closed-loop poles:\n  '+polesStr(clp)+'\n'+
+    (stable?(useI?'steady-state error: e∞ = 0, also after the disturbance'
+        :'steady-state error: e∞ = 1/(1+k) = '+f3(1/(1+k))+(dist?'\n  after the disturbance: 1.5/(1+k) = '+f3(1.5/(1+k)):''))+'\n'+
+      'overshoot '+f1(mt.os)+' %   1 % settling '+(isFinite(mt.ts)?f2(mt.ts)+' s':'> '+fmt(win)+' s')
+      :'no steady state: the response grows without bound');
   $('#read1').innerHTML='';const pre=document.createElement('span');pre.textContent=s;$('#read1').appendChild(pre);
   const pill=document.createElement('div');pill.style.marginTop='6px';
-  pill.innerHTML='PI loop Routh–Hurwitz: <span class="pill '+(rh?'ok':'bad')+'">'+(rh?'asymptotically stable':'unstable, FVT invalid')+'</span>';
+  pill.innerHTML='<span class="pill '+(stable?'ok':'bad')+'">'+(stable?'asymptotically stable':'unstable')+'</span>'+
+    (cmp&&!pStable?' <span class="pill warn">P only would be unstable at this k</span>':'');
   $('#read1').appendChild(pill);
+  $('#key1').innerHTML=!stable?'Too much gain or too short a T<sub>I</sub> pushes a pole pair into the right half-plane. Lower k, lengthen T<sub>I</sub>, or add D for damping.'
+    :name==='P'?'<b>P only:</b> u = k·e can only be non-zero while there is an error, so the output settles below the reference. A larger k shrinks the offset but makes the loop more oscillatory.'
+    :name==='PI'?'<b>I</b> keeps growing as long as e ≠ 0, so it only stops at zero error. At the end the P part is 0 and the I part alone holds the output. The price is extra overshoot; a short T<sub>I</sub> can destabilize the loop.'
+    :name==='PD'?'<b>D</b> pushes against the slope of the error: it brakes while y rises, so the oscillation dies out faster. It is 0 once the output is at rest, so it does not change the offset left by P.'
+    :'<b>PID:</b> P does most of the work early, D brakes the approach, and I slowly takes over until it alone supplies the steady-state control and the error is zero.';
 }
 
 /* ===================== TAB 2: PID pole placement ===================== */
@@ -461,7 +484,7 @@ function drawPID(){
 }
 
 /* ===================== tabs, events, redraw ===================== */
-const DRAW={t1:drawSS,t2:drawPP,t3:drawPD,t4:drawPID};
+const DRAW={t1:drawTerms,t2:drawPP,t3:drawPD,t4:drawPID};
 let active='t1';
 function redraw(){try{DRAW[active]();}catch(e){console.error(e);}}
 $$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
